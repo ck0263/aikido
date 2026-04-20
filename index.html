@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIKIDO KI-Arena</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root {
+  --bg:#fafaf9;--surface:#fff;--surface-2:#f5f4f2;--border:#e8e6e3;
+  --text:#1a1a1a;--text-dim:#6b6560;--text-faint:#a09a93;--red:#C8102E;
+  --claude:#D97757;--gemini:#4285F4;--chatgpt:#10A37F;--perplexity:#20B2AA;--mistral:#FF7000;
+  --font:'Montserrat',-apple-system,sans-serif;--radius:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;font-size:14px;-webkit-font-smoothing:antialiased;padding-bottom:70px;}
+.container{max-width:640px;margin:0 auto;padding:0 1.25rem;}
+@media(min-width:768px){.container{max-width:840px;} body{padding-bottom:0;}}
+
+/* Progress */
+.top-bar{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--border);}
+.progress{display:flex;gap:4px;padding:1rem 0 0;}
+.progress-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;}
+.progress-bar{height:3px;width:100%;border-radius:2px;background:var(--border);transition:background .4s;}
+.progress-bar.active{background:var(--text);}
+.progress-label{font-size:9px;font-weight:500;color:var(--text-faint);}
+.progress-label.active{color:var(--text);font-weight:600;}
+.progress-timer{font-size:9px;color:var(--text-faint);text-align:right;padding:2px 0 0;}
+
+/* Tab/Section Nav */
+.tab-bar{display:flex;border-bottom:none;padding:6px 0 8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:2px;}
+.tab-bar::-webkit-scrollbar{display:none;}
+.tab-bar .tab{padding:6px 14px;font-size:11px;font-weight:600;color:var(--text-faint);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0;}
+.tab-bar .tab.active{color:var(--text);border-bottom-color:var(--text);}
+.tab-bar .tab.locked{color:var(--border);cursor:default;}
+.tab-bar .tab.done{color:var(--text-dim);}
+.tab-bar .tab.finale{color:var(--red);}
+.tab-bar .tab.finale.active{border-bottom-color:var(--red);}
+
+/* Sections */
+.act-content{padding:0 0 2rem;}
+.section{margin-bottom:2rem;scroll-margin-top:100px;}
+.section-divider{border:none;border-top:1px solid var(--border);margin:0 0 1.5rem;}
+
+/* Locked section blur */
+.section-locked{position:relative;margin-bottom:1.5rem;scroll-margin-top:100px;}
+.section-locked .lock-overlay{position:relative;z-index:2;background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius);padding:12px 16px;margin-bottom:8px;}
+.lock-overlay .lock-title{font-size:13px;font-weight:600;color:var(--text-faint);display:flex;align-items:center;gap:6px;}
+.lock-overlay .lock-desc{font-size:11px;color:var(--text-faint);margin-top:2px;}
+.section-locked .blur-preview{filter:blur(4px) opacity(0.4);pointer-events:none;user-select:none;max-height:120px;overflow:hidden;}
+
+/* Typography */
+.act-label{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text-faint);margin-bottom:4px;}
+h2{font-size:22px;font-weight:600;margin-bottom:4px;}
+.subtitle{font-size:14px;color:var(--text-dim);margin-bottom:1.25rem;line-height:1.5;}
+
+/* Inputs */
+textarea,input[type="text"]{width:100%;font-family:var(--font);font-size:14px;padding:12px 14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface);resize:vertical;outline:none;}
+textarea:focus,input[type="text"]:focus{border-color:var(--text-dim);}
+
+/* Buttons */
+.btn{width:100%;padding:12px;border-radius:var(--radius);font-family:var(--font);font-weight:600;font-size:14px;border:none;cursor:pointer;transition:all .15s;}
+.btn-primary{background:var(--text);color:var(--bg);}
+.btn-primary:hover{opacity:.9;}
+.btn-primary:disabled{background:var(--border);color:var(--text-faint);cursor:default;}
+.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border);}
+.btn-skip{background:none;border:none;color:var(--text-dim);font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer;padding:8px 0;width:100%;text-align:center;}
+.btn-back{background:none;border:none;color:var(--text-dim);font-family:var(--font);font-size:13px;cursor:pointer;padding:4px 0;margin-bottom:8px;}
+
+/* Cards */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;margin-bottom:10px;}
+.result-text{font-size:13px;line-height:1.65;white-space:pre-wrap;}
+
+/* Tool badge */
+.tool-badge{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px;margin-bottom:8px;}
+.tool-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+
+/* Chips & Pills */
+.chip-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;}
+.chip{padding:6px 12px;border-radius:8px;font-size:12px;background:var(--surface-2);border:1px solid var(--border);cursor:pointer;transition:all .15s;user-select:none;}
+.chip:hover{border-color:var(--text-dim);}
+.chip.active{background:var(--text);color:var(--bg);border-color:var(--text);}
+.pill-row{display:flex;gap:5px;flex-wrap:wrap;}
+.pill{padding:8px 16px;border-radius:20px;font-size:13px;font-weight:500;border:1px solid var(--border);background:var(--surface);cursor:pointer;transition:all .15s;user-select:none;}
+.pill:hover{border-color:var(--text-dim);}
+.pill.active{background:var(--text);color:var(--bg);border-color:var(--text);}
+
+/* Insight boxes */
+.insight{padding:14px 16px;border-radius:var(--radius);background:var(--surface-2);margin-bottom:12px;}
+.insight p{font-size:14px;font-weight:500;margin:0;line-height:1.5;}
+.insight.green{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1px solid #bbf7d0;}
+.insight.yellow{background:linear-gradient(135deg,#fef9c3,#fef3c7);border:1px solid #fde68a;}
+.insight.yellow p{color:#92400e;}
+.insight.pink{background:linear-gradient(135deg,#fdf2f2,#fff5f5);border-left:3px solid var(--red);}
+
+/* Tool btns */
+.btn-tool{padding:8px 14px;border-radius:8px;font-size:13px;font-weight:500;border:1px solid var(--border);background:var(--surface);cursor:pointer;transition:all .15s;font-family:var(--font);}
+.btn-tool.selected{color:#fff;border-color:transparent;}
+
+/* Context grid */
+.context-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+@media(max-width:500px){.context-grid{grid-template-columns:1fr;}}
+.ctx-card{border-radius:var(--radius);padding:14px;border:1px solid var(--border);}
+.ctx-card .ctx-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
+.ctx-card .ctx-prompt{font-size:11px;color:var(--text-dim);line-height:1.5;padding:8px 10px;border-radius:6px;background:var(--surface-2);margin-bottom:8px;font-style:italic;}
+.ctx-card.naked{background:var(--surface);}
+.ctx-card.naked .ctx-label{color:var(--text-faint);}
+.ctx-card.tuned{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border-color:#bbf7d0;}
+.ctx-card.tuned .ctx-label{color:#16a34a;}
+
+/* Tool grid (desktop) */
+.tool-grid{display:flex;flex-direction:column;gap:10px;}
+@media(min-width:768px){.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}}
+.tool-grid-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;transition:all .2s;text-align:center;}
+.tool-grid-card:hover{border-color:var(--text-dim);}
+.tool-grid-card.active{border-width:2px;}
+.tool-grid-card .tg-emoji{font-size:24px;margin-bottom:4px;}
+.tool-grid-card .tg-name{font-size:13px;font-weight:700;}
+.tool-grid-card .tg-vibe{font-size:10px;color:var(--text-dim);}
+
+/* Tool detail (expanded below grid) */
+.tool-detail{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:10px;}
+.tool-detail .td-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.tool-detail .td-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.tool-detail .td-body{font-size:12px;line-height:1.6;color:var(--text-dim);}
+.tool-detail .td-body strong{color:var(--text);}
+
+/* Reflect */
+.reflect-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:8px;}
+.reflect-card .rq{font-size:12px;font-weight:500;margin-bottom:8px;border-left:2px solid #8B5CF6;padding-left:8px;}
+.reflect-card .rq-btns{display:flex;gap:6px;flex-wrap:wrap;}
+.reflect-card .rq-btn{flex:1;padding:7px;border-radius:8px;font-size:11px;font-weight:500;border:1px solid var(--border);background:var(--surface);cursor:pointer;text-align:center;font-family:var(--font);transition:all .15s;min-width:fit-content;}
+.reflect-card .rq-btn.picked{background:var(--text);color:var(--bg);border-color:var(--text);}
+@media(max-width:500px){.reflect-card .rq-btns{flex-direction:column;}}
+
+/* Full-screen overlay */
+.overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:#1a1a1a;z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s;}
+.overlay.show{opacity:1;pointer-events:all;}
+.overlay-content{max-width:400px;padding:2rem;text-align:center;color:#fff;}
+.overlay-content .ov-emoji{font-size:56px;margin-bottom:16px;}
+.overlay-content h2{font-size:24px;color:#fff;margin-bottom:8px;}
+.overlay-content .ov-sub{font-size:15px;color:rgba(255,255,255,.5);margin-bottom:24px;line-height:1.6;}
+.overlay-content .ov-insight{background:rgba(255,255,255,.08);border-radius:var(--radius);padding:14px;margin-bottom:24px;font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;text-align:left;}
+.overlay-content .ov-insight strong{color:#fff;}
+.overlay-content .btn{max-width:280px;margin:0 auto;}
+
+/* Tier */
+.tier-toggle{display:flex;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:var(--surface-2);margin:8px 0;}
+.tier-option{flex:1;padding:10px;text-align:center;cursor:pointer;transition:all .2s;position:relative;}
+.tier-option .tier-name{font-size:13px;font-weight:600;}
+.tier-option.active{background:var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.tier-option.recommended::after{content:"empfohlen";position:absolute;top:-8px;right:8px;font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;border-radius:4px;}
+.tier-features{list-style:none;padding:0;margin:8px 0;}
+.tier-features li{font-size:12px;line-height:1.8;color:var(--text-dim);padding-left:18px;position:relative;}
+.tier-features li::before{content:"\2713";position:absolute;left:0;color:#22c55e;font-weight:700;}
+
+/* HORSCH info */
+.horsch-info{border-radius:var(--radius);padding:16px;margin-bottom:14px;background:linear-gradient(135deg,#fdf2f2,#fff5f5);border-left:3px solid var(--red);}
+.horsch-info .hi-title{font-size:14px;font-weight:700;margin-bottom:6px;}
+.horsch-info .hi-body{font-size:13px;color:var(--text-dim);line-height:1.7;}
+.horsch-info .hi-body strong{color:var(--text);}
+.horsch-info .hi-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.horsch-info .hi-tag{font-size:11px;padding:3px 8px;border-radius:6px;background:rgba(200,16,46,.06);color:var(--text-dim);}
+
+/* Setup card */
+.setup-card{background:linear-gradient(135deg,#1a1a1a,#2d2d2d);border-radius:16px;padding:1.5rem;color:#fff;position:relative;overflow:hidden;}
+.setup-card .accent-blob{position:absolute;top:0;right:0;width:120px;height:120px;opacity:.12;border-radius:0 16px 0 120px;}
+
+/* Desktop 2-col */
+.desktop-split{display:block;}
+@media(min-width:768px){.desktop-split{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}}
+
+/* Starter */
+.starter-box{background:var(--surface);border:2px dashed var(--border);border-radius:var(--radius);padding:1rem;margin:10px 0;position:relative;}
+.starter-box .copy-btn{position:absolute;top:8px;right:8px;background:var(--text);color:var(--bg);border:none;border-radius:6px;padding:4px 10px;font-size:11px;font-family:var(--font);font-weight:600;cursor:pointer;}
+
+/* Challenge */
+.challenge-card{background:var(--surface);border:2px solid var(--red);border-radius:var(--radius);padding:16px;margin:12px 0;}
+.challenge-card .ch-label{font-size:9px;font-weight:700;color:var(--red);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;}
+.challenge-card .ch-title{font-size:14px;font-weight:600;margin-bottom:6px;}
+.challenge-card .ch-body{font-size:12px;color:var(--text-dim);line-height:1.6;}
+.challenge-card .ch-example{background:var(--surface-2);border-radius:8px;padding:8px;margin-top:8px;font-size:11px;color:var(--text-dim);font-style:italic;}
+.timer-badge{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;margin:8px 0;}
+.success-box{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1px solid #bbf7d0;border-radius:var(--radius);padding:14px;text-align:center;margin:10px 0;}
+
+/* Step flow */
+.step-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;}
+.step-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+.step-num.active{background:var(--text);color:#fff;}
+.step-num.pending{background:var(--border);color:var(--text-dim);}
+.step-info{flex:1;}
+.step-info .si-title{font-size:13px;font-weight:600;}
+.step-info .si-desc{font-size:11px;color:var(--text-dim);margin-top:2px;}
+
+/* Sticky CTA mobile */
+.sticky-cta{display:none;}
+@media(max-width:767px){
+  .sticky-cta{display:block;position:fixed;bottom:0;left:0;right:0;padding:10px 16px;background:linear-gradient(transparent,var(--bg) 30%);z-index:40;}
+  .sticky-cta .btn{box-shadow:0 -2px 12px rgba(0,0,0,.1);}
+}
+
+/* Onboarding dots */
+.onboard-dots{display:flex;gap:6px;margin-bottom:1.5rem;justify-content:center;}
+.onboard-dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:all .3s;}
+.onboard-dot.active{background:var(--text);width:24px;border-radius:4px;}
+.onboard-dot.done{background:var(--text);}
+
+/* Deep link */
+.deep-link{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:500;text-decoration:none;padding:4px 10px;border-radius:6px;border:1px solid var(--border);margin-top:6px;cursor:pointer;font-family:var(--font);}
+
+/* Spinner */
+.spinner{display:inline-flex;align-items:center;gap:8px;color:var(--text-faint);font-style:italic;font-size:13px;}
+.spinner::before{content:"";width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--text-dim);border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* Fallback */
+.tool-fallback{display:flex;align-items:center;gap:12px;padding:12px;border-radius:8px;background:var(--surface-2);margin-top:6px;}
+.tool-fallback .tool-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.tool-fallback .tool-info{flex:1;}
+.tool-fallback .tool-info .name{font-weight:600;font-size:13px;}
+.tool-fallback .tool-info .desc{font-size:11px;color:var(--text-dim);}
+.tool-fallback .try-link{font-size:12px;font-weight:600;text-decoration:none;padding:6px 12px;border-radius:6px;white-space:nowrap;}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.fade-up{animation:fadeUp .35s ease-out both;}
+
+/* Confetti */
+@keyframes confetti-fall{0%{transform:translateY(-20px) rotate(0);opacity:1;}100%{transform:translateY(500px) rotate(720deg);opacity:0;}}
+.confetti-wrap{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:100;overflow:hidden;}
+.confetti{position:absolute;border-radius:2px;animation:confetti-fall 3s ease-out forwards;}
+
+/* High Five */
+.high-five{text-align:center;padding:3rem 1rem;}
+.hf-emoji{font-size:64px;margin-bottom:16px;}
+@keyframes hf-bounce{0%{transform:scale(0);}60%{transform:scale(1.2);}100%{transform:scale(1);}}
+.hf-bounce{animation:hf-bounce .6s ease-out;}
+.hf-title{font-size:28px;font-weight:800;margin-bottom:8px;}
+.hf-sub{font-size:16px;color:var(--text-dim);line-height:1.6;max-width:320px;margin:0 auto 24px;}
+
+/* Werkzeugkoffer */
+.wk-toggle{text-align:center;margin:1.5rem 0;}
+.wk-toggle button{background:none;border:2.5px solid var(--red);border-radius:24px;padding:12px 28px;font-family:var(--font);font-size:14px;font-weight:700;color:var(--red);cursor:pointer;transition:all .2s;}
+.wk-toggle button:hover{background:var(--red);color:#fff;}
+.paket-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}
+@media(max-width:600px){.paket-grid-4{grid-template-columns:repeat(2,1fr);}}
+.paket-card-sm{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center;cursor:pointer;transition:all .2s;position:relative;}
+.paket-card-sm:hover{border-color:var(--text-dim);}
+.paket-card-sm.selected{border-color:var(--text);}
+.paket-card-sm .pk-emoji{font-size:22px;margin-bottom:4px;}
+.paket-card-sm .pk-name{font-size:12px;font-weight:700;margin-bottom:1px;}
+.paket-card-sm .pk-count{font-size:10px;color:var(--text-faint);}
+.paket-card-sm .pk-tag{position:absolute;top:-7px;right:8px;background:var(--red);color:#fff;font-size:8px;font-weight:700;padding:1px 6px;border-radius:3px;}
+.paket-card-sm.individuell{border-style:dashed;}
+.paket-card-sm.individuell.selected{border-color:var(--claude);border-style:solid;background:#fdf8f6;}
+.divider-text{text-align:center;font-size:11px;color:var(--text-faint);margin:14px 0 10px;position:relative;}
+.divider-text::before,.divider-text::after{content:"";position:absolute;top:50%;width:28%;height:1px;background:var(--border);}
+.divider-text::before{left:0;}.divider-text::after{right:0;}
+.akk-cluster{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:6px;overflow:hidden;background:var(--surface);}
+.akk-header{padding:10px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
+.akk-header:hover{background:var(--surface-2);}
+.akk-header .ah-left{display:flex;align-items:center;gap:8px;}
+.akk-header .ah-emoji{font-size:14px;}
+.akk-header .ah-name{font-size:12px;font-weight:600;}
+.akk-header .ah-count{font-size:10px;color:var(--text-faint);background:var(--surface-2);padding:1px 8px;border-radius:10px;}
+.akk-header .ah-arrow{font-size:11px;color:var(--text-faint);transition:transform .2s;}
+.akk-header.open .ah-arrow{transform:rotate(180deg);}
+.akk-body{padding:0 12px 12px;display:none;}
+.akk-body.open{display:block;}
+.addon-card-full{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;transition:all .15s;margin-bottom:5px;user-select:none;}
+.addon-card-full:hover{border-color:var(--text-dim);}
+.addon-card-full.on{border-color:var(--text);}
+.addon-card-full .acf-emoji{font-size:16px;flex-shrink:0;margin-top:1px;}
+.addon-card-full .acf-info{flex:1;min-width:0;}
+.addon-card-full .acf-name{font-size:12px;font-weight:600;}
+.addon-card-full .acf-desc{font-size:10px;color:var(--text-dim);line-height:1.4;margin-top:1px;}
+.addon-card-full .acf-toggle{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;margin-top:2px;transition:all .15s;}
+.addon-card-full.on .acf-toggle{background:var(--text);border-color:var(--text);color:#fff;}
+.info-btn{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border);font-size:10px;font-weight:700;color:var(--text-faint);cursor:pointer;margin-left:6px;}
+.info-tooltip{background:var(--text);color:#fff;border-radius:var(--radius);padding:14px;font-size:12px;line-height:1.6;margin:8px 0;display:none;}
+.info-tooltip.show{display:block;}
+.prompt-preview{background:var(--surface);border:2px dashed var(--border);border-radius:var(--radius);padding:16px;margin:14px 0;position:relative;}
+.prompt-preview .pp-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-faint);margin-bottom:8px;}
+.prompt-preview .pp-text{font-size:11px;line-height:1.7;color:var(--text-dim);white-space:pre-wrap;}
+.prompt-preview .pp-addon{margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
+.prompt-preview .pp-addon-label{font-size:10px;font-weight:600;margin-bottom:2px;}
+.prompt-preview .pp-addon-text{font-size:10px;color:var(--text-dim);line-height:1.5;}
+
+/* Tool link button */
+.tool-link-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;text-decoration:none;padding:6px 14px;border-radius:8px;border:1px solid var(--border);margin-top:8px;cursor:pointer;font-family:var(--font);transition:all .15s;background:var(--surface);}
+.tool-link-btn:hover{border-color:var(--text-dim);background:var(--surface-2);}
+
+/* Privacy collapsible */
+.privacy-section{border:1px solid var(--border);border-radius:var(--radius);margin:14px 0;overflow:hidden;}
+.privacy-header{padding:10px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:13px;font-weight:600;background:var(--surface);}
+.privacy-header:hover{background:var(--surface-2);}
+.privacy-body{padding:0 14px 14px;display:none;font-size:12px;color:var(--text-dim);line-height:1.7;}
+.privacy-body.open{display:block;}
+
+/* Gib mir mehr border */
+.mehr-box{border:2.5px solid var(--red);border-radius:var(--radius);padding:18px;margin:18px 0;background:var(--surface);}
+.mehr-box .mehr-title{font-size:16px;font-weight:700;color:var(--red);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+
+/* Hero Intro */
+.hero-intro{background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 100%);border-radius:16px;padding:28px 22px;color:#fff;text-align:center;margin-bottom:20px;position:relative;overflow:hidden;animation:heroFadeIn .6s ease-out;}
+.hero-intro::before{content:"";position:absolute;top:-40px;right:-40px;width:140px;height:140px;background:var(--red);opacity:.1;border-radius:50%;animation:heroPulse 3s ease-in-out infinite;}
+.hero-intro::after{content:"";position:absolute;bottom:-30px;left:-30px;width:100px;height:100px;background:var(--claude);opacity:.08;border-radius:50%;animation:heroPulse 3s ease-in-out 1.5s infinite;}
+@keyframes heroFadeIn{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+@keyframes heroPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.15);}}
+.hero-intro .hi-badge{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:10px;}
+.hero-intro h1{font-size:22px;font-weight:800;margin-bottom:6px;line-height:1.25;}
+.hero-intro p{font-size:13px;color:rgba(255,255,255,.55);line-height:1.5;max-width:280px;margin:0 auto;}
+.hero-intro .hi-tools{display:flex;gap:8px;justify-content:center;margin-top:14px;}
+.hero-intro .hi-tool{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;background:rgba(255,255,255,.08);animation:toolFadeIn .4s ease-out both;}
+.hero-intro .hi-tool:nth-child(1){animation-delay:.3s;}
+.hero-intro .hi-tool:nth-child(2){animation-delay:.4s;}
+.hero-intro .hi-tool:nth-child(3){animation-delay:.5s;}
+.hero-intro .hi-tool:nth-child(4){animation-delay:.6s;}
+.hero-intro .hi-tool:nth-child(5){animation-delay:.7s;}
+@keyframes toolFadeIn{from{opacity:0;transform:scale(.5);}to{opacity:1;transform:scale(1);}}
+
+/* Chat bubbles */
+.chat-flow{margin:8px 0;}
+.chat-bubble{max-width:88%;padding:12px 14px;border-radius:16px;font-size:13px;line-height:1.5;margin-bottom:10px;animation:chatIn .35s ease-out both;}
+.chat-ai{background:var(--surface);border:1px solid var(--border);border-bottom-left-radius:4px;margin-right:auto;}
+.chat-user{background:var(--text);color:var(--bg);border-bottom-right-radius:4px;margin-left:auto;text-align:right;}
+.chat-ai .chat-label{font-size:9px;font-weight:700;color:var(--red);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;}
+@keyframes chatIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.chat-input-wrap{position:relative;margin-top:6px;}
+.chat-input-wrap input{width:100%;font-family:var(--font);font-size:14px;padding:12px 44px 12px 14px;border-radius:24px;border:1px solid var(--border);background:var(--surface);outline:none;}
+.chat-input-wrap input:focus{border-color:var(--text-dim);}
+.chat-input-wrap .chat-send{position:absolute;right:6px;top:6px;width:32px;height:32px;border-radius:50%;background:var(--text);color:var(--bg);border:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--font);}
+.chat-or{display:flex;align-items:center;gap:12px;margin:14px 0 10px;}
+.chat-or::before,.chat-or::after{content:"";flex:1;height:1px;background:var(--border);}
+.chat-or span{font-size:11px;color:var(--text-faint);font-weight:500;}
+.quick-role-btn{font-size:12px;color:var(--text-dim);text-align:center;cursor:pointer;font-family:var(--font);background:none;border:1px solid var(--border);border-radius:20px;padding:8px 18px;width:100%;transition:all .15s;}
+.quick-role-btn:hover{border-color:var(--text-dim);color:var(--text);}
+
+/* Utility */
+.mt{margin-top:16px;}.mb{margin-bottom:12px;}.hide{display:none;}
+.gap-8{display:flex;gap:8px;}.flex-wrap{flex-wrap:wrap;}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div class="container">
+    <div class="progress" id="progress"></div>
+    <div class="progress-timer" id="progress-timer"></div>
+    <div class="tab-bar" id="tab-bar"></div>
+  </div>
+</div>
+<div class="container">
+  <div class="act-content" id="act-content"></div>
+</div>
+<div class="sticky-cta" id="sticky-cta"></div>
+<div class="overlay" id="overlay"></div>
+
+<script>
+/* ===== CONFIG ===== */
+const PROXY_URL="https://cfefoxcbnzwkqpizejey.supabase.co/functions/v1/ai-proxy";
+const TOOLS=[
+  {id:"claude",name:"Claude",by:"Anthropic",color:"#D97757",emoji:"\u{1F9E0}",vibe:"Der Denker",sweet:"Tiefe Analyse, Code, Strategie",strengths:"Tiefe Analyse, Code, Strategie, lange Texte, strukturiertes Feedback",weaker:"Aktuelle Nachrichten, Bildgenerierung, Google-Integration",url:"https://claude.ai"},
+  {id:"gemini",name:"Gemini",by:"Google",color:"#4285F4",emoji:"\u2728",vibe:"Der Vernetzer",sweet:"Google-\u00d6kosystem, \u00dcberblick, multimodal",strengths:"Google-Integration (Drive, Docs), \u00dcberblick, Zusammenfassungen, multimodal",weaker:"Verf\u00fcgbarkeit bei hoher Last, weniger pr\u00e4zise bei Code",url:"https://gemini.google.com"},
+  {id:"chatgpt",name:"ChatGPT",by:"OpenAI",color:"#10A37F",emoji:"\u26A1",vibe:"Der Allrounder",sweet:"Kreativ, Bilder, breites Wissen",strengths:"Kreatives Schreiben, DALL-E Bildgenerierung, Custom GPTs, breites Allgemeinwissen",weaker:"Manchmal oberfl\u00e4chlich, halluziniert bei Fakten",url:"https://chat.openai.com"},
+  {id:"perplexity",name:"Perplexity",by:"Perplexity AI",color:"#20B2AA",emoji:"\u{1F50D}",vibe:"Der Rechercheur",sweet:"Fakten mit Quellen, aktuelle Infos",strengths:"Echtzeit-Recherche mit Quellenangaben, aktuelle Informationen, Faktencheck",weaker:"Weniger kreativ, keine Bildgenerierung",url:"https://perplexity.ai"},
+  {id:"mistral",name:"Mistral",by:"Mistral AI",color:"#FF7000",emoji:"\u{1F30A}",vibe:"Der Europ\u00e4er",sweet:"DSGVO-nah, schnell, Open Source",strengths:"DSGVO-konform (EU-Server), schnell, Open Source, Canvas",weaker:"Kleineres \u00d6kosystem, weniger bekannt",url:"https://chat.mistral.ai"},
+];
+const USE_CASES=[
+  {id:"texte",label:"Mails & Texte formulieren",strong:["claude","chatgpt"]},
+  {id:"recherche",label:"Infos zusammensuchen & pr\u00fcfen",strong:["perplexity"]},
+  {id:"doku",label:"Berichte & Dokumentation",strong:["claude","gemini"]},
+  {id:"ideen",label:"Ideen entwickeln & brainstormen",strong:["chatgpt","gemini"]},
+  {id:"feedback",label:"Feedback & Gespr\u00e4che vorbereiten",strong:["claude"]},
+  {id:"planung",label:"Abl\u00e4ufe & Projekte planen",strong:["claude","chatgpt"]},
+  {id:"praesi",label:"Pr\u00e4sentationen & Konzepte",strong:["chatgpt","gemini"]},
+  {id:"daten",label:"Tabellen & Daten auswerten",strong:["claude","chatgpt"]},
+  {id:"lernen",label:"F\u00fcr Pr\u00fcfungen lernen",strong:["gemini","chatgpt"]},
+  {id:"sprache",label:"\u00dcbersetzen / Englisch arbeiten",strong:["claude","chatgpt","gemini"]},
+];
+const ROLES=[
+  {id:"azubi",label:"Azubi",ph:"z.B. Ich muss eine Pr\u00e4sentation f\u00fcr die Abteilung vorbereiten..."},
+  {id:"ausbilder",label:"Ausbilder*in",ph:"z.B. Ich muss Berichtsheft-Eintr\u00e4ge pr\u00fcfen und Feedback schreiben..."},
+  {id:"verwaltung",label:"Verwaltung / B\u00fcro",ph:"z.B. Ich muss einen Monatsbericht aus verschiedenen Abteilungen erstellen..."},
+  {id:"produktion",label:"Produktion / Werkstatt",ph:"z.B. Ich soll eine Arbeitsanweisung f\u00fcr eine neue Maschine schreiben..."},
+  {id:"vertrieb",label:"Vertrieb",ph:"z.B. Ich muss ein individuelles Kundenangebot mit technischen Details aufbereiten..."},
+  {id:"fuehrung",label:"F\u00fchrungskraft",ph:"z.B. Ich muss ein Strategiepapier f\u00fcr die Gesch\u00e4ftsleitung vorbereiten..."},
+  {id:"sonstiges",label:"Sonstiges",ph:"z.B. Beschreibe eine Aufgabe die dich diese Woche nervt..."},
+];
+const WORK_STYLES=[{id:"point",label:"Auf den Punkt"},{id:"structured",label:"Strukturiert"},{id:"detailed",label:"Ausf\u00fchrlich"}];
+const LEARN_STYLES=[{id:"facts",label:"Fakten & Stichpunkte"},{id:"examples",label:"Zeig mir Beispiele"},{id:"stepbystep",label:"Schritt f\u00fcr Schritt"}];
+const SPARKS=[{cat:"Alltag",items:[{l:"Lieferanten-Mail",uc:["texte"],p:"Schreibe eine freundliche aber bestimmte E-Mail an einen Lieferanten, der zum dritten Mal zu sp\u00e4t liefert."},{l:"Feedback",uc:["feedback"],p:"Hilf mir ein Feedbackgespr\u00e4ch vorzubereiten. Mein Azubi ist motiviert, macht aber Fl\u00fcchtigkeitsfehler."}]},{cat:"Lernen",items:[{l:"Pr\u00fcfungsfragen",uc:["lernen"],p:"Erstelle 5 IHK-Pr\u00fcfungsfragen zum Thema Arbeitsschutz f\u00fcr Industriemechaniker."}]},{cat:"Kreativ",items:[{l:"Event-Ideen",uc:["ideen"],p:"Gib mir 7 ungew\u00f6hnliche Ideen f\u00fcr den Tag der offenen T\u00fcr bei einem Landmaschinenhersteller."}]}];
+const LIMITS=[
+  {cat:"Beziehung",color:"#8B5CF6",q:"Dein Azubi hat dir im Vertrauen erz\u00e4hlt, dass es ihm zuhause nicht gut geht. Was r\u00e4tst du ihm?",reflect:[["H\u00e4ttest du das so gesagt?","Ja, passt so","W\u00fcrde ich anders"],["Was wei\u00df die KI nicht?","Vorgeschichte","Pers\u00f6nlichkeit","Teamdynamik"],["W\u00fcrde sich der Azubi verstanden f\u00fchlen?","Vermutlich ja","Eher nicht"]],insight:"Vertrauen entsteht durch Beziehung, nicht durch Textbausteine. Du kennst den Menschen \u2014 die KI kennt nur die Frage."},
+  {cat:"Beziehung",color:"#8B5CF6",q:"Dein Azubi kommt nach dem Urlaub zur\u00fcck und wirkt ver\u00e4ndert. Wie sprichst du ihn an?",reflect:[["H\u00e4ttest du das so gesagt?","Ja, passt so","W\u00fcrde ich anders"],["Was wei\u00df die KI nicht?","Vorgeschichte","Pers\u00f6nlichkeit","Teamdynamik"],["Was w\u00fcrdest du zuerst tun?","Direkt ansprechen","Erst beobachten"]],insight:"Die KI gibt dir ein Gespr\u00e4chsskript. Ob du erst beobachtest oder direkt ansprichst, h\u00e4ngt von eurer Beziehung ab."},
+  {cat:"Verantwortung",color:"#EF4444",q:"Soll ich den Ausbildungsvertrag verl\u00e4ngern, obwohl die Leistungen grenzwertig sind? Schwierige Familiensituation.",reflect:[["Kann eine KI das entscheiden?","Nein","Teilweise als Input"],["Wer tr\u00e4gt die Verantwortung?","Ich allein","Team-Entscheidung"],["Welche Konsequenzen \u00fcbersiehst du?","F\u00fcr den Azubi","F\u00fcrs Team"]],insight:"Die KI zeigt Pro und Contra \u2014 aber die Entscheidung hat Konsequenzen f\u00fcr einen echten Menschen. Nicht delegierbar."},
+  {cat:"Kontext",color:"#F59E0B",q:"Wie viele Mitarbeiter hat HORSCH am Standort Ronneburg und wer ist dort Standortleiter?",reflect:[["Woher soll die KI das wissen?","Guter Punkt","Vielleicht Internet"],["Wie \u00fcberzeugend klingt die Antwort?","Sehr","Erkennbar unsicher"],["Wie pr\u00fcfst du das?","Interne Quelle","Kollegen fragen"]],insight:"KI kennt deinen Betrieb nicht von innen. Je \u00fcberzeugender die Antwort, desto wichtiger: Woher wei\u00df sie das?"},
+];
+const TOOL_TIERS={
+  claude:{free:{name:"Free",features:["Claude Sonnet","~30 Nachrichten/Tag","Web-Suche","Datei-Upload (begrenzt)"]},pro:{name:"Pro",features:["Alles aus Free","5\u00d7 mehr Nachrichten","Claude Opus","Projekte & Custom Instructions","Priorit\u00e4t"]},proTriggers:["doku","feedback","planung","daten","texte"]},
+  gemini:{free:{name:"Free",features:["Gemini Flash","Google-Integration","Bild-Analyse"]},pro:{name:"Advanced",features:["Alles aus Free","Gemini Pro","Deep Research","2TB Speicher"]},proTriggers:["recherche","daten","lernen"]},
+  chatgpt:{free:{name:"Free",features:["GPT-4o mini","Web-Suche","Bild-Generierung (begrenzt)"]},pro:{name:"Plus",features:["Alles aus Free","GPT-4o & o3","DALL-E","Custom GPTs"]},proTriggers:["praesi","ideen","daten","texte"]},
+  perplexity:{free:{name:"Free",features:["Suche mit Quellen","5 Pro-Suchen/Tag"]},pro:{name:"Pro",features:["Alles aus Free","300+ Pro-Suchen","Beste Modelle"]},proTriggers:["recherche","doku"]},
+  mistral:{free:{name:"Free",features:["Mistral Large","DSGVO-konform","Unbegrenzt"]},pro:{name:"Pro",features:["Alles aus Free","Priorit\u00e4t","Agents","Teams"]},proTriggers:["planung","texte"]},
+};
+const CHALLENGES={
+  azubi:{title:"Lass dir eine Pr\u00fcfungsfrage erkl\u00e4ren",body:"Frag dein Tool nach einer IHK-Frage zu deinem Beruf.",example:"Erkl\u00e4re mir eine typische IHK-Pr\u00fcfungsfrage zum Thema Arbeitsschutz."},
+  ausbilder:{title:"Lass ein Berichtsheft-Feedback schreiben",body:"Kopiere diesen Eintrag und bitte um konstruktives Feedback:",example:"Heute habe ich in der Werkstatt gearbeitet. Wir haben Teile sortiert und ich habe gelernt wie man schwei\u00dft."},
+  verwaltung:{title:"Lass eine Meeting-Einladung formulieren",body:"Gib Stichpunkte und lass eine Einladung schreiben:",example:"Quartalsreview Ausbildung. Teilnehmer: Ausbildungsleitung + HR. N\u00e4chste Woche Dienstag 10 Uhr."},
+  produktion:{title:"Lass eine Kurzanleitung erstellen",body:"Beschreibe einen Arbeitsschritt:",example:"Schritte zum sicheren Einrichten einer CNC-Fr\u00e4se f\u00fcr einen neuen Azubi."},
+  vertrieb:{title:"Lass eine Kunden-Mail aufbereiten",body:"Stichpunkte rein, Mail raus:",example:"Kunde fragt nach Lieferzeit Joker 6 RT. Aktuell 8 Wochen. Sonderausstattung m\u00f6glich."},
+  fuehrung:{title:"Lass Argumente strukturieren",body:"Entscheidung beschreiben, Pro/Contra aufbereiten:",example:"Azubi-Rotation von 3 auf 6 Monate verl\u00e4ngern? Argumente f\u00fcr die GL."},
+  sonstiges:{title:"Lass dir bei einer echten Aufgabe helfen",body:"Nimm eine Aufgabe von heute:",example:"Formuliere eine freundliche Absage an einen Bewerber."},
+};
+
+const PRIVACY_HINTS={
+  claude:{label:"Claude",hint:'Settings \u2192 Privacy \u2192 "Don\'t train on my data" aktivieren.'},
+  chatgpt:{label:"ChatGPT",hint:'Settings \u2192 Data Controls \u2192 "Chat history & training" deaktivieren.'},
+  gemini:{label:"Gemini",hint:'Activity Controls \u2192 "Gemini Apps Activity" deaktivieren.'},
+  perplexity:{label:"Perplexity",hint:'Settings \u2192 Account \u2192 "AI Data Retention" deaktivieren.'},
+  mistral:{label:"Mistral",hint:'DSGVO-konform, EU-Server. Kein Training mit Nutzerdaten \u2014 keine Aktion n\u00f6tig.'},
+};
+
+/* ===== API ===== */
+async function askAI(provider,prompt,system){
+  try{
+    const controller=new AbortController();
+    const timeout=setTimeout(()=>controller.abort(),8000);
+    const doFetch=async()=>{
+      const res=await fetch(PROXY_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({provider,prompt,system}),signal:controller.signal});
+      return await res.json();
+    };
+    let data;
+    if(provider==="gemini"){
+      let lastErr=null;
+      for(let attempt=0;attempt<3;attempt++){
+        try{
+          const c2=new AbortController();const t2=setTimeout(()=>c2.abort(),8000);
+          const res=await fetch(PROXY_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({provider,prompt,system}),signal:c2.signal});
+          clearTimeout(t2);
+          data=await res.json();
+          if(!data.error)break;
+          lastErr=data.error;
+          if(attempt<2)await new Promise(r=>setTimeout(r,2000));
+        }catch(e2){
+          lastErr=e2.message;
+          if(attempt<2)await new Promise(r=>setTimeout(r,2000));
+        }
+      }
+      clearTimeout(timeout);
+      if(!data||data.error){
+        return{text:null,noKey:true,geminiDown:true};
+      }
+      if(data.error==="no_key")return{text:null,noKey:true};
+      return{text:data.text,noKey:false};
+    }
+    data=await doFetch();
+    clearTimeout(timeout);
+    if(data.error==="no_key")return{text:null,noKey:true};
+    if(data.error)return{text:"Fehler: "+data.error,noKey:false};
+    return{text:data.text,noKey:false};
+  }catch(e){return{text:null,noKey:true};}
+}
+function esc(s){if(!s)return"";const d=document.createElement("div");d.textContent=s;return d.innerHTML;}
+function hasDeepLink(t){return["perplexity","chatgpt","gemini"].includes(t.id);}
+function buildDeepLink(t,p){const e=encodeURIComponent(p);if(t.id==="perplexity")return"https://www.perplexity.ai/search?q="+e;if(t.id==="chatgpt")return"https://chatgpt.com/?q="+e;if(t.id==="gemini")return"https://gemini.google.com/app?q="+e;return t.url;}
+let _fb={},_fi=0;
+function copyP(fid,btn){navigator.clipboard.writeText(_fb[fid]);btn.textContent="Kopiert!";setTimeout(()=>btn.textContent="Kopieren",1500);}
+function copyOpen(tid,prompt,btn){const t=TOOLS.find(x=>x.id===tid);navigator.clipboard.writeText(prompt).then(()=>{btn.textContent="Kopiert!";setTimeout(()=>{window.open(t.url,"_blank");btn.textContent="Prompt kopieren & "+t.name+" \u00f6ffnen";},600);});}
+function renderLoading(t){return'<div class="spinner">'+(t||"Denkt nach...")+'</div>';}
+function renderFallback(t,p){
+  return`<div class="tool-fallback"><div class="tool-icon" style="background:${t.color}22;">${t.emoji}</div><div class="tool-info"><div class="name">${t.name}</div><div class="desc">${t.sweet}</div></div><a href="${p?buildDeepLink(t,p):t.url}" target="_blank" class="try-link" style="background:${t.color}18;color:${t.color};">In ${t.name} ausprobieren \u2192</a></div>`;
+}
+function renderToolLinkBtn(t,p){
+  if(hasDeepLink(t)){
+    const link=p?buildDeepLink(t,p):t.url;
+    return`<a href="${link}" target="_blank" class="tool-link-btn" style="color:${t.color};border-color:${t.color}44;">In ${t.name} ausprobieren \u2192</a>`;
+  }else{
+    const fid="_fb"+(++_fi);_fb[fid]=p||"";
+    return`<button class="tool-link-btn" style="color:${t.color};border-color:${t.color}44;" onclick="navigator.clipboard.writeText(_fb['${fid}']).then(()=>{this.textContent='Kopiert!';setTimeout(()=>window.open('${t.url}','_blank'),500);setTimeout(()=>{this.textContent='Prompt kopieren & ${t.name} \u00f6ffnen';},2000);});">Prompt kopieren & ${t.name} \u00f6ffnen</button>`;
+  }
+}
+
+/* ===== STATE ===== */
+let currentAct=-1,onboardStep=0;
+const profile={role:null,roleFree:"",language:"de",useCases:[],aiExp:null,currentTool:"",workStyle:null,learnStyle:null,task:""};
+let contextPrompt="";
+let setupData={primary:null,secondary:null,name:"",answers:["","",""],primaryTier:"free",secondaryTier:"free"};
+const sectionState={
+  0:{sections:["kontext","tools","arena"],locked:{kontext:false,tools:true,arena:true},done:{}},
+  1:{sections:["szenario","reflexion"],locked:{szenario:false,reflexion:true},done:{}},
+  2:{sections:["reflexion","tool","plan","karte","los"],locked:{reflexion:false,tool:true,plan:true,karte:true,los:true},done:{}},
+};
+let selectedLimitIdx=null,reflectAnswers=[null,null,null],expandedTool=null,stickyCTA=null;
+
+/* ===== NAV ===== */
+const ACT_NAMES=["Dein Match","Der Pilot","Mein Setup"];
+const SECTION_LABELS={kontext:"Kontext",tools:"5 Tools",arena:"Arena",szenario:"Szenario",reflexion:"Reflexion",tool:"Dein Tool",plan:"Dein Plan",karte:"Karte",los:"Los!"};
+
+function renderProgress(){
+  document.getElementById("progress").innerHTML=ACT_NAMES.map((n,i)=>{
+    const a = i<=currentAct;
+    const isCurrent = i===currentAct;
+    const onclick = i<currentAct ? `goToAct(${i})` : "";
+    return`<div class="progress-step" ${onclick?`onclick="${onclick}" style="cursor:pointer;"`:''}><div class="progress-bar ${a?'active':''}"></div><span class="progress-label ${isCurrent?'active':''}">${n}</span></div>`;
+  }).join("");
+  updateTimer();
+}
+
+function updateTimer(){
+  const el=document.getElementById("progress-timer");
+  if(!el)return;
+  if(currentAct<0){el.textContent="";return;}
+  const ss=sectionState[currentAct];
+  const dc=ss?Object.values(ss.done).filter(Boolean).length:0;
+  let label="";
+  if(currentAct===0&&dc===0) label="\u23F1 ~8 Min";
+  else if(currentAct===0&&dc===1) label="\u23F1 ~6 Min";
+  else if(currentAct===0&&dc>=2) label="\u23F1 ~5 Min";
+  else if(currentAct===1&&dc===0) label="\u23F1 ~4 Min";
+  else if(currentAct===1&&dc>=1) label="\u23F1 ~3 Min";
+  else if(currentAct===2&&dc<=2) label="\u23F1 ~2 Min";
+  else if(currentAct===2&&dc>=3) label="Fast geschafft! \uD83C\uDFC1";
+  el.textContent=label;
+}
+
+function renderTabBar(){
+  if(currentAct<0){document.getElementById("tab-bar").innerHTML="";return;}
+  const ss=sectionState[currentAct];
+  document.getElementById("tab-bar").innerHTML=ss.sections.map(s=>{
+    let cls="tab";
+    if(ss.done[s])cls+=" done";
+    if(ss.locked[s])cls+=" locked";
+    if(s==="los"&&!ss.locked[s])cls+=" finale";
+    const label=ss.done[s]?SECTION_LABELS[s]+" \u2713":ss.locked[s]?SECTION_LABELS[s]+" \uD83D\uDD12":SECTION_LABELS[s];
+    return`<div class="${cls}" onclick="scrollToSection('${s}')">${label}</div>`;
+  }).join("");
+}
+
+function scrollToSection(id){
+  if(sectionState[currentAct].locked[id])return;
+  document.getElementById("sec-"+id)?.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function unlock(sec){sectionState[currentAct].locked[sec]=false;renderTabBar();renderAct();}
+function markDone(sec){sectionState[currentAct].done[sec]=true;renderTabBar();updateTimer();}
+
+function goToAct(n){
+  currentAct=n;renderProgress();renderTabBar();renderAct();window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function updateStickyCTA(text,action){
+  stickyCTA={text,action};
+  document.getElementById("sticky-cta").innerHTML=text?`<button class="btn btn-primary" onclick="${action}">${text}</button>`:"";
+}
+
+function showOverlay(emoji,title,sub,insight,btn,onClose){
+  const ov=document.getElementById("overlay");
+  ov.innerHTML=`<div class="overlay-content"><div class="ov-emoji">${emoji}</div><h2>${title}</h2><p class="ov-sub">${sub}</p>${insight?`<div class="ov-insight">${insight}</div>`:""}<button class="btn btn-primary" style="background:#fff;color:#1a1a1a;" id="ov-btn">${btn}</button></div>`;
+  ov.classList.add("show");
+  document.getElementById("ov-btn").onclick=()=>{ov.classList.remove("show");if(onClose)onClose();};
+}
+
+function buildContextPrompt(){
+  const role=ROLES.find(r=>r.id===profile.role)?.label||profile.roleFree||"Mitarbeiter*in";
+  const ucs=profile.useCases.map(id=>USE_CASES.find(u=>u.id===id)?.label).filter(Boolean);
+  const exp={none:"hat noch nie KI genutzt",some:"hat KI ein paar Mal ausprobiert",regular:"nutzt KI regelm\u00e4\u00dfig"};
+  const sty={point:"knappe Bullet Points",structured:"strukturierte Antworten",detailed:"ausf\u00fchrliche Antworten mit Kontext"};
+  const lrn={facts:"Stichpunkte",examples:"konkrete Beispiele",stepbystep:"Schritt-f\u00fcr-Schritt-Anleitungen"};
+  let p=[`"${role}" bei HORSCH Maschinen (Landmaschinenhersteller, 2000 MA).`,`${exp[profile.aiExp]||""}, bevorzugt ${sty[profile.workStyle]||""}, lernt am besten mit ${lrn[profile.learnStyle]||""}.`];
+  if(ucs.length)p.push("Anwendungsf\u00e4lle: "+ucs.join(", ")+".");
+  if(setupData.name)p.push("Name: "+setupData.name+".");
+  p.push("Aufgabe: "+profile.task);
+  contextPrompt=p.join(" ");
+}
+
+/* ===== ONBOARDING ===== */
+function renderOnboarding(){
+  const el=document.getElementById("act-content");
+  const dots=`<div class="onboard-dots">${[0,1,2,3,4].map(i=>`<div class="onboard-dot ${i<onboardStep?'done':''} ${i===onboardStep?'active':''}"></div>`).join("")}</div>`;
+  const back=onboardStep>0?`<button class="btn-back" onclick="onboardStep--;renderOnboarding();">\u2190 Zur\u00fcck</button>`:"";
+
+  if(onboardStep===0){
+    // Hide top-bar for welcome screen
+    document.querySelector(".top-bar").style.display="none";
+
+    el.innerHTML=`
+    <div class="hero-intro">
+      <div class="hi-badge">HORSCH AIKIDO</div>
+      <h1>Willkommen in der<br>KI-Arena</h1>
+      <p>Finde heraus welches KI-Tool zu dir passt \u2014 und nimm dein pers\u00f6nliches Setup mit.</p>
+      <div class="hi-tools">
+        <div class="hi-tool">\u{1F9E0}</div>
+        <div class="hi-tool">\u2728</div>
+        <div class="hi-tool">\u26A1</div>
+        <div class="hi-tool">\uD83D\uDD0D</div>
+        <div class="hi-tool">\uD83C\uDF0A</div>
+      </div>
+    </div>
+
+    <div class="chat-flow">
+      <div class="chat-bubble chat-ai" style="animation-delay:.5s;">
+        <div class="chat-label">AIKIDO</div>
+        Hey! Sch\u00f6n, dass du da bist. \uD83D\uDC4B<br>Wie hei\u00dft du?
+      </div>
+
+      <div class="chat-input-wrap">
+        <input type="text" id="ob-name" placeholder="Dein Vorname..." value="${esc(setupData.name)}" autocomplete="off">
+        <button class="chat-send" onclick="chatNameDone()" id="name-send">\u2192</button>
+      </div>
+
+      <div id="chat-step2" class="${setupData.name?'':'hide'}" style="margin-top:12px;">
+        <div class="chat-bubble chat-user" id="chat-name-echo">${setupData.name||''}</div>
+        <div class="chat-bubble chat-ai" style="animation-delay:.1s;">
+          <div class="chat-label">AIKIDO</div>
+          <span id="chat-greeting">${setupData.name?'Hi '+esc(setupData.name)+'!':'Hi!'}</span> Was machst du bei HORSCH?
+        </div>
+        <div class="chip-row" id="ob-r">${ROLES.map(r=>`<span class="chip ${profile.role===r.id?'active':''}" data-v="${r.id}">${r.label}</span>`).join("")}</div>
+        <div id="rfw" class="${profile.role==='sonstiges'?'':'hide'}" style="margin-top:6px;"><input type="text" id="rf" placeholder="Was machst du?" value="${esc(profile.roleFree)}"></div>
+      </div>
+
+      <div id="chat-step3" class="${profile.role?'':'hide'}" style="margin-top:12px;">
+        <div class="chat-bubble chat-ai" style="animation-delay:.1s;">
+          <div class="chat-label">AIKIDO</div>
+          Welche Sprache nutzt du bei der Arbeit?
+        </div>
+        <div class="pill-row" id="ob-l" style="margin-bottom:12px;"><span class="pill ${profile.language==='de'?'active':''}" data-v="de">Haupts\u00e4chlich Deutsch</span><span class="pill ${profile.language==='mixed'?'active':''}" data-v="mixed">Deutsch + Englisch</span></div>
+        <button class="btn btn-primary" id="ob-n" onclick="nextOB()" ${!profile.role||!setupData.name?'disabled':''}>Weiter \u2192</button>
+      </div>
+    </div>
+
+    <div class="chat-or"><span>oder Schnellversion</span></div>
+    <button class="quick-role-btn" onclick="onboardStep=0;document.querySelector('.top-bar').style.display='';renderOnboardingClassic();">Klassisches Formular \u2192</button>
+    `;
+
+    // Name input handler
+    const nameInput=document.getElementById("ob-name");
+    nameInput.addEventListener("keydown",e=>{if(e.key==="Enter")chatNameDone();});
+    nameInput.addEventListener("input",function(){setupData.name=this.value.trim();});
+    if(setupData.name)nameInput.focus();
+    else setTimeout(()=>nameInput.focus(),600);
+
+    // Role chips handler
+    document.getElementById("ob-r").onclick=e=>{
+      const c=e.target.closest("[data-v]");if(!c)return;
+      profile.role=c.dataset.v;
+      el.querySelectorAll("#ob-r [data-v]").forEach(x=>x.classList.remove("active"));
+      c.classList.add("active");
+      document.getElementById("rfw").classList.toggle("hide",profile.role!=="sonstiges");
+      document.getElementById("chat-step3").classList.remove("hide");
+      const btn=document.getElementById("ob-n");if(btn)btn.disabled=!profile.role||!setupData.name;
+    };
+
+    // Language handler
+    const langWrap=document.getElementById("ob-l");
+    if(langWrap) langWrap.onclick=e=>{const p=e.target.closest("[data-v]");if(!p)return;profile.language=p.dataset.v;langWrap.querySelectorAll("[data-v]").forEach(x=>x.classList.remove("active"));p.classList.add("active");};
+
+  } else if(onboardStep===1){
+    // Show top-bar again for remaining steps
+    document.querySelector(".top-bar").style.display="";
+    el.innerHTML=`${dots}${back}<h2>Wo k\u00f6nnte KI dir helfen?</h2><p class="subtitle">W\u00e4hle alles, was sich nach deinem Alltag anh\u00f6rt.</p>
+    <div class="chip-row" id="ob-u">${USE_CASES.map(u=>`<span class="chip ${profile.useCases.includes(u.id)?'active':''}" data-v="${u.id}">${u.label}</span>`).join("")}</div>
+    <div style="margin-top:8px;font-size:12px;color:var(--text-faint);" id="uc-c">${profile.useCases.length} gew\u00e4hlt</div>
+    <button class="btn btn-primary mt" id="ob-n" onclick="nextOB()" ${profile.useCases.length<2?'disabled':''}>Weiter</button>`;
+    el.querySelector("#ob-u").onclick=e=>{const c=e.target.closest("[data-v]");if(!c)return;const id=c.dataset.v;if(profile.useCases.includes(id)){profile.useCases=profile.useCases.filter(x=>x!==id);c.classList.remove("active");}else{profile.useCases.push(id);c.classList.add("active");}document.getElementById("uc-c").textContent=profile.useCases.length+" gew\u00e4hlt";document.getElementById("ob-n").disabled=profile.useCases.length<2;};
+  } else if(onboardStep===2){
+    el.innerHTML=`${dots}${back}<h2>Wie tickst du?</h2><p class="subtitle">Hilft uns, die Tools auf dich einzustellen.</p>
+    <div style="font-size:13px;font-weight:600;margin-bottom:8px;">KI-Erfahrung</div>
+    <div class="pill-row mb" id="ob-e"><span class="pill ${profile.aiExp==='none'?'active':''}" data-v="none">Noch nie genutzt</span><span class="pill ${profile.aiExp==='some'?'active':''}" data-v="some">Ein paar Mal probiert</span><span class="pill ${profile.aiExp==='regular'?'active':''}" data-v="regular">Nutze es regelm\u00e4\u00dfig</span></div>
+    <div id="ed" class="${profile.aiExp==='regular'?'':'hide'}" style="margin-bottom:12px;"><input type="text" id="ct" placeholder="Welches Tool?" value="${esc(profile.currentTool)}"></div>
+    <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Arbeitsstil</div>
+    <div class="pill-row mb" id="ob-s">${WORK_STYLES.map(s=>`<span class="pill ${profile.workStyle===s.id?'active':''}" data-v="${s.id}">${s.label}</span>`).join("")}</div>
+    <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Lerntyp</div>
+    <div class="pill-row mb" id="ob-lr">${LEARN_STYLES.map(s=>`<span class="pill ${profile.learnStyle===s.id?'active':''}" data-v="${s.id}">${s.label}</span>`).join("")}</div>
+    <button class="btn btn-primary mt" id="ob-n" onclick="nextOB()" ${!(profile.aiExp&&profile.workStyle&&profile.learnStyle)?'disabled':''}>Weiter</button>`;
+    const ck=()=>{document.getElementById("ob-n").disabled=!(profile.aiExp&&profile.workStyle&&profile.learnStyle);};
+    el.querySelector("#ob-e").onclick=e=>{const p=e.target.closest("[data-v]");if(!p)return;profile.aiExp=p.dataset.v;el.querySelectorAll("#ob-e [data-v]").forEach(x=>x.classList.remove("active"));p.classList.add("active");document.getElementById("ed").classList.toggle("hide",profile.aiExp!=="regular");ck();};
+    el.querySelector("#ob-s").onclick=e=>{const p=e.target.closest("[data-v]");if(!p)return;profile.workStyle=p.dataset.v;el.querySelectorAll("#ob-s [data-v]").forEach(x=>x.classList.remove("active"));p.classList.add("active");ck();};
+    el.querySelector("#ob-lr").onclick=e=>{const p=e.target.closest("[data-v]");if(!p)return;profile.learnStyle=p.dataset.v;el.querySelectorAll("#ob-lr [data-v]").forEach(x=>x.classList.remove("active"));p.classList.add("active");ck();};
+  } else if(onboardStep===3){
+    const ph=ROLES.find(r=>r.id===profile.role)?.ph||"z.B. Eine Aufgabe die dich nervt...";
+    el.innerHTML=`${dots}${back}<h2>Dein roter Faden</h2><p class="subtitle">Beschreib eine Aufgabe die dich diese Woche besch\u00e4ftigt.</p>
+    <textarea id="ti" rows="3" placeholder="${esc(ph)}">${esc(profile.task)}</textarea>
+    <button class="btn btn-primary mt" id="ob-n" onclick="finishOB()" ${!profile.task?'disabled':''}>Arena starten</button>`;
+    const ta=document.getElementById("ti");
+    const up=()=>{profile.task=ta.value.trim();document.getElementById("ob-n").disabled=!profile.task;};
+    ta.addEventListener("input",up);ta.addEventListener("paste",()=>setTimeout(up,0));
+  }
+}
+function chatNameDone(){
+  const inp=document.getElementById("ob-name");
+  if(!inp||!inp.value.trim())return;
+  setupData.name=inp.value.trim();
+  document.getElementById("chat-name-echo").textContent=setupData.name;
+  document.getElementById("chat-greeting").textContent="Hi "+setupData.name+"!";
+  document.getElementById("chat-step2").classList.remove("hide");
+  document.getElementById("chat-step2").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function renderOnboardingClassic(){
+  // Fallback to traditional form onboarding
+  const el=document.getElementById("act-content");
+  el.innerHTML=`<h2>Wer bist du?</h2><p class="subtitle">Damit wir dir die richtigen Tools zeigen.</p>
+    <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Dein Name</div>
+    <input type="text" id="ob-name" placeholder="Dein Vorname" value="${esc(setupData.name)}" style="margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Deine Rolle bei HORSCH</div>
+    <div class="chip-row" id="ob-r">${ROLES.map(r=>`<span class="chip ${profile.role===r.id?'active':''}" data-v="${r.id}">${r.label}</span>`).join("")}</div>
+    <div id="rfw" class="${profile.role==='sonstiges'?'':'hide'}" style="margin-top:8px;"><input type="text" id="rf" placeholder="Was machst du?" value="${esc(profile.roleFree)}"></div>
+    <div style="margin-top:16px;font-size:13px;font-weight:600;margin-bottom:8px;">Sprache</div>
+    <div class="pill-row" id="ob-l"><span class="pill ${profile.language==='de'?'active':''}" data-v="de">Haupts\u00e4chlich Deutsch</span><span class="pill ${profile.language==='mixed'?'active':''}" data-v="mixed">Deutsch + Englisch</span></div>
+    <button class="btn btn-primary mt" id="ob-n" onclick="nextOB()" ${!profile.role||!setupData.name?'disabled':''}>Weiter</button>`;
+  document.getElementById("ob-name").addEventListener("input",function(){setupData.name=this.value.trim();const b=document.getElementById("ob-n");if(b)b.disabled=!profile.role||!setupData.name;});
+  el.querySelector("#ob-r").onclick=e=>{const c=e.target.closest("[data-v]");if(!c)return;profile.role=c.dataset.v;el.querySelectorAll("#ob-r [data-v]").forEach(x=>x.classList.remove("active"));c.classList.add("active");document.getElementById("rfw").classList.toggle("hide",profile.role!=="sonstiges");const b=document.getElementById("ob-n");if(b)b.disabled=!profile.role||!setupData.name;};
+  el.querySelector("#ob-l").onclick=e=>{const p=e.target.closest("[data-v]");if(!p)return;profile.language=p.dataset.v;el.querySelectorAll("#ob-l [data-v]").forEach(x=>x.classList.remove("active"));p.classList.add("active");};
+}
+
+function nextOB(){
+  if(onboardStep===0){const f=document.getElementById("rf");if(f)profile.roleFree=f.value.trim();const nm=document.getElementById("ob-name");if(nm)setupData.name=nm.value.trim();document.querySelector(".top-bar").style.display="";}
+  if(onboardStep===2){const t=document.getElementById("ct");if(t)profile.currentTool=t.value.trim();}
+  onboardStep++;renderOnboarding();window.scrollTo({top:0,behavior:"smooth"});
+}
+function finishOB(){
+  profile.task=document.getElementById("ti").value.trim();if(!profile.task)return;
+  buildContextPrompt();goToAct(0);loadCtxDemo();
+}
+
+/* ===== RENDER ACT (all sections) ===== */
+function renderAct(){
+  const el=document.getElementById("act-content");
+  if(currentAct===0)renderAct0(el);
+  else if(currentAct===1)renderAct1(el);
+  else if(currentAct===2)renderAct2(el);
+  setupScrollSpy();
+}
+
+/* ===== SCROLL SPY ===== */
+function setupScrollSpy(){
+  const tabs=document.querySelectorAll(".tab-bar .tab");
+  const sections=sectionState[currentAct].sections;
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const id=e.target.id.replace("sec-","");
+        tabs.forEach(t=>{t.classList.remove("active");if(t.textContent.includes(SECTION_LABELS[id]))t.classList.add("active");});
+      }
+    });
+  },{threshold:0.3,rootMargin:"-100px 0px 0px 0px"});
+  sections.forEach(s=>{const el=document.getElementById("sec-"+s);if(el)observer.observe(el);});
+}
+
+/* ===== LOCKED SECTION HTML ===== */
+function lockedHTML(id,desc,previewHTML){
+  return`<div class="section-locked" id="sec-${id}">
+    <div class="lock-overlay"><div class="lock-title">\uD83D\uDD12 ${SECTION_LABELS[id]}</div><div class="lock-desc">${desc}</div></div>
+    <div class="blur-preview">${previewHTML}</div>
+  </div>`;
+}
+
+/* ===== AKT 0: Dein Match ===== */
+let ctxLoaded=false;
+async function loadCtxDemo(){
+  if(ctxLoaded)return;ctxLoaded=true;
+  const[n,t]=await Promise.all([askAI("claude",profile.task,"Antworte auf Deutsch. Max 80 W\u00f6rter."),askAI("claude",profile.task,contextPrompt+" Antworte auf Deutsch, passgenau. Max 80 W\u00f6rter.")]);
+  window._cn=n;window._ct=t;if(currentAct===0)renderAct();
+}
+let toolsLoaded=false;
+async function loadTools(){
+  if(toolsLoaded)return;toolsLoaded=true;
+  const p=contextPrompt+"\n\nStell dich vor: Was sind deine St\u00e4rken allgemein? Nenne kurz wie du bei meiner Aufgabe helfen k\u00f6nntest, aber zeig auch dar\u00fcber hinaus was du kannst. Ehrlich \u00fcber Grenzen. Max 100 W\u00f6rter.";
+  const res=await Promise.all(TOOLS.map(t=>askAI(t.id,p,"Du bist "+t.name+". Ich-Form, Deutsch.").then(r=>({id:t.id,...r}))));
+  window._tp={};res.forEach(r=>{window._tp[r.id]=r;});if(currentAct===0)renderAct();
+}
+
+function renderAct0(el){
+  const ss=sectionState[0];
+  const role=ROLES.find(r=>r.id===profile.role)?.label||"";
+  const ucs=profile.useCases.map(id=>USE_CASES.find(u=>u.id===id)?.label).filter(Boolean);
+  const tags=[role+" bei HORSCH",WORK_STYLES.find(s=>s.id===profile.workStyle)?.label,...ucs.slice(0,2)].filter(Boolean);
+  const nH=window._cn?.text&&!window._cn?.noKey?`<div class="result-text" style="font-size:12px;">${esc(window._cn.text)}</div>`:renderLoading();
+  const tH=window._ct?.text&&!window._ct?.noKey?`<div class="result-text" style="font-size:12px;">${esc(window._ct.text)}</div>`:renderLoading();
+
+  let html=`
+  <div class="section" id="sec-kontext">
+    <div class="act-label">Akt 1</div><h2>Gleiche Frage \u2014 anderes Ergebnis</h2>
+    <p class="subtitle">Deine Aufgabe, zweimal an die gleiche KI \u2014 einmal roh, einmal mit deinem Profil.</p>
+    <div class="context-grid">
+      <div class="ctx-card naked"><div class="ctx-label">Ohne Kontext</div><div class="ctx-prompt">\u201e${esc(profile.task)}\u201c</div>${nH}</div>
+      <div class="ctx-card tuned"><div class="ctx-label">Mit deinem Profil</div><div class="ctx-prompt">\u201e${esc(profile.task)}\u201c<br><span style="color:#16a34a;font-style:normal;font-weight:500;font-size:10px;">+ ${tags.join(" \u00b7 ")}</span></div>${tH}</div>
+    </div>
+    <div class="insight"><p><strong>Der Unterschied ist nicht das Tool \u2014 sondern wie du es einrichtest.</strong></p></div>
+    ${ss.locked.tools?`<button class="btn btn-primary" onclick="markDone('kontext');unlock('tools');loadTools();">Verstanden \u2014 5 Tools freischalten \u2192</button>`:''}
+  </div><hr class="section-divider">`;
+
+  // Tools section (card grid)
+  if(ss.locked.tools){
+    html+=lockedHTML("tools","Wird freigeschaltet nach dem Kontext-Vergleich",`<div class="chip-row"><span class="chip">\u{1F9E0} Claude</span><span class="chip">\u2728 Gemini</span><span class="chip">\u26A1 ChatGPT</span></div>`);
+  } else {
+    if(!toolsLoaded)loadTools();
+    html+=`<div class="section" id="sec-tools">
+      <h2 style="font-size:18px;">Bin ich bei dir richtig?</h2>
+      <p class="subtitle">Jedes Tool stellt sich vor. Klick f\u00fcr Details.</p>
+      <div class="tool-grid">${TOOLS.map(t=>`<div class="tool-grid-card ${expandedTool===t.id?'active':''}" style="${expandedTool===t.id?'border-color:'+t.color:''}" onclick="expandTool('${t.id}')"><div class="tg-emoji">${t.emoji}</div><div class="tg-name">${t.name}</div><div class="tg-vibe">${t.vibe}</div></div>`).join("")}</div>
+      ${expandedTool?renderToolDetail():"<p style='font-size:12px;color:var(--text-faint);text-align:center;margin-top:8px;'>Klick auf ein Tool f\u00fcr Details</p>"}
+      ${ss.locked.arena?`<button class="btn btn-primary mt" onclick="markDone('tools');unlock('arena');">Arena freischalten \u2192</button><button class="btn-skip" onclick="markDone('tools');unlock('arena');markDone('arena');goToAct(1);">Arena \u00fcberspringen \u2192</button>`:''}
+    </div><hr class="section-divider">`;
+  }
+
+  // Arena section (separate, list/leiste format)
+  if(ss.locked.arena){
+    html+=lockedHTML("arena","Wird freigeschaltet nach den 5 Tools",`<div class="chip-row"><span class="chip">Lieferanten-Mail</span><span class="chip">Feedback</span></div><div style="height:40px;background:var(--surface-2);border-radius:8px;"></div>`);
+  } else if(!ss.done.arena) {
+    // When arena is active, minimize tools section above
+    html+=`<div class="section" id="sec-arena">
+      <h2 style="font-size:18px;">Arena</h2><p class="subtitle">Eigene Prompts testen \u2014 alle 5 Tools antworten.</p>
+      <div class="chip-row" id="arena-chips">${SPARKS.map((c,ci)=>c.items.map((it,ii)=>`<span class="chip" data-s="${ci}-${ii}">${it.l}</span>`).join("")).join("")}</div>
+      <textarea id="arena-in" rows="3" placeholder="Eigenen Prompt eingeben..."></textarea>
+      <button class="btn btn-primary mt" id="arena-go" onclick="fireArena()">Alle fragen</button>
+      <div id="arena-res" class="mt"></div>
+      <button class="btn btn-primary mt" onclick="markDone('arena');goToAct(1);">Weiter \u2014 Du bist der Pilot</button>
+    </div>`;
+  }
+
+  el.innerHTML=html;
+  updateStickyCTA(ss.locked.tools?"":"Weiter \u2014 Du bist der Pilot","markDone('arena');goToAct(1);");
+
+  // Arena chip clicks
+  el.querySelector("#arena-chips")?.addEventListener("click",e=>{const c=e.target.closest("[data-s]");if(!c)return;const[ci,ii]=c.dataset.s.split("-").map(Number);const inp=document.getElementById("arena-in");if(inp)inp.value=SPARKS[ci].items[ii].p;});
+}
+
+function expandTool(id){expandedTool=expandedTool===id?null:id;renderAct();}
+function renderToolDetail(){
+  const t=TOOLS.find(x=>x.id===expandedTool);
+  const pitch=window._tp?.[t.id];
+  const promptText=contextPrompt||profile.task||"";
+  const pH=pitch?.text&&!pitch?.noKey?`<div class="result-text" style="font-size:12px;">${esc(pitch.text)}</div>${renderToolLinkBtn(t,promptText)}`:pitch?.noKey?(pitch?.geminiDown?renderGeminiFallback():renderFallback(t)):`<div class="result-text" style="font-size:12px;">${renderLoading(t.name+" denkt nach...")}</div>`;
+  return`<div class="tool-detail fade-up" style="border-left:3px solid ${t.color};">
+    <div class="td-header"><div class="td-icon" style="background:${t.color}22;">${t.emoji}</div><div><div style="font-size:15px;font-weight:700;">${t.name}</div><div style="font-size:10px;color:var(--text-dim);">${t.vibe} \u00b7 ${t.by}</div></div></div>
+    <div class="td-body"><strong>Stark bei:</strong> ${t.strengths}<br><strong>Weniger:</strong> ${t.weaker}</div>
+    <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">${pH}</div>
+  </div>`;
+}
+
+function renderGeminiFallback(){
+  const t=TOOLS.find(x=>x.id==="gemini");
+  return`<div class="tool-fallback"><div class="tool-icon" style="background:${t.color}22;">${t.emoji}</div><div class="tool-info"><div class="name">${t.name}</div><div class="desc">Gerade nicht erreichbar \u2014 direkt in Gemini ausprobieren.</div></div><a href="https://gemini.google.com" target="_blank" class="try-link" style="background:${t.color}18;color:${t.color};">In Gemini ausprobieren \u2192</a></div>`;
+}
+
+async function fireArena(){
+  const p=document.getElementById("arena-in").value.trim();if(!p)return;
+  const btn=document.getElementById("arena-go");btn.disabled=true;btn.textContent="Tools antworten...";
+  const c=document.getElementById("arena-res");
+  c.innerHTML=TOOLS.map(t=>`<div class="card mb" style="border-left:3px solid ${t.color};"><div class="tool-badge"><span class="tool-dot" style="background:${t.color};"></span>${t.name}</div><div id="ar-${t.id}">${renderLoading(t.name+"...")}</div></div>`).join("");
+  const res=await Promise.all(TOOLS.map(t=>askAI(t.id,p,contextPrompt+" Antworte auf Deutsch. Max 150 W\u00f6rter.").then(r=>({id:t.id,...r}))));
+  res.forEach(r=>{
+    const t=TOOLS.find(x=>x.id===r.id);
+    if(r.noKey||!r.text){
+      if(r.geminiDown){
+        document.getElementById("ar-"+r.id).innerHTML=renderGeminiFallback();
+      }else{
+        document.getElementById("ar-"+r.id).innerHTML=renderFallback(t,p);
+      }
+    }else{
+      document.getElementById("ar-"+r.id).innerHTML=`<div class="result-text">${esc(r.text)}</div>${renderToolLinkBtn(t,p)}`;
+    }
+  });
+  btn.textContent="Nochmal fragen";btn.disabled=false;
+}
+
+/* ===== AKT 1: Du bist der Pilot ===== */
+function renderAct1(el){
+  const ss=sectionState[1];
+  let html=`<div class="section" id="sec-szenario">
+    <div class="act-label">Akt 2</div><h2>Du bist der Pilot</h2>
+    <p class="subtitle">KI kann brillant antworten. Aber reicht das?</p>
+    <div id="grenz-cards">${pickThree().map((li,i)=>{const l=LIMITS[li];return`<div class="card mb fade-up" style="border-left:3px solid ${l.color};cursor:pointer;" onclick="selectLimit(${li})" id="gc-${li}"><div style="font-size:10px;font-weight:600;color:${l.color};text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">${l.cat}</div><p style="font-size:13px;line-height:1.5;">${l.q}</p></div>`;}).join("")}</div>
+    <button onclick="renderAct1(document.getElementById('act-content'))" style="background:none;border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-size:12px;font-family:var(--font);color:var(--text-dim);cursor:pointer;">Andere Szenarien</button>
+    <div id="grenz-loading"></div>
+  </div><hr class="section-divider">`;
+
+  if(ss.locked.reflexion){
+    html+=lockedHTML("reflexion","W\u00e4hle oben ein Szenario \u2014 dann antwortet die KI",`<div class="reflect-card"><div class="rq">H\u00e4ttest du das so gesagt?</div><div class="rq-btns"><div class="rq-btn">Ja</div><div class="rq-btn">Anders</div></div></div>`);
+  } else {
+    const limit=LIMITS[selectedLimitIdx];
+    const ans=window._limitAns;
+    const aH=ans?.text&&!ans?.noKey?`<div class="result-text" style="font-size:12px;">${esc(ans.text)}</div>`:"";
+    // Multi-select question detection: question index 1 ("Was weiss die KI nicht?") is multi-select
+    const isMultiQ=(qi)=>qi===1;
+    const allDone=reflectAnswers.every((a,i)=>{
+      if(isMultiQ(i)){return Array.isArray(a)&&a.length>0;}
+      return a!==null;
+    });
+    html+=`<div class="section" id="sec-reflexion">
+      <div class="card mb" style="border-left:3px solid var(--claude);"><div class="tool-badge"><span class="tool-dot" style="background:var(--claude);"></span>Claude antwortet</div>${aH}</div>
+      <div class="insight mb"><p>Die Antwort klingt gut. Aber frag dich:</p></div>
+      ${limit.reflect.map((rq,i)=>{
+        if(isMultiQ(i)){
+          // Multi-select chips
+          const sel=Array.isArray(reflectAnswers[i])?reflectAnswers[i]:[];
+          return`<div class="reflect-card"><div class="rq">${rq[0]} <span style="font-size:10px;color:var(--text-faint);">(Mehrfachauswahl)</span></div><div class="rq-btns">${rq.slice(1).map((o,j)=>`<div class="rq-btn ${sel.includes(j)?'picked':''}" onclick="toggleMultiReflect(${i},${j})">${o}</div>`).join("")}</div></div>`;
+        }else{
+          return`<div class="reflect-card"><div class="rq">${rq[0]}</div><div class="rq-btns">${rq.slice(1).map((o,j)=>`<div class="rq-btn ${reflectAnswers[i]===j?'picked':''}" onclick="reflectAnswers[${i}]=${j};renderAct();">${o}</div>`).join("")}</div></div>`;
+        }
+      }).join("")}
+      <button class="btn btn-primary mt" ${allDone?'':'disabled'} onclick="showOverlay('\uD83C\uDFAF','KI denkt mit \u2014\\ndu entscheidest.','Das macht dich nicht \u00fcberfl\u00fcssig.<br>Das macht dich zum Piloten.','${limit.insight.replace(/'/g,"\\'")}','Weiter \u2014 Mein Setup',()=>{markDone('reflexion');goToAct(2);})">Mein Fazit</button>
+    </div>`;
+  }
+  el.innerHTML=html;
+  updateStickyCTA("","");
+}
+
+function toggleMultiReflect(qi,val){
+  if(!Array.isArray(reflectAnswers[qi]))reflectAnswers[qi]=[];
+  const idx=reflectAnswers[qi].indexOf(val);
+  if(idx>=0)reflectAnswers[qi].splice(idx,1);
+  else reflectAnswers[qi].push(val);
+  renderAct();
+}
+
+let usedLimits=new Set();
+function pickThree(){let a=LIMITS.map((_,i)=>i).filter(i=>!usedLimits.has(i));if(a.length<3){usedLimits.clear();a=LIMITS.map((_,i)=>i);}for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}const r=a.slice(0,3);r.forEach(i=>usedLimits.add(i));return r;}
+
+async function selectLimit(idx){
+  selectedLimitIdx=idx;reflectAnswers=[null,null,null];
+  // Reset multi-select question to empty array
+  reflectAnswers[1]=[];
+  document.querySelectorAll("[id^='gc-']").forEach(c=>{c.style.opacity=c.id==="gc-"+idx?"1":"0.3";c.style.cursor="default";c.onclick=null;});
+  document.getElementById("grenz-loading").innerHTML=renderLoading("KI antwortet...");
+  const r=await askAI("claude",LIMITS[idx].q,"Antworte auf Deutsch, kompetent. Gib eine gute Antwort. Max 150 W\u00f6rter.");
+  window._limitAns=r;
+  markDone("szenario");unlock("reflexion");
+  renderAct();
+  setTimeout(()=>scrollToSection("reflexion"),300);
+}
+
+/* ===== AKT 2: Mein Setup ===== */
+function renderAct2(el){
+  const ss=sectionState[2];
+  let html="";
+
+  // Reflexion
+  html+=`<div class="section" id="sec-reflexion">
+    <div class="act-label">Akt 3</div><h2>Kurze Reflexion</h2><p class="subtitle">Drei Fragen bevor du dein Tool w\u00e4hlst.</p>
+    <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">1. Was hat dich \u00fcberrascht?</div><textarea rows="2" placeholder="z.B. Dass die Tools so unterschiedlich..." oninput="setupData.answers[0]=this.value">${esc(setupData.answers[0])}</textarea></div>
+    <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">2. Welches Tool testest du diese Woche?</div><textarea rows="2" placeholder="z.B. Claude f\u00fcr Feedback..." oninput="setupData.answers[1]=this.value">${esc(setupData.answers[1])}</textarea></div>
+    <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">3. Wof\u00fcr bewusst keine KI?</div><textarea rows="2" placeholder="z.B. Pers\u00f6nliche Gespr\u00e4che..." oninput="setupData.answers[2]=this.value">${esc(setupData.answers[2])}</textarea></div>
+    ${ss.locked.tool?`<button class="btn btn-primary" onclick="markDone('reflexion');unlock('tool');">Weiter \u2014 Tool w\u00e4hlen</button>`:''}
+  </div><hr class="section-divider">`;
+
+  // Tool
+  if(ss.locked.tool){
+    html+=lockedHTML("tool","Erst die Reflexion abschlie\u00dfen",`<div class="gap-8 flex-wrap"><span class="chip">\u{1F9E0} Claude</span><span class="chip">\u2728 Gemini</span><span class="chip">\u26A1 ChatGPT</span></div>`);
+  } else {
+    const conf=window._toolConf;
+    const confH=conf?.text&&!conf?.noKey?`<div class="insight green mb"><p>${esc(conf.text)}</p></div>`:conf==="loading"?`<div class="mb">${renderLoading("Pr\u00fcfe ob das Tool passt...")}</div>`:"";
+    html+=`<div class="section" id="sec-tool">
+      <h2 style="font-size:18px;">Mein Prim\u00e4r-Tool</h2><p class="subtitle">W\u00e4hle \u2014 die KI gibt dir sofort Feedback.</p>
+      <div class="gap-8 flex-wrap mb">${TOOLS.map(t=>`<button class="btn-tool ${setupData.primary===t.id?'selected':''}" style="${setupData.primary===t.id?'background:'+t.color+';color:#fff;':''}" onclick="pickPrimary('${t.id}')">${t.emoji} ${t.name}</button>`).join("")}</div>
+      ${confH}
+      ${setupData.primary&&conf&&conf!=="loading"&&ss.locked.plan?`<button class="btn btn-primary" onclick="markDone('tool');unlock('plan');">Weiter \u2014 Dein Plan</button>`:''}
+    </div><hr class="section-divider">`;
+  }
+
+  // Plan (no large HORSCH block; cost hint only under Pro)
+  if(ss.locked.plan){
+    html+=lockedHTML("plan","Erst dein Tool w\u00e4hlen",`<div style="height:60px;background:var(--surface-2);border-radius:8px;"></div>`);
+  } else {
+    const t=TOOLS.find(x=>x.id===setupData.primary);
+    const tier=TOOL_TIERS[setupData.primary];
+    const mc=tier?.proTriggers.filter(u=>profile.useCases.includes(u)).length||0;
+    const pr=mc>=2||(mc>=1&&profile.aiExp==="regular");
+    const ct=setupData.primaryTier;
+    html+=`<div class="section" id="sec-plan">
+      <div style="font-size:13px;font-weight:600;margin-bottom:6px;">Welcher Plan f\u00fcr ${t.name}?</div>
+      <div class="tier-toggle"><div class="tier-option ${ct==='free'?'active':''}" onclick="setupData.primaryTier='free';renderAct();"><div class="tier-name">${tier.free.name}</div></div><div class="tier-option ${ct==='pro'?'active':''} ${pr?'recommended':''}" onclick="setupData.primaryTier='pro';renderAct();"><div class="tier-name">${tier.pro.name}</div></div></div>
+      ${pr?`<style>.tier-option.recommended::after{background:${t.color}18;color:${t.color};}</style>`:''}
+      <ul class="tier-features">${(ct==='pro'?tier.pro:tier.free).features.map(f=>`<li>${f}</li>`).join("")}</ul>
+      ${ct==='pro'?`<div class="insight pink"><p>${tier.pro.name} kostet ca. 20 \u20ac/Monat \u2014 <strong>HORSCH \u00fcbernimmt die Kosten f\u00fcr 2\u20133 Monate.</strong> Der einzige Haken: Aktiv damit arbeiten und Erfahrungen teilen.</p></div>`:''}
+      ${pr&&ct==='free'?`<div class="insight yellow"><p>F\u00fcr deine Anwendungsf\u00e4lle k\u00f6nnte sich <strong>${tier.pro.name}</strong> lohnen.</p></div>`:''}
+      <div style="font-size:13px;font-weight:600;margin:16px 0 6px;">Sekund\u00e4r-Tool <span style="font-weight:400;color:var(--text-faint);">(optional)</span></div>
+      <div class="gap-8 flex-wrap mb">${TOOLS.filter(x=>x.id!==setupData.primary).map(t=>`<button class="btn-tool ${setupData.secondary===t.id?'selected':''}" style="${setupData.secondary===t.id?'background:'+t.color+';color:#fff;':''}" onclick="setupData.secondary='${t.id}';renderAct();">${t.emoji} ${t.name}</button>`).join("")}<button class="btn-tool" style="color:var(--text-faint);font-size:11px;" onclick="setupData.secondary=null;renderAct();">Keins</button></div>
+      ${ss.locked.karte?`<button class="btn btn-primary" onclick="markDone('plan');unlock('karte');">Weiter \u2014 Karte erstellen</button>`:''}
+    </div><hr class="section-divider">`;
+  }
+
+  // Karte
+  if(ss.locked.karte){
+    html+=lockedHTML("karte","Erst den Plan abschlie\u00dfen",`<div style="height:80px;background:linear-gradient(135deg,#1a1a1a,#2d2d2d);border-radius:12px;"></div>`);
+  } else {
+    html+=`<div class="section" id="sec-karte">
+      <h2 style="font-size:18px;">Deine KI-Karte</h2><p class="subtitle">Gib deinen Namen ein.</p>
+      <input type="text" id="sn" placeholder="Dein Name" value="${esc(setupData.name)}" oninput="setupData.name=this.value" style="margin-bottom:12px;">
+      <button class="btn btn-primary" onclick="genCard()">Karte erstellen</button>
+      <div id="card-area" class="mt"></div>
+    </div><hr class="section-divider">`;
+  }
+
+  // Los! (merged Setup + Werkzeugkoffer in ONE flow)
+  if(ss.locked.los){
+    html+=lockedHTML("los","Erst die Karte erstellen",`<div style="text-align:center;font-size:24px;padding:12px;">\uD83D\uDE80</div>`);
+  } else {
+    html+=renderLosSection();
+  }
+
+  el.innerHTML=html;
+  updateStickyCTA("","");
+}
+
+function renderLosSection(){
+  const pri=TOOLS.find(x=>x.id===setupData.primary);
+  const basicPrompt=buildBasicPrompt();
+  const bfid="_fb"+(++_fi);_fb[bfid]=basicPrompt;
+  const ch=CHALLENGES[profile.role]||CHALLENGES.sonstiges;
+  const activePackage=getActivePackage();
+
+  let html=`<div class="section" id="sec-los">
+    <div style="text-align:center;margin-bottom:16px;"><div style="font-size:32px;">\uD83D\uDE80</div><h2>Jetzt wird\u2019s ernst</h2><p class="subtitle" style="margin-bottom:0;">Dein Starter-Prompt \u2014 sofort einsatzbereit.</p></div>
+
+    <div style="font-size:14px;font-weight:700;margin-bottom:8px;">Dein Starter-Prompt</div>
+    <div class="starter-box" style="margin-bottom:12px;"><button class="copy-btn" onclick="copyP('${bfid}',this)">Kopieren</button><div class="result-text" style="font-size:11px;padding-right:60px;">${esc(basicPrompt)}</div></div>
+    <button class="btn btn-primary mb" style="background:${pri.color};" onclick="copyOpen('${pri.id}',_fb['${bfid}'],this)">Basic-Prompt kopieren & ${pri.name} \u00f6ffnen</button>`;
+
+  // Privacy hint (collapsible, tool-specific)
+  const ph=PRIVACY_HINTS[setupData.primary];
+  if(ph){
+    html+=`<div class="privacy-section">
+      <div class="privacy-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ah-arrow').classList.toggle('open');">\uD83D\uDD12 Datenschutz-Tipp <span class="ah-arrow" style="font-size:11px;color:var(--text-faint);transition:transform .2s;">\u25BC</span></div>
+      <div class="privacy-body"><strong>${ph.label}:</strong> ${ph.hint}</div>
+    </div>`;
+  }
+
+  // "Gib mir mehr?" section in HORSCH-Red border
+  html+=`<div class="mehr-box">
+    <div class="mehr-title">\uD83D\uDCA1 Gib mir mehr?</div>
+    <p style="font-size:13px;color:var(--text-dim);margin-bottom:14px;">Dein Werkzeugkoffer: W\u00e4hle ein Paket oder stell dir alles selbst zusammen.</p>
+
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span style="font-size:16px;">\uD83E\uDDF0</span>
+      <span style="font-size:14px;font-weight:700;">Werkzeugkoffer</span>
+      <span class="info-btn" onclick="document.getElementById('harness-info').classList.toggle('show')">i</span>
+    </div>
+    <div class="info-tooltip" id="harness-info"><strong>Was ist ein Harness?</strong><br>Ein Harness ist das "Geschirr" f\u00fcr deine KI \u2014 es gibt ihr Kontext, Regeln und Pers\u00f6nlichkeit. Ohne Harness bekommt jeder die gleiche generische Antwort. Mit Harness wird dein Tool zu DEINEM Tool.<br><br>Dein Starter-Prompt + Add-ons = dein pers\u00f6nlicher Harness.</div>
+
+    <div class="paket-grid-4">
+      <div class="paket-card-sm ${activePackage==='einsteiger'?'selected':''}" onclick="applyPackage('einsteiger');reRenderLos()"><div class="pk-emoji">\uD83C\uDF31</div><div class="pk-name">Einsteiger</div><div class="pk-count">4 Add-ons</div></div>
+      <div class="paket-card-sm ${activePackage==='macher'?'selected':''}" onclick="applyPackage('macher');reRenderLos()"><div class="pk-tag">Empfohlen</div><div class="pk-emoji">\u26A1</div><div class="pk-name">Macher</div><div class="pk-count">9 Add-ons</div></div>
+      <div class="paket-card-sm ${activePackage==='power'?'selected':''}" onclick="applyPackage('power');reRenderLos()"><div class="pk-emoji">\uD83E\uDDE0</div><div class="pk-name">Power User</div><div class="pk-count">Alle ${ADDONS.length}</div></div>
+      <div class="paket-card-sm individuell ${activePackage==='individuell'?'selected':''}"><div class="pk-emoji">\uD83C\uDFA8</div><div class="pk-name">Individuell</div><div class="pk-count">${selectedAddons.size} Add-ons</div></div>
+    </div>
+
+    <div class="divider-text">Feintuning \u2014 klick auf einen Cluster</div>`;
+
+  // Clusters (accordion)
+  CLUSTERS.forEach(cl=>{
+    const items=ADDONS.filter(a=>a.cluster===cl.id);
+    const onCount=items.filter(a=>selectedAddons.has(a.id)).length;
+    const isBreaker=cl.isBreaker;
+    html+=`<div class="akk-cluster" ${isBreaker?'style="border-color:#C8102E44;"':''}>
+      <div class="akk-header" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open');" ${isBreaker?'style="background:#fdf2f2;"':''}>
+        <div class="ah-left"><span class="ah-emoji">${cl.emoji}</span><span class="ah-name" ${isBreaker?'style="color:var(--red);"':''}>${cl.name}</span><span class="ah-count" ${isBreaker?'style="background:#fde8ec;color:var(--red);"':''}>${onCount}/${items.length}</span></div>
+        <span class="ah-arrow">\u25BC</span>
+      </div>
+      <div class="akk-body">
+        ${isBreaker?'<div style="font-size:10px;color:var(--red);font-weight:500;margin-bottom:6px;line-height:1.4;">Nicht dein Spiegel \u2014 dein Wachstumspartner. Diese Add-ons sorgen daf\u00fcr, dass die KI dich weiterbringt, nicht nur best\u00e4tigt.</div>':''}
+        ${items.map(a=>`<div class="addon-card-full ${selectedAddons.has(a.id)?'on':''}" onclick="toggleAddon('${a.id}');reRenderLos();">
+          <span class="acf-emoji">${a.emoji}</span>
+          <div class="acf-info"><div class="acf-name">${a.name}</div><div class="acf-desc">${a.desc}</div></div>
+          <div class="acf-toggle">${selectedAddons.has(a.id)?'\u2713':''}</div>
+        </div>`).join("")}
+      </div>
+    </div>`;
+  });
+
+  html+=`<div style="text-align:center;font-size:12px;color:var(--text-faint);margin:10px 0;">${selectedAddons.size} von ${ADDONS.length} aktiviert</div>`;
+
+  // Enhanced prompt preview (live update)
+  const fullPrompt=buildFullPrompt();
+  const pfid="_fb"+(++_fi);_fb[pfid]=fullPrompt;
+  html+=`<div class="prompt-preview">
+    <button class="copy-btn" onclick="copyP('${pfid}',this)">Kopieren</button>
+    <div class="pp-label">Dein zusammengebauter Prompt</div>
+    <div class="pp-text">${esc(fullPrompt)}</div>
+  </div>
+  <div class="insight"><p><strong>Tipp:</strong> Starte erstmal mit deinem Paket. Wenn du dich eingespielt hast, komm hierher zur\u00fcck und aktiviere nach und nach mehr.</p></div>
+  <button class="btn btn-primary mt mb" style="background:${pri.color};" onclick="copyOpen('${pri.id}',_fb['${pfid}'],this)">Erweiterten Prompt kopieren & ${pri.name} \u00f6ffnen</button>
+  </div>`;
+  // end of mehr-box
+
+  // Live-Challenge (role-based)
+  html+=`<div class="challenge-card"><div class="ch-label">Deine erste Aufgabe</div><div class="ch-title">${ch.title}</div><div class="ch-body">${ch.body}</div><div class="ch-example">\u201e${ch.example}\u201c</div></div>
+  <div style="text-align:center;"><div class="timer-badge">\u23F1 2 Minuten</div></div>
+  <div class="insight mt"><p><strong>Erinnerst du dich?</strong> Ohne Kontext \u2192 generisch. Mit Starter-Prompt \u2192 passgenau.</p></div>
+
+  <button class="btn btn-primary mt" onclick="showCelebration()" style="background:var(--text);">\uD83D\uDE4C Geschafft! High Five</button>
+  </div>`;
+
+  return html;
+}
+
+function reRenderLos(){
+  renderAct();
+  setTimeout(()=>scrollToSection("los"),100);
+}
+
+async function pickPrimary(id){
+  setupData.primary=id;setupData.primaryTier="free";
+  window._toolConf="loading";renderAct();
+  const t=TOOLS.find(x=>x.id===id);
+  const r=await askAI("claude","User w\u00e4hlte "+t.name+". Profil: "+contextPrompt+"\n\nKurze Best\u00e4tigung (3\u20134 S\u00e4tze): Warum passt "+t.name+"? Welches Zweit-Tool erg\u00e4nzt gut?","Auf Deutsch, warm, max 60 W\u00f6rter.");
+  window._toolConf=r.text&&!r.noKey?r:{text:t.name+" passt gut zu dir \u2014 besonders f\u00fcr "+t.sweet+".",noKey:false};
+  renderAct();setTimeout(()=>document.getElementById("sec-tool")?.scrollIntoView({behavior:"smooth",block:"start"}),200);
+}
+
+async function genCard(){
+  if(!setupData.name.trim()){alert("Bitte Namen eingeben.");return;}
+  const pri=TOOLS.find(x=>x.id===setupData.primary);
+  const sec=setupData.secondary?TOOLS.find(x=>x.id===setupData.secondary):null;
+  const role=ROLES.find(r=>r.id===profile.role)?.label||"";
+  const ucs=profile.useCases.map(id=>USE_CASES.find(u=>u.id===id)?.label).filter(Boolean);
+  const tn=TOOL_TIERS[setupData.primary]?.[setupData.primaryTier]?.name||"Free";
+  document.getElementById("card-area").innerHTML=`
+    <div class="setup-card" id="final-card"><div class="accent-blob" style="background:${pri.color};"></div><div style="position:relative;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px;">AIKIDO KI-Arena \u2014 Mein Setup</div>
+      <div style="font-size:20px;font-weight:700;margin-bottom:4px;">${esc(setupData.name)}</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:16px;">${role}${ucs.length?" \u00b7 "+ucs.join(", "):""}</div>
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;"><div style="width:40px;height:40px;border-radius:10px;background:${pri.color};display:flex;align-items:center;justify-content:center;font-size:20px;">${pri.emoji}</div><div><div style="font-size:15px;font-weight:600;">${pri.name} <span style="font-size:10px;padding:2px 8px;border-radius:4px;background:${setupData.primaryTier==='pro'?pri.color:'rgba(255,255,255,.15)'};color:#fff;">${tn}</span></div><div style="font-size:11px;color:rgba(255,255,255,.5);">Prim\u00e4res Tool</div></div></div>
+      ${sec?`<div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;"><div style="width:32px;height:32px;border-radius:8px;background:${sec.color}44;display:flex;align-items:center;justify-content:center;font-size:16px;">${sec.emoji}</div><div><div style="font-size:13px;font-weight:500;">${sec.name}</div><div style="font-size:10px;color:rgba(255,255,255,.4);">Sekund\u00e4r</div></div></div>`:""}
+      <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:10px;font-size:10px;color:rgba(255,255,255,.3);">HORSCH AIKIDO \u00b7 ${new Date().toLocaleDateString("de-DE",{day:"2-digit",month:"long",year:"numeric"})}</div>
+    </div></div>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 0;">
+      <button onclick="saveCard(this)" class="btn btn-secondary" style="width:auto;padding:8px 16px;font-size:12px;">\uD83D\uDCBE Karte speichern</button>
+      <button onclick="shareCard()" id="share-btn" class="btn btn-secondary" style="width:auto;padding:8px 16px;font-size:12px;">\uD83D\uDCE4 Teilen</button>
+      <button onclick="copyShareText(this)" class="btn btn-secondary" style="width:auto;padding:8px 16px;font-size:12px;">\uD83D\uDCCB Text kopieren</button>
+    </div>
+    <div class="insight pink" style="margin-top:14px;"><p><strong>N\u00e4chster Schritt:</strong> Teile deine Karte in der <strong>AIKIDO Teams-Gruppe</strong> \u2014 so k\u00f6nnen wir dein Pro-Tool f\u00fcr dich einrichten!</p></div>
+    <button class="btn btn-primary" onclick="markDone('karte');unlock('los');renderAct();setTimeout(()=>scrollToSection('los'),300);">Letzter Schritt \u2014 Loslegen!</button>`;
+}
+
+/* ===== CELEBRATION (in-place, no separate act) ===== */
+function showCelebration(){
+  fireConfetti();
+  const el=document.getElementById("act-content");
+  const pri=TOOLS.find(x=>x.id===setupData.primary);
+  const fullPrompt=buildFullPrompt();
+  const cfid="_fb"+(++_fi);_fb[cfid]=fullPrompt;
+  el.innerHTML=`
+    <div class="high-five">
+      <div class="hf-emoji hf-bounce">\uD83D\uDE4C</div>
+      <div class="hf-title">Fertig! Du bist drin.</div>
+      <div class="hf-sub">Dein Tool kennt dich. Jetzt zeig ihm was du drauf hast.</div>
+    </div>
+    <div class="insight pink" style="max-width:400px;margin:0 auto 16px;"><p>Teile deine Karte in der <strong>AIKIDO Teams-Gruppe</strong> \u2014 so k\u00f6nnen wir dein Pro-Tool f\u00fcr dich einrichten!</p></div>
+    <div style="max-width:400px;margin:0 auto;display:flex;flex-direction:column;gap:10px;">
+      <button class="btn btn-primary" style="background:${pri.color};" onclick="copyOpen('${pri.id}',_fb['${cfid}'],this)">Prompt kopieren & ${pri.name} \u00f6ffnen</button>
+      <button class="btn btn-secondary" onclick="goToAct(2);setTimeout(()=>scrollToSection('los'),300);">Zur\u00fcck zum Werkzeugkoffer</button>
+    </div>`;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ===== SCREENSHOT ===== */
+async function renderCardImage(){const c=document.getElementById("final-card");if(!c)return null;await document.fonts.ready;return html2canvas(c,{scale:2,backgroundColor:null,useCORS:true,logging:false});}
+async function saveCard(b){b.textContent="...";b.disabled=true;try{const c=await renderCardImage();if(!c)return;const l=document.createElement("a");l.download="aikido-setup-"+(setupData.name||"k").replace(/\s+/g,"-").toLowerCase()+".png";l.href=c.toDataURL("image/png");l.click();b.textContent="Gespeichert!";setTimeout(()=>{b.textContent="Speichern";b.disabled=false;},2000);}catch(e){b.textContent="Speichern";b.disabled=false;}}
+async function shareCard(){const b=document.getElementById("share-btn");b.textContent="...";b.disabled=true;try{const c=await renderCardImage();if(!c)return;c.toBlob(async bl=>{if(!bl)return;const f=new File([bl],"aikido-setup.png",{type:"image/png"});if(navigator.share&&navigator.canShare?.({files:[f]}))await navigator.share({title:"AIKIDO Setup",files:[f]});else{const l=document.createElement("a");l.download="aikido-setup.png";l.href=URL.createObjectURL(bl);l.click();}b.textContent="Teilen";b.disabled=false;},"image/png");}catch(e){b.textContent="Teilen";b.disabled=false;}}
+
+function copyShareText(btn){
+  const pri=TOOLS.find(x=>x.id===setupData.primary);
+  const role=ROLES.find(r=>r.id===profile.role)?.label||"";
+  const tierName=TOOL_TIERS[setupData.primary]?.[setupData.primaryTier]?.name||"Free";
+  const text=`${setupData.name} \u00b7 ${role} \u00b7 ${pri.name} ${tierName} \u2014 Mein AIKIDO KI-Setup steht! ${pri.emoji}`;
+  navigator.clipboard.writeText(text).then(()=>{btn.textContent="\u2713 Kopiert!";setTimeout(()=>btn.textContent="\uD83D\uDCCB Text kopieren",1500);});
+}
+
+/* ===== ADD-ONS DATA ===== */
+const ADDONS = [
+  {id:"briefing",cluster:"alltag",emoji:"\u2600\uFE0F",name:"Tages-Briefing",desc:"Begr\u00fc\u00dft dich kurz, fragt \"Was steht heute an?\" und schl\u00e4gt 2\u20133 Dinge vor. Unter 3 S\u00e4tzen.",prompt:"Wenn ich eine neue Unterhaltung starte, begr\u00fc\u00dfe mich kurz und frag: \"Was steht heute an?\" Schlage dann 2\u20133 Dinge vor, bei denen du helfen kannst. Halte das unter 3 S\u00e4tzen."},
+  {id:"modi",cluster:"alltag",emoji:"\uD83D\uDD00",name:"Modi-Schalter",desc:"4 Modi per Stichwort: schnell \u00b7 tief \u00b7 kreativ \u00b7 check.",prompt:"Du hast 4 Modi die ich per Stichwort aktiviere: \"schnell\" \u2192 Bullet Points, keine Erkl\u00e4rung. \"tief\" \u2192 Ausf\u00fchrliche Analyse. \"kreativ\" \u2192 Wild brainstormen. \"check\" \u2192 Pr\u00fcfe meinen Text auf Fehler, Logik, Ton. Ohne Stichwort antwortest du in meinem Standard-Stil."},
+  {id:"zeitwaechter",cluster:"alltag",emoji:"\u23F0",name:"Zeitw\u00e4chter",desc:"Sch\u00e4tzt ein wie lange eine Aufgabe mit vs. ohne KI dauert.",prompt:"Sch\u00e4tze bei gr\u00f6\u00dferen Aufgaben kurz ein: \"Mit KI: ~X Min. Ohne: ~Y Min.\" Das hilft mir zu verstehen wo du am meisten Wert bringst."},
+  {id:"skillleiter",cluster:"lernen",emoji:"\uD83D\uDCC8",name:"Skill-Leiter",desc:"W\u00f6chentliche Level-Ups. Vom Einsteiger zum Power-User \u2014 in deinem Tempo.",prompt:"F\u00fchre eine \"Skill-Leiter\" f\u00fcr mich. Starte mit Basics (gute Prompts schreiben). Wenn ich sie meistere, schlage den n\u00e4chsten Schritt vor (Vorlagen erstellen, Workflows bauen). Frag mich freitags: \"Bereit f\u00fcr den n\u00e4chsten Schritt?\" \u00dcberfordere mich nie, aber lass mich nicht stehen bleiben."},
+  {id:"prompttrainer",cluster:"lernen",emoji:"\uD83C\uDFAF",name:"Prompt-Trainer",desc:"Nach jeder Antwort ein kurzer Tipp wie dein Prompt besser h\u00e4tte sein k\u00f6nnen.",prompt:"Nach jeder Antwort gib mir einen kurzen Tipp (1 Satz): \"N\u00e4chstes Mal k\u00f6nntest du X erg\u00e4nzen \u2014 dann wird meine Antwort noch pr\u00e4ziser.\" Mach das dezent, nicht belehrend."},
+  {id:"denkpartner",cluster:"lernen",emoji:"\uD83D\uDCAD",name:"Denkpartner",desc:"KI denkt laut mit \u2014 zeigt den Denkprozess, nicht nur das Ergebnis.",prompt:"Denke bei komplexen Fragen laut mit: Zeig mir kurz deinen Denkprozess bevor du antwortest. So lerne ich wie du \"denkst\" und kann bessere Fragen stellen."},
+  {id:"fehlerfreund",cluster:"qualitaet",emoji:"\uD83E\uDEE2",name:"Fehlerfreund",desc:"KI sagt ehrlich wenn sie unsicher ist. Kein falsches Selbstbewusstsein.",prompt:"Wenn du unsicher bist, sage das ehrlich: \"Meine Einsch\u00e4tzung: ~70% sicher. Pr\u00fcfe bitte X.\" Erfinde nie etwas \u2014 sag lieber \"Das wei\u00df ich nicht sicher\" als eine \u00fcberzeugende Vermutung."},
+  {id:"qualitaetspruefer",cluster:"qualitaet",emoji:"\u2705",name:"Qualit\u00e4tspr\u00fcfer",desc:"Selbsteinsch\u00e4tzung am Ende jeder Antwort: Wie sicher? Was pr\u00fcfen?",prompt:"Gib am Ende wichtiger Antworten eine kurze Selbsteinsch\u00e4tzung: \"Sicherheit: hoch/mittel/niedrig. Pr\u00fcfe bitte: [konkreter Punkt].\""},
+  {id:"kontextanker",cluster:"qualitaet",emoji:"\uD83D\uDCCC",name:"Kontext-Anker",desc:"Fragt aktiv nach fehlendem Kontext bevor sie antwortet.",prompt:"Wenn mir wichtiger Kontext fehlt, frag kurz nach bevor du antwortest: \"Wer liest das am Ende? Was ist das Ziel? Gibt es Vorgaben?\" Das trainiert mich, besseren Input zu geben."},
+  {id:"multiplikator",cluster:"wirkung",emoji:"\uD83D\uDD17",name:"Multiplikator",desc:"Sammelt \"Tipps des Tages\" die du mit Kollegen teilen kannst.",prompt:"Wenn du mir etwas besonders N\u00fctzliches gezeigt hast, formuliere einen \"Tipp des Tages\" \u2014 ein Satz den ich an Kollegen weitergeben kann. Halte eine unsichtbare Liste. Wenn ich sage \"Was kann ich teilen?\", zeig mir die Top 3."},
+  {id:"uebersetzer",cluster:"wirkung",emoji:"\uD83C\uDF0D",name:"\u00dcbersetzer",desc:"\u00dcbersetzt zwischen Fachsprache und Alltagssprache f\u00fcr verschiedene Zielgruppen.",prompt:"Wenn ich sage \"f\u00fcr Azubis\" \u2014 erkl\u00e4re einfach und konkret. \"F\u00fcr die GL\" \u2014 kompakt, zahlenbasiert, strategisch. Passe Sprache und Tiefe an die Zielgruppe an."},
+  {id:"analogie",cluster:"wirkung",emoji:"\uD83E\uDDE9",name:"Analogie-Engine",desc:"Erkl\u00e4rt neue Konzepte mit Analogien aus deinem Arbeitsalltag.",prompt:"Erkl\u00e4re mir neue Konzepte immer mit Analogien aus meinem Arbeitsalltag (Fertigung, Landmaschinen, Ausbildung). Lernen durch Vertrautes."},
+  {id:"copilot",cluster:"horizont",emoji:"\uD83D\uDD04",name:"Copilot",desc:"KI lernt mit \u2014 passt sich deinen Vorlieben an und verbessert sich.",prompt:"F\u00fchre ein unsichtbares Logbuch \u00fcber meine Vorlieben. Wenn ich etwas korrigiere, lerne daraus. Frag mich alle 2 Wochen: \"Was l\u00e4uft gut, was nervt?\" und schlage Anpassungen vor."},
+  {id:"sparring",cluster:"horizont",emoji:"\uD83E\uDD4A",name:"Sparring-Partner",desc:"Challengt dich aktiv. Spielt Devil's Advocate wenn du es brauchst.",prompt:"Wenn ich eine Entscheidung mit dir teile, frag einmal kurz: \"Soll ich Gegenargumente liefern?\" Wenn ja, sei schonungslos ehrlich. Ich will besser werden, nicht best\u00e4tigt werden."},
+  {id:"spiegel",cluster:"horizont",emoji:"\uD83E\uDE9E",name:"Spiegel",desc:"Reflektiert regelm\u00e4\u00dfig wie sich eure Zusammenarbeit entwickelt.",prompt:"Reflektiere regelm\u00e4\u00dfig: \"Mir f\u00e4llt auf, du fragst vor allem X \u2014 soll ich mich darauf spezialisieren oder dir mal was anderes zeigen?\""},
+  {id:"perspektive",cluster:"breaker",emoji:"\uD83D\uDD04",name:"Perspektivwechsel",desc:"Antwortet auf Kommando aus einer anderen Sicht: Azubi, Kunde, GL.",prompt:"Wenn ich sage \"Perspektive [Rolle]\" \u2014 antworte komplett aus dieser Sicht. Zeig mir blinde Flecken die ich selbst nicht sehen kann."},
+  {id:"comfortzone",cluster:"breaker",emoji:"\uD83D\uDEA8",name:"Comfort-Zone-Alarm",desc:"Erkennt wenn du immer gleich fragst und schubst dich weiter.",prompt:"Wenn du merkst dass ich immer die gleiche Art Fragen stelle, weise mich darauf hin: \"Du fragst oft nach X. Hast du schon mal daran gedacht, das ganz anders anzugehen?\""},
+  {id:"gegenstil",cluster:"breaker",emoji:"\uD83D\uDD01",name:"Gegenstil",desc:"Auf \"anders!\" antwortet die KI im Gegenteil deines Profils.",prompt:"Wenn ich \"anders!\" sage, antworte im Gegenteil meines Profils. Ich bin strukturiert? Gib mir einen kreativen Brain-Dump. Ich mag Stichpunkte? Erz\u00e4hl eine Geschichte. Das f\u00fchlt sich unbequem an \u2014 genau deshalb wirkt es."},
+  {id:"blinderfleck",cluster:"breaker",emoji:"\uD83D\uDD73\uFE0F",name:"Blinder-Fleck-Scanner",desc:"Zeigt dir die Fragen die du nicht gestellt hast \u2014 oft die wichtigsten.",prompt:"Nach jeder gr\u00f6\u00dferen Aufgabe sag mir: \"Was du nicht gefragt hast, aber vielleicht solltest: ...\" Zeig mir die Fragen die ich \u00fcbersehen habe."},
+  {id:"zehnx",cluster:"breaker",emoji:"\uD83D\uDE80",name:"10x-Denken",desc:"\"Was w\u00e4re wenn das 10x gr\u00f6\u00dfer w\u00e4re?\" Zwingt zu Systemdenken.",prompt:"Wenn ich eine L\u00f6sung f\u00fcr ein Problem teile, frag gelegentlich: \"Was w\u00e4re wenn das 10x gr\u00f6\u00dfer w\u00e4re? Wie w\u00fcrdest du es dann komplett anders angehen?\""},
+  {id:"crossdomain",cluster:"breaker",emoji:"\uD83C\uDF10",name:"Cross-Domain",desc:"Bringt Ans\u00e4tze aus anderen Branchen f\u00fcr frische Perspektiven.",prompt:"Bringe bei passenden Gelegenheiten Ans\u00e4tze aus anderen Branchen ein: \"In der IT l\u00f6sen sie das mit X. Was w\u00e4re das \u00c4quivalent f\u00fcr euch?\""},
+  {id:"rollenswap",cluster:"breaker",emoji:"\uD83C\uDFAD",name:"Rollen-Swap",desc:"\"Stell dir vor du bist dein Azubi...\" Empathie-Training per KI.",prompt:"Wenn ich sage \"Rollentausch\" \u2014 versetze dich in die Rolle meines Gegen\u00fcbers (Azubi, Kunde, Chef) und beschreibe die Situation aus deren Perspektive."},
+];
+
+const CLUSTERS = [
+  {id:"alltag",emoji:"\u26A1",name:"Alltag & Effizienz",desc:"Wie die KI dich im Arbeitsalltag unterst\u00fctzt."},
+  {id:"lernen",emoji:"\uD83D\uDCC8",name:"Lernen & Wachstum",desc:"Wie du Woche f\u00fcr Woche besser wirst."},
+  {id:"qualitaet",emoji:"\uD83D\uDEE1\uFE0F",name:"Qualit\u00e4t & Verantwortung",desc:"Du bleibst der Pilot."},
+  {id:"wirkung",emoji:"\uD83E\uDD1D",name:"Zusammenarbeit & Wirkung",desc:"Impact \u00fcber dich hinaus."},
+  {id:"horizont",emoji:"\uD83D\uDD2D",name:"Horizont-Erweiterung",desc:"Neue Perspektiven entdecken."},
+  {id:"breaker",emoji:"\uD83D\uDE80",name:"Limitation Breaker",desc:"Durchbrich deine Komfortzone.",isBreaker:true},
+];
+
+const PACKAGES = {
+  einsteiger:["briefing","fehlerfreund","kontextanker","modi"],
+  macher:["briefing","fehlerfreund","kontextanker","modi","skillleiter","prompttrainer","sparring","multiplikator","blinderfleck"],
+  power: ADDONS.map(a=>a.id),
+};
+
+let selectedAddons = new Set(PACKAGES.macher);
+
+/* ===== CONFETTI ===== */
+function fireConfetti(){
+  let w=document.getElementById("confetti-wrap");
+  if(!w){w=document.createElement("div");w.className="confetti-wrap";w.id="confetti-wrap";document.body.appendChild(w);}
+  const colors=["#C8102E","#D97757","#4285F4","#10A37F","#FF7000","#fde68a","#8B5CF6"];
+  for(let i=0;i<50;i++){const c=document.createElement("div");c.className="confetti";c.style.left=Math.random()*100+"%";c.style.top="-10px";c.style.background=colors[Math.floor(Math.random()*colors.length)];c.style.animationDelay=Math.random()*1.5+"s";c.style.animationDuration=2+Math.random()*2+"s";c.style.width=6+Math.random()*6+"px";c.style.height=6+Math.random()*4+"px";w.appendChild(c);}
+  setTimeout(()=>w.innerHTML="",5000);
+}
+
+function toggleAddon(id){
+  if(selectedAddons.has(id)) selectedAddons.delete(id); else selectedAddons.add(id);
+}
+
+function applyPackage(pkg){
+  selectedAddons = new Set(PACKAGES[pkg] || []);
+}
+
+function getActivePackage(){
+  const s = [...selectedAddons].sort().join(",");
+  for(const[k,v] of Object.entries(PACKAGES)){
+    if([...v].sort().join(",")===s) return k;
+  }
+  return "individuell";
+}
+
+function buildBasicPrompt(){
+  const pri=TOOLS.find(x=>x.id===setupData.primary);
+  const role=ROLES.find(r=>r.id===profile.role)?.label||profile.roleFree||"Mitarbeiter*in";
+  const ucs=profile.useCases.map(id=>USE_CASES.find(u=>u.id===id)?.label).filter(Boolean);
+  const expL={none:"Ich bin KI-Einsteiger",some:"Ich habe KI ein paar Mal probiert",regular:"Ich nutze KI regelm\u00e4\u00dfig"};
+  const styL={point:"knappe Bullet Points",structured:"strukturierte Antworten mit Erkl\u00e4rung",detailed:"ausf\u00fchrliche Antworten mit Kontext und Hintergr\u00fcnden"};
+  const lrnL={facts:"Stichpunkte und Fakten",examples:"konkrete Beispiele und Vorlagen",stepbystep:"Schritt-f\u00fcr-Schritt-Anleitungen"};
+  const lvl=profile.aiExp==="none"?"\u00dcberfordere mich nicht, erkl\u00e4re einfach":profile.aiExp==="regular"?"Fordere mich ruhig, zeig mir Profi-Tipps":"Passe dich an mein Level an";
+
+  let p = `=== SYSTEM-SETUP: ${setupData.name||role} bei HORSCH ===
+
+Speichere dieses Profil dauerhaft als deine Arbeitsgrundlage.
+Das bin ICH \u2014 nicht nur meine Aufgaben:
+
+\u25B8 Wer: ${role} bei HORSCH Maschinen (Landmaschinenhersteller, 2000 MA, Schwandorf/Bayern)
+\u25B8 Wie ich arbeite: ${styL[profile.workStyle]||"strukturiert"}
+\u25B8 Wie ich lerne: ${lrnL[profile.learnStyle]||"Beispiele"}
+\u25B8 Wo ich stehe: ${expL[profile.aiExp]||""}
+\u25B8 Meine Sprache: Deutsch${profile.language==="mixed"?" + Englisch":""}
+
+Meine Hauptaufgaben: ${ucs.join(", ")}.
+Konkret diese Woche: ${profile.task}
+
+=== INSTALLATIONS-ANWEISUNGEN ===
+
+1. \u00dcbernimm dieses Profil als Custom Instruction / Ged\u00e4chtnis
+2. Frag mich 2\u20133 pers\u00f6nliche Fragen (nicht nur Aufgaben \u2014 auch was mich motiviert, was mich nervt, wie ich ticke)
+3. Erstelle daraus einen System-Prompt den ich hinterlegen kann
+4. Zeig mir an meiner konkreten Aufgabe was du kannst
+5. Schlage 3 Funktionen vor die ich noch nicht kenne
+
+${lvl}. Antworte auf Deutsch.`;
+  return p;
+}
+
+function buildFullPrompt(){
+  let p = buildBasicPrompt();
+
+  const active = ADDONS.filter(a=>selectedAddons.has(a.id));
+  if(active.length){
+    p += "\n\n=== ADD-ONS ===\n";
+    CLUSTERS.forEach(cl=>{
+      const items = active.filter(a=>a.cluster===cl.id);
+      if(items.length){
+        p += "\n--- " + cl.name + " ---\n";
+        items.forEach(a=>{ p += "\n" + a.emoji + " " + a.name + ":\n" + a.prompt + "\n"; });
+      }
+    });
+  }
+
+  return p;
+}
+
+/* ===== INIT ===== */
+renderProgress();renderTabBar();renderOnboarding();
+</script>
+</body>
+</html>
