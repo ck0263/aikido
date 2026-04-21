@@ -214,7 +214,10 @@ textarea:focus,input[type="text"]:focus{border-color:var(--text-dim);}
 .spinner::before{content:"";width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--text-dim);border-radius:50%;animation:spin .7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* Fallback */
+/* Fallback card (B2) */
+.fallback-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:8px;}
+.fallback-card .fc-label{font-size:11px;font-weight:600;color:var(--text-faint);margin-bottom:6px;}
+.fallback-card .fc-msg{font-size:13px;color:var(--text-dim);line-height:1.5;margin-bottom:10px;}
 .tool-fallback{display:flex;align-items:center;gap:12px;padding:12px;border-radius:8px;background:var(--surface-2);margin-top:6px;}
 .tool-fallback .tool-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
 .tool-fallback .tool-info{flex:1;}
@@ -283,9 +286,6 @@ textarea:focus,input[type="text"]:focus{border-color:var(--text-dim);}
 .prompt-preview{background:var(--surface);border:2px dashed var(--border);border-radius:var(--radius);padding:16px;margin:14px 0;position:relative;}
 .prompt-preview .pp-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-faint);margin-bottom:8px;}
 .prompt-preview .pp-text{font-size:11px;line-height:1.7;color:var(--text-dim);white-space:pre-wrap;}
-.prompt-preview .pp-addon{margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
-.prompt-preview .pp-addon-label{font-size:10px;font-weight:600;margin-bottom:2px;}
-.prompt-preview .pp-addon-text{font-size:10px;color:var(--text-dim);line-height:1.5;}
 
 /* Tool link button */
 .tool-link-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;text-decoration:none;padding:6px 14px;border-radius:8px;border:1px solid var(--border);margin-top:8px;cursor:pointer;font-family:var(--font);transition:all .15s;background:var(--surface);}
@@ -298,7 +298,7 @@ textarea:focus,input[type="text"]:focus{border-color:var(--text-dim);}
 .privacy-body{padding:0 14px 14px;display:none;font-size:12px;color:var(--text-dim);line-height:1.7;}
 .privacy-body.open{display:block;}
 
-/* Gib mir mehr border */
+/* Mehr-Box */
 .mehr-box{border:2.5px solid var(--red);border-radius:var(--radius);padding:18px;margin:18px 0;background:var(--surface);}
 .mehr-box .mehr-title{font-size:16px;font-weight:700;color:var(--red);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
 
@@ -337,6 +337,75 @@ textarea:focus,input[type="text"]:focus{border-color:var(--text-dim);}
 .quick-role-btn{font-size:12px;color:var(--text-dim);text-align:center;cursor:pointer;font-family:var(--font);background:none;border:1px solid var(--border);border-radius:20px;padding:8px 18px;width:100%;transition:all .15s;}
 .quick-role-btn:hover{border-color:var(--text-dim);color:var(--text);}
 
+/* B3: Jargon Tooltip */
+.jargon{border-bottom:1.5px dotted var(--text-dim);cursor:pointer;position:relative;}
+.jargon-tip{position:fixed;z-index:300;background:var(--text);color:#fff;border-radius:var(--radius);padding:16px;max-width:320px;font-size:12px;line-height:1.6;box-shadow:0 8px 32px rgba(0,0,0,.25);pointer-events:all;}
+.jargon-tip .jt-close{position:absolute;top:6px;right:10px;cursor:pointer;font-size:14px;color:rgba(255,255,255,.5);}
+.jargon-tip .jt-term{font-size:14px;font-weight:700;margin-bottom:8px;}
+.jargon-tip .jt-section{margin-bottom:6px;}
+.jargon-tip .jt-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:2px;}
+
+/* G3/M1: Breath animation */
+.breath-screen{text-align:center;padding:3rem 1rem;}
+.breath-circle{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--claude),var(--red));margin:0 auto 24px;animation:breathPulse 4s ease-in-out infinite;}
+@keyframes breathPulse{0%,100%{transform:scale(1);opacity:.6;}50%{transform:scale(1.3);opacity:1;}}
+
+/* Observation hint (B1) */
+.observe-hint{font-size:12px;color:var(--text-faint);font-style:italic;border-left:2px dashed var(--border);padding-left:10px;margin-top:8px;line-height:1.5;}
+
+/* Soft skip (N2) */
+.soft-skip{display:block;text-align:center;font-size:12px;color:var(--text-faint);cursor:pointer;padding:6px 0;margin-top:4px;border:none;background:none;font-family:var(--font);width:100%;}
+.soft-skip:hover{color:var(--text-dim);}
+
+/* Signature section (F1) */
+.signature-section{background:linear-gradient(135deg,#1a1a1a,#2d2d2d);border-radius:16px;padding:1.5rem;color:#fff;margin:16px 0;}
+.signature-section .sig-label{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px;}
+.signature-section .sig-line{margin-bottom:14px;}
+.signature-section .sig-line-label{font-size:10px;color:rgba(255,255,255,.4);margin-bottom:4px;}
+.signature-section .sig-line-text{font-size:14px;line-height:1.5;}
+.signature-section textarea,.signature-section input[type="text"]{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:8px;padding:8px 12px;font-size:13px;font-family:var(--font);width:100%;}
+.signature-section textarea::placeholder,.signature-section input::placeholder{color:rgba(255,255,255,.3);}
+
+/* Mood check (C3) */
+.mood-chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:16px 0;}
+.mood-chip{padding:10px 18px;border-radius:20px;font-size:13px;font-weight:500;border:1px solid var(--border);background:var(--surface);cursor:pointer;transition:all .15s;user-select:none;}
+.mood-chip:hover{border-color:var(--text-dim);}
+.mood-chip.active{background:var(--text);color:var(--bg);border-color:var(--text);}
+
+/* Anchor (M2) */
+.anchor-section{text-align:center;padding:2rem 1rem;margin:16px 0;}
+.anchor-section h3{font-size:18px;font-weight:600;margin-bottom:8px;}
+.anchor-section p{font-size:13px;color:var(--text-dim);margin-bottom:16px;}
+.anchor-section input[type="text"]{max-width:320px;margin:0 auto;text-align:center;}
+
+/* Training partner framing (D3) */
+.training-frame{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:20px;margin:16px 0;text-align:center;}
+.training-frame h3{font-size:16px;font-weight:700;margin-bottom:4px;}
+.training-frame p{font-size:13px;color:var(--text-dim);margin-bottom:14px;}
+.training-frame .tf-options{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+.training-frame .tf-opt{padding:10px 18px;border-radius:20px;font-size:13px;font-weight:500;border:1px solid var(--border);background:var(--surface);cursor:pointer;transition:all .15s;}
+.training-frame .tf-opt:hover{border-color:var(--text-dim);}
+.training-frame .tf-opt.active{background:var(--text);color:var(--bg);border-color:var(--text);}
+
+/* Deepening arena (E3) */
+.deepen-box{border:2px solid var(--claude);border-radius:var(--radius);padding:18px;margin:16px 0;background:var(--surface);}
+.deepen-box h3{font-size:15px;font-weight:700;color:var(--claude);margin-bottom:6px;}
+
+/* Entry helpers (C1) */
+.entry-helpers{display:flex;flex-direction:column;gap:8px;margin:12px 0;}
+.entry-helper{padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface);cursor:pointer;font-size:13px;transition:all .15s;}
+.entry-helper:hover{border-color:var(--text-dim);background:var(--surface-2);}
+.entry-helper.active{border-color:var(--text);background:var(--surface-2);}
+
+/* Scroll Teaser */
+.scroll-teaser{position:fixed;bottom:0;left:0;right:0;padding:14px 16px 12px;background:linear-gradient(transparent,var(--bg) 35%);text-align:center;z-index:30;pointer-events:none;transition:opacity .4s;}
+.scroll-teaser.hidden{opacity:0;}
+.scroll-teaser .st-text{font-size:11px;font-weight:600;color:var(--text-dim);margin-bottom:4px;}
+.scroll-teaser .st-pills{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;}
+.scroll-teaser .st-pill{font-size:9px;padding:3px 10px;border-radius:12px;background:var(--surface);border:1px solid var(--border);color:var(--text-faint);}
+.scroll-teaser .st-arrow{font-size:20px;color:var(--red);animation:st-bounce 1.5s ease-in-out infinite;margin-top:2px;}
+@keyframes st-bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+
 /* Utility */
 .mt{margin-top:16px;}.mb{margin-bottom:12px;}.hide{display:none;}
 .gap-8{display:flex;gap:8px;}.flex-wrap{flex-wrap:wrap;}
@@ -354,80 +423,150 @@ textarea:focus,input[type="text"]:focus{border-color:var(--text-dim);}
   <div class="act-content" id="act-content"></div>
 </div>
 <div class="sticky-cta" id="sticky-cta"></div>
+<div class="scroll-teaser hidden" id="scroll-teaser">
+  <div class="st-text">Hier geht's weiter ↓</div>
+  <div class="st-pills">
+    <span class="st-pill">🧰 Werkzeugkoffer</span>
+    <span class="st-pill">🎯 Challenge</span>
+    <span class="st-pill">✍️ Signatur</span>
+    <span class="st-pill">🙌 High Five</span>
+  </div>
+  <div class="st-arrow">↓</div>
+</div>
 <div class="overlay" id="overlay"></div>
+<div id="jargon-tooltip-container"></div>
 
 <script>
 /* ===== CONFIG ===== */
 const PROXY_URL="https://cfefoxcbnzwkqpizejey.supabase.co/functions/v1/ai-proxy";
-const TOOLS=[
-  {id:"claude",name:"Claude",by:"Anthropic",color:"#D97757",emoji:"\u{1F9E0}",vibe:"Der Denker",sweet:"Tiefe Analyse, Code, Strategie",strengths:"Tiefe Analyse, Code, Strategie, lange Texte, strukturiertes Feedback",weaker:"Aktuelle Nachrichten, Bildgenerierung, Google-Integration",url:"https://claude.ai"},
-  {id:"gemini",name:"Gemini",by:"Google",color:"#4285F4",emoji:"\u2728",vibe:"Der Vernetzer",sweet:"Google-\u00d6kosystem, \u00dcberblick, multimodal",strengths:"Google-Integration (Drive, Docs), \u00dcberblick, Zusammenfassungen, multimodal",weaker:"Verf\u00fcgbarkeit bei hoher Last, weniger pr\u00e4zise bei Code",url:"https://gemini.google.com"},
-  {id:"chatgpt",name:"ChatGPT",by:"OpenAI",color:"#10A37F",emoji:"\u26A1",vibe:"Der Allrounder",sweet:"Kreativ, Bilder, breites Wissen",strengths:"Kreatives Schreiben, DALL-E Bildgenerierung, Custom GPTs, breites Allgemeinwissen",weaker:"Manchmal oberfl\u00e4chlich, halluziniert bei Fakten",url:"https://chat.openai.com"},
-  {id:"perplexity",name:"Perplexity",by:"Perplexity AI",color:"#20B2AA",emoji:"\u{1F50D}",vibe:"Der Rechercheur",sweet:"Fakten mit Quellen, aktuelle Infos",strengths:"Echtzeit-Recherche mit Quellenangaben, aktuelle Informationen, Faktencheck",weaker:"Weniger kreativ, keine Bildgenerierung",url:"https://perplexity.ai"},
-  {id:"mistral",name:"Mistral",by:"Mistral AI",color:"#FF7000",emoji:"\u{1F30A}",vibe:"Der Europ\u00e4er",sweet:"DSGVO-nah, schnell, Open Source",strengths:"DSGVO-konform (EU-Server), schnell, Open Source, Canvas",weaker:"Kleineres \u00d6kosystem, weniger bekannt",url:"https://chat.mistral.ai"},
-];
-const USE_CASES=[
-  {id:"texte",label:"Mails & Texte formulieren",strong:["claude","chatgpt"]},
-  {id:"recherche",label:"Infos zusammensuchen & pr\u00fcfen",strong:["perplexity"]},
-  {id:"doku",label:"Berichte & Dokumentation",strong:["claude","gemini"]},
-  {id:"ideen",label:"Ideen entwickeln & brainstormen",strong:["chatgpt","gemini"]},
-  {id:"feedback",label:"Feedback & Gespr\u00e4che vorbereiten",strong:["claude"]},
-  {id:"planung",label:"Abl\u00e4ufe & Projekte planen",strong:["claude","chatgpt"]},
-  {id:"praesi",label:"Pr\u00e4sentationen & Konzepte",strong:["chatgpt","gemini"]},
-  {id:"daten",label:"Tabellen & Daten auswerten",strong:["claude","chatgpt"]},
-  {id:"lernen",label:"F\u00fcr Pr\u00fcfungen lernen",strong:["gemini","chatgpt"]},
-  {id:"sprache",label:"\u00dcbersetzen / Englisch arbeiten",strong:["claude","chatgpt","gemini"]},
-];
-const ROLES=[
-  {id:"azubi",label:"Azubi",ph:"z.B. Ich muss eine Pr\u00e4sentation f\u00fcr die Abteilung vorbereiten..."},
-  {id:"ausbilder",label:"Ausbilder*in",ph:"z.B. Ich muss Berichtsheft-Eintr\u00e4ge pr\u00fcfen und Feedback schreiben..."},
-  {id:"verwaltung",label:"Verwaltung / B\u00fcro",ph:"z.B. Ich muss einen Monatsbericht aus verschiedenen Abteilungen erstellen..."},
-  {id:"produktion",label:"Produktion / Werkstatt",ph:"z.B. Ich soll eine Arbeitsanweisung f\u00fcr eine neue Maschine schreiben..."},
-  {id:"vertrieb",label:"Vertrieb",ph:"z.B. Ich muss ein individuelles Kundenangebot mit technischen Details aufbereiten..."},
-  {id:"fuehrung",label:"F\u00fchrungskraft",ph:"z.B. Ich muss ein Strategiepapier f\u00fcr die Gesch\u00e4ftsleitung vorbereiten..."},
-  {id:"sonstiges",label:"Sonstiges",ph:"z.B. Beschreibe eine Aufgabe die dich diese Woche nervt..."},
-];
-const WORK_STYLES=[{id:"point",label:"Auf den Punkt"},{id:"structured",label:"Strukturiert"},{id:"detailed",label:"Ausf\u00fchrlich"}];
-const LEARN_STYLES=[{id:"facts",label:"Fakten & Stichpunkte"},{id:"examples",label:"Zeig mir Beispiele"},{id:"stepbystep",label:"Schritt f\u00fcr Schritt"}];
-const SPARKS=[{cat:"Alltag",items:[{l:"Lieferanten-Mail",uc:["texte"],p:"Schreibe eine freundliche aber bestimmte E-Mail an einen Lieferanten, der zum dritten Mal zu sp\u00e4t liefert."},{l:"Feedback",uc:["feedback"],p:"Hilf mir ein Feedbackgespr\u00e4ch vorzubereiten. Mein Azubi ist motiviert, macht aber Fl\u00fcchtigkeitsfehler."}]},{cat:"Lernen",items:[{l:"Pr\u00fcfungsfragen",uc:["lernen"],p:"Erstelle 5 IHK-Pr\u00fcfungsfragen zum Thema Arbeitsschutz f\u00fcr Industriemechaniker."}]},{cat:"Kreativ",items:[{l:"Event-Ideen",uc:["ideen"],p:"Gib mir 7 ungew\u00f6hnliche Ideen f\u00fcr den Tag der offenen T\u00fcr bei einem Landmaschinenhersteller."}]}];
-const LIMITS=[
-  {cat:"Beziehung",color:"#8B5CF6",q:"Dein Azubi hat dir im Vertrauen erz\u00e4hlt, dass es ihm zuhause nicht gut geht. Was r\u00e4tst du ihm?",reflect:[["H\u00e4ttest du das so gesagt?","Ja, passt so","W\u00fcrde ich anders"],["Was wei\u00df die KI nicht?","Vorgeschichte","Pers\u00f6nlichkeit","Teamdynamik"],["W\u00fcrde sich der Azubi verstanden f\u00fchlen?","Vermutlich ja","Eher nicht"]],insight:"Vertrauen entsteht durch Beziehung, nicht durch Textbausteine. Du kennst den Menschen \u2014 die KI kennt nur die Frage."},
-  {cat:"Beziehung",color:"#8B5CF6",q:"Dein Azubi kommt nach dem Urlaub zur\u00fcck und wirkt ver\u00e4ndert. Wie sprichst du ihn an?",reflect:[["H\u00e4ttest du das so gesagt?","Ja, passt so","W\u00fcrde ich anders"],["Was wei\u00df die KI nicht?","Vorgeschichte","Pers\u00f6nlichkeit","Teamdynamik"],["Was w\u00fcrdest du zuerst tun?","Direkt ansprechen","Erst beobachten"]],insight:"Die KI gibt dir ein Gespr\u00e4chsskript. Ob du erst beobachtest oder direkt ansprichst, h\u00e4ngt von eurer Beziehung ab."},
-  {cat:"Verantwortung",color:"#EF4444",q:"Soll ich den Ausbildungsvertrag verl\u00e4ngern, obwohl die Leistungen grenzwertig sind? Schwierige Familiensituation.",reflect:[["Kann eine KI das entscheiden?","Nein","Teilweise als Input"],["Wer tr\u00e4gt die Verantwortung?","Ich allein","Team-Entscheidung"],["Welche Konsequenzen \u00fcbersiehst du?","F\u00fcr den Azubi","F\u00fcrs Team"]],insight:"Die KI zeigt Pro und Contra \u2014 aber die Entscheidung hat Konsequenzen f\u00fcr einen echten Menschen. Nicht delegierbar."},
-  {cat:"Kontext",color:"#F59E0B",q:"Wie viele Mitarbeiter hat HORSCH am Standort Ronneburg und wer ist dort Standortleiter?",reflect:[["Woher soll die KI das wissen?","Guter Punkt","Vielleicht Internet"],["Wie \u00fcberzeugend klingt die Antwort?","Sehr","Erkennbar unsicher"],["Wie pr\u00fcfst du das?","Interne Quelle","Kollegen fragen"]],insight:"KI kennt deinen Betrieb nicht von innen. Je \u00fcberzeugender die Antwort, desto wichtiger: Woher wei\u00df sie das?"},
-];
-const TOOL_TIERS={
-  claude:{free:{name:"Free",features:["Claude Sonnet","~30 Nachrichten/Tag","Web-Suche","Datei-Upload (begrenzt)"]},pro:{name:"Pro",features:["Alles aus Free","5\u00d7 mehr Nachrichten","Claude Opus","Projekte & Custom Instructions","Priorit\u00e4t"]},proTriggers:["doku","feedback","planung","daten","texte"]},
-  gemini:{free:{name:"Free",features:["Gemini Flash","Google-Integration","Bild-Analyse"]},pro:{name:"Advanced",features:["Alles aus Free","Gemini Pro","Deep Research","2TB Speicher"]},proTriggers:["recherche","daten","lernen"]},
-  chatgpt:{free:{name:"Free",features:["GPT-4o mini","Web-Suche","Bild-Generierung (begrenzt)"]},pro:{name:"Plus",features:["Alles aus Free","GPT-4o & o3","DALL-E","Custom GPTs"]},proTriggers:["praesi","ideen","daten","texte"]},
-  perplexity:{free:{name:"Free",features:["Suche mit Quellen","5 Pro-Suchen/Tag"]},pro:{name:"Pro",features:["Alles aus Free","300+ Pro-Suchen","Beste Modelle"]},proTriggers:["recherche","doku"]},
-  mistral:{free:{name:"Free",features:["Mistral Large","DSGVO-konform","Unbegrenzt"]},pro:{name:"Pro",features:["Alles aus Free","Priorit\u00e4t","Agents","Teams"]},proTriggers:["planung","texte"]},
-};
-const CHALLENGES={
-  azubi:{title:"Lass dir eine Pr\u00fcfungsfrage erkl\u00e4ren",body:"Frag dein Tool nach einer IHK-Frage zu deinem Beruf.",example:"Erkl\u00e4re mir eine typische IHK-Pr\u00fcfungsfrage zum Thema Arbeitsschutz."},
-  ausbilder:{title:"Lass ein Berichtsheft-Feedback schreiben",body:"Kopiere diesen Eintrag und bitte um konstruktives Feedback:",example:"Heute habe ich in der Werkstatt gearbeitet. Wir haben Teile sortiert und ich habe gelernt wie man schwei\u00dft."},
-  verwaltung:{title:"Lass eine Meeting-Einladung formulieren",body:"Gib Stichpunkte und lass eine Einladung schreiben:",example:"Quartalsreview Ausbildung. Teilnehmer: Ausbildungsleitung + HR. N\u00e4chste Woche Dienstag 10 Uhr."},
-  produktion:{title:"Lass eine Kurzanleitung erstellen",body:"Beschreibe einen Arbeitsschritt:",example:"Schritte zum sicheren Einrichten einer CNC-Fr\u00e4se f\u00fcr einen neuen Azubi."},
-  vertrieb:{title:"Lass eine Kunden-Mail aufbereiten",body:"Stichpunkte rein, Mail raus:",example:"Kunde fragt nach Lieferzeit Joker 6 RT. Aktuell 8 Wochen. Sonderausstattung m\u00f6glich."},
-  fuehrung:{title:"Lass Argumente strukturieren",body:"Entscheidung beschreiben, Pro/Contra aufbereiten:",example:"Azubi-Rotation von 3 auf 6 Monate verl\u00e4ngern? Argumente f\u00fcr die GL."},
-  sonstiges:{title:"Lass dir bei einer echten Aufgabe helfen",body:"Nimm eine Aufgabe von heute:",example:"Formuliere eine freundliche Absage an einen Bewerber."},
+
+/* ===== INLINE FALLBACK DATA (A0.1 + B3) ===== */
+let PROMPTS_DATA = null;
+let GLOSSARY_DATA = null;
+
+const PROMPTS_FALLBACK = {
+  "azubi":{"scenarios":[{"cat":"Beziehung","color":"#8B5CF6","q":"Dein Ausbilder kritisiert deine Arbeit, und du bist dir sicher, dass die Kritik nicht ganz fair ist. Wie bereitest du das Gespräch vor?","reflect":[["Hättest du das so formuliert?","Ja, genau so","Würde ich anders sagen"],["Was weiß die KI nicht über eure Beziehung?","Vorgeschichte","Tonfall im Alltag","Was mich wirklich stört"],["Wer sollte dieses Gespräch führen?","Ich allein","Mit Unterstützung"]],"insight":"Die KI kann dir helfen, Argumente zu sortieren. Aber den Mut, es anzusprechen \u2014 den bringst du mit.","observe":"Achte auf den Ton: Klingt die KI diplomatisch oder ausweichend? Würdest du so reden?"},{"cat":"Lernen","color":"#3B82F6","q":"Du hast morgen Zwischenprüfung und merkst heute Abend, dass du einen ganzen Themenbereich übersehen hast. Was tust du?","reflect":[["Hat die KI dir Panik genommen oder gemacht?","Beruhigt","Eher Stress"],["Was weiß die KI nicht über deine Prüfung?","Prüfungsformat","Meine Stärken","Was drankommt"],["Würdest du den Plan so umsetzen?","Ja, sofort","Muesste ich anpassen"]],"insight":"KI kann beim Strukturieren helfen. Aber ob du dich an den Plan hältst oder lieber ins Bett gehst \u2014 das entscheidest du.","observe":"Achte auf Aufgabenteilung: Wo nimmt dir die KI Denkarbeit ab \u2014 und wo sollte sie das nicht?"},{"cat":"Verantwortung","color":"#EF4444","q":"Ein Kollege aus deinem Azubi-Jahrgang macht wiederholt Sicherheitsfehler in der Werkstatt. Sagst du es dem Ausbilder?","reflect":[["Was rät die KI \u2014 und was sagt dein Bauchgefuehl?","Stimmt überein","Widerspricht sich"],["Was weiß die KI nicht?","Teamdynamik","Konsequenzen für den Kollegen","Eure Freundschaft"],["Wer trägt die Verantwortung für die Sicherheit?","Jeder einzeln","Das Team zusammen"]],"insight":"Sicherheit ist nicht verhandelbar. Aber wie du es ansprichst \u2014 das braucht Fingerspitzengefuehl, das keine KI hat.","observe":"Achte auf Empathie-Marker: Berücksichtigt die KI deine Beziehung zum Kollegen?"},{"cat":"Kontext","color":"#F59E0B","q":"Welche HORSCH-Sämaschine wäre die richtige für einen 200-Hektar-Biobetrieb in Bayern?","reflect":[["Klingt die Antwort überzeugend?","Sehr überzeugend","Erkennbar unsicher"],["Stimmen die genannten Modelle?","Ja","Teilweise","Keine Ahnung"],["Wie prüfst du das?","HORSCH-Website","Kollegen fragen","Katalog"]],"insight":"Du kennst die Maschinen besser als jede KI. Nutze dein Fachwissen als Halluzinations-Radar.","observe":"Achte auf Sicherheitsmarker: Sagt die KI 'meines Wissens' oder behauptet sie einfach?"}]},
+  "ausbilder":{"scenarios":[{"cat":"Beziehung","color":"#8B5CF6","q":"Dein Azubi hat dir im Vertrauen erzaehlt, dass es ihm zuhause nicht gut geht. Was rätst du ihm?","reflect":[["Hättest du das so gesagt?","Ja, passt so","Würde ich anders"],["Was weiß die KI nicht?","Vorgeschichte","Persönlichkeit","Teamdynamik"],["Würde sich der Azubi verstanden fuehlen?","Vermutlich ja","Eher nicht"]],"insight":"Vertrauen entsteht durch Beziehung, nicht durch Textbausteine. Du kennst den Menschen \u2014 die KI kennt nur die Frage.","observe":"Achte auf Empathie-Marker: Sind sie echt oder performativ?"},{"cat":"Verantwortung","color":"#EF4444","q":"Soll ich den Ausbildungsvertrag mit diesem Azubi verlängern, obwohl seine Leistungen grenzwertig sind? Er hat eine schwierige Familiensituation.","reflect":[["Kann eine KI das entscheiden?","Nein, niemals","Teilweise als Input"],["Wer trägt die Verantwortung?","Ich allein","Team-Entscheidung"],["Welche Konsequenzen übersiehst du?","Für den Azubi","Fürs Team"]],"insight":"Die KI zeigt Pro und Contra \u2014 aber die Entscheidung hat Konsequenzen für einen echten Menschen. Nicht delegierbar.","observe":"Achte auf Konjunktive: Was heißt es, wenn die KI 'koennte man' schreibt?"},{"cat":"Kontext","color":"#F59E0B","q":"Wie viele Mitarbeitende hat HORSCH Maschinen aktuell am Standort Ronneburg und wer ist dort Standortleitung?","reflect":[["Woher soll die KI das wissen?","Guter Punkt","Vielleicht Internet"],["Wie überzeugend klingt die Antwort?","Sehr überzeugend","Erkennbar unsicher"],["Wie prüfst du das?","Interne Quelle","Kollegium fragen"]],"insight":"KI kennt deinen Betrieb nicht von innen. Je überzeugender die Antwort, desto wichtiger: Woher weiß sie das?","observe":"Achte auf Sicherheitsmarker: Sagt die KI 'meines Wissens' oder behauptet sie einfach?"}]},
+  "fachkraft":{"scenarios":[{"cat":"Verantwortung","color":"#EF4444","q":"Du entdeckst in einem Prozess ein Sicherheitsrisiko, das seit Jahren so läuft. Wie bringst du es zur Sprache, ohne Kollegium zu exponieren?","reflect":[["Hilft dir die Antwort praktisch?","Ja, gute Strategie","Zu theoretisch"],["Was weiß die KI nicht?","Betriebskultur","Hierarchien","Wer betroffen ist"],["Würdest du es so ansprechen?","Ja","Zu diplomatisch","Zu direkt"]],"insight":"Sicherheit braucht Mut. Die KI kann den Ton helfen zu finden \u2014 aber das Gespräch führst du.","observe":"Achte auf Konjunktive: Was heißt es, wenn die KI 'koennte man' schreibt?"},{"cat":"Alltag","color":"#10B981","q":"Du musst einen 20-seitigen Fachtext in eine halbstündige Schulung übersetzen. Wie baust du die Struktur auf?","reflect":[["Würde die Struktur für dein Kollegium funktionieren?","Ja","Zu akademisch"],["Was fehlt?","Praxis-Bezug","Unser Sprachniveau","Zeitmanagement"],["Würdest du die Schulung so halten?","Ja, guter Start","Muss ich stark anpassen"]],"insight":"KI ist stark im Strukturieren. Aber ob die Schulung ankommt, haengt von dir ab \u2014 nicht vom Foliensatz.","observe":"Achte auf Konkretheit: Gibt die KI Rezepte oder Prinzipien?"}]},
+  "verwaltung":{"scenarios":[{"cat":"Alltag","color":"#10B981","q":"Dein Chef schickt dir einen ungeordneten Gedanken-Dump per Mail zur Ausarbeitung. Wie gehst du vor?","reflect":[["Hilft dir die Struktur?","Ja, guter Ansatz","Zu schematisch"],["Was fehlt der KI?","Was der Chef wirklich will","Unser Stil","Die Dringlichkeit"],["Würdest du so an die Aufgabe gehen?","Ja","Teilweise"]],"insight":"KI kann Chaos sortieren. Aber zu verstehen was dein Chef eigentlich meint \u2014 das ist deine Übersetzungsleistung.","observe":"Achte auf Konkretheit: Gibt die KI Rezepte oder Prinzipien?"},{"cat":"Verantwortung","color":"#EF4444","q":"Du findest in einer Akte einen Fehler, der einer mitarbeitenden Person zum Nachteil geworden ist. Der Vorgang ist abgeschlossen. Was tust du?","reflect":[["Was rät die KI \u2014 und was sagt dein Gewissen?","Stimmt überein","Widerspricht sich"],["Wer trägt die Verantwortung?","Ich als findende Person","Die urspruenglich bearbeitende Person","Das System"],["Was sind die Konsequenzen?","Für die Person","Für mich","Für die Abteilung"]],"insight":"Fehler melden kostet Überwindung. Die KI kann den Weg zeigen \u2014 aber den Schritt machst du.","observe":"Achte auf Konjunktive: Was heißt es, wenn die KI 'koennte man' schreibt?"}]},
+  "werkstudent":{"scenarios":[{"cat":"Beziehung","color":"#8B5CF6","q":"Du willst deiner Betreuerin ein Projektkonzept vorschlagen, hast aber Sorge, dass sie es als Übergriff auffasst. Wie formulierst du die Mail?","reflect":[["Trifft die KI den richtigen Ton?","Ja, passend","Zu unterwürfig","Zu forsch"],["Was weiß die KI nicht?","Eure Beziehung","Die Hierarchie","Den Kontext"],["Würdest du die Mail so senden?","Ja","Mit Anpassungen"]],"insight":"Initiative zeigen ist keine Übergriffigkeit. Die KI kann den Ton feinjustieren \u2014 aber die Idee ist deine.","observe":"Achte auf den Ton: Klingt die KI diplomatisch oder ausweichend?"},{"cat":"Verantwortung","color":"#EF4444","q":"Du merkst, dass ein etablierter Prozess in deinem Arbeitsbereich zeitlich ineffizient ist. Sagst du es als Werkstudierende offen?","reflect":[["Rät die KI zur Offenheit?","Ja","Eher zur Vorsicht"],["Was weiß die KI nicht?","Meine Position im Team","Wie offen die Kultur ist","Ob es erwuenscht ist"],["Was würdest du wirklich tun?","Ansprechen","Abwarten","Erstmal Verbündete suchen"]],"insight":"Als Werkstudierende hast du einen frischen Blick. Die KI kann dir helfen, ihn diplomatisch zu formulieren.","observe":"Achte auf Konjunktive: Was heißt es, wenn die KI 'koennte man' schreibt?"}]},
+  "sonstiges":{"scenarios":[{"cat":"Beziehung","color":"#8B5CF6","q":"Ein Teammitglied leistet konstant weniger als der Rest, ohne dass es Konsequenzen gibt. Das Team ist frustriert. Wie gehst du damit um?","reflect":[["Berücksichtigt die KI alle Perspektiven?","Ja","Eher einseitig"],["Was weiß die KI nicht?","Die Person","Die Teamdynamik","Die Vorgeschichte"],["Was würdest du tun?","Ansprechen","An Führung eskalieren","Team stärken"]],"insight":"Teamkonflikte sind komplex. Die KI sieht das Pattern \u2014 du siehst die Menschen.","observe":"Achte auf Empathie-Marker: Berücksichtigt die KI beide Seiten?"},{"cat":"Alltag","color":"#10B981","q":"Du sollst in 30 Minuten eine Zusammenfassung eines 50-seitigen Dokuments erstellen. Wie gehst du vor?","reflect":[["Würde die Zusammenfassung deinen Anforderungen genügen?","Ja, guter Start","Zu oberflächlich"],["Was fehlt?","Die Gewichtung","Unser Kontext","Was die empfangende Person braucht"],["Würdest du das Ergebnis so weitergeben?","Ja","Nach Überarbeitung"]],"insight":"KI ist stark beim Komprimieren. Aber was wichtig ist und was nicht \u2014 das weißt du besser.","observe":"Achte auf Konkretheit: Gibt die KI Rezepte oder Prinzipien?"}]}
 };
 
+const GLOSSARY_FALLBACK = [
+  {"term":"Context Window","tech":"Die Zeichenmenge, die das Modell gleichzeitig verarbeiten kann \u2014 typisch 100.000 bis 1.000.000 Zeichen.","fürDich":"Wenn du ein langes Dokument übergibst, kann die KI den Anfang 'vergessen'. Halte Wichtiges oben und wiederhole Kerninformationen am Ende."},
+  {"term":"Halluzination","tech":"Das Modell generiert überzeugend klingende Informationen, die faktisch falsch sind \u2014 ohne es zu kennzeichnen.","fürDich":"Wenn die KI dir eine Zahl, einen Namen oder ein Gesetz nennt: Immer prüfen. Je selbstbewusster die Antwort klingt, desto kritischer hinsehen."},
+  {"term":"Prompt","tech":"Die Eingabe, die du dem Modell gibst \u2014 deine Frage, Anweisung oder dein Kontext.","fürDich":"Je präziser dein Prompt, desto besser die Antwort."},
+  {"term":"System Prompt","tech":"Eine unsichtbare Anweisung, die dem Modell sagt, wie es sich verhalten soll \u2014 vor jeder Nutzereingabe.","fürDich":"Das ist dein 'Harness'. Du kannst festlegen: Antworte auf Deutsch, kurz und knapp, mit Beispielen. Das Tool verhält sich dann immer so."},
+  {"term":"Token","tech":"Die kleinste Einheit, in der KI-Modelle Text verarbeiten. Ein deutsches Wort = ca. 1,5 Token.","fürDich":"Tokens bestimmen die Kosten und die maximale Textlänge. Wenn die KI mitten im Satz aufhört, ist das Token-Limit erreicht."},
+  {"term":"Harness","tech":"Die Gesamtheit aus System Prompt, Kontext und Verhaltensregeln, die ein KI-Tool für eine bestimmte nutzende Person konfiguriert.","fürDich":"Dein persönliches 'Geschirr' für die KI. Ohne Harness bekommt jeder die gleiche generische Antwort. Mit Harness wird das Tool zu DEINEM Tool."}
+];
+
+/* Load JSON data at startup */
+async function loadExternalData(){
+  try{
+    const [pRes, gRes] = await Promise.all([
+      fetch('data/prompts.json').then(r=>r.ok?r.json():null).catch(()=>null),
+      fetch('data/glossary.json').then(r=>r.ok?r.json():null).catch(()=>null)
+    ]);
+    PROMPTS_DATA = pRes || PROMPTS_FALLBACK;
+    GLOSSARY_DATA = gRes || GLOSSARY_FALLBACK;
+  }catch(e){
+    PROMPTS_DATA = PROMPTS_FALLBACK;
+    GLOSSARY_DATA = GLOSSARY_FALLBACK;
+  }
+}
+loadExternalData();
+
+function getScenarios(roleId){
+  const data = PROMPTS_DATA || PROMPTS_FALLBACK;
+  const roleMap = {
+    'azubi':'azubi','ausbilder':'ausbilder',
+    'verwaltung':'verwaltung','produktion':'fachkraft',
+    'vertrieb':'sonstiges','führung':'sonstiges',
+    'werkstudent':'werkstudent','sonstiges':'sonstiges'
+  };
+  const key = roleMap[roleId] || 'sonstiges';
+  return data[key]?.scenarios || data['sonstiges']?.scenarios || [];
+}
+
+/* ===== TOOLS ===== */
+const TOOLS=[
+  {id:"claude",name:"Claude",by:"Anthropic",color:"#D97757",emoji:"\u{1F9E0}",vibe:"Der Denker",sweet:"Tiefe Analyse, Code, Strategie",desc:"Claude denkt gründlich nach. Stark bei langen Texten, Feedback-Formulierung, Code und strukturiertem Denken. Weniger stark bei Bildgenerierung und aktuellen Nachrichten. Antwortet oft ausführlich und abwaegend.",strengths:"Tiefe Analyse, Code, Strategie, lange Texte, strukturiertes Feedback",weaker:"Aktuelle Nachrichten, Bildgenerierung, Google-Integration",url:"https://claude.ai"},
+  {id:"gemini",name:"Gemini",by:"Google",color:"#4285F4",emoji:"\u2728",vibe:"Der Vernetzer",sweet:"Google-\u00d6kosystem, \u00dcberblick, multimodal",desc:"Gemini ist tief in Google integriert \u2014 Drive, Docs, Gmail. Stark bei Zusammenfassungen, Bild-Analyse und wenn du schon im Google-\u00d6kosystem arbeitest. Kann bei hoher Last langsamer werden.",strengths:"Google-Integration (Drive, Docs), \u00dcberblick, Zusammenfassungen, multimodal",weaker:"Verf\u00fcgbarkeit bei hoher Last, weniger pr\u00e4zise bei Code",url:"https://gemini.google.com"},
+  {id:"chatgpt",name:"ChatGPT",by:"OpenAI",color:"#10A37F",emoji:"\u26A1",vibe:"Der Allrounder",sweet:"Kreativ, Bilder, breites Wissen",desc:"ChatGPT ist der bekannteste Allrounder. Stark bei kreativem Schreiben, Bildgenerierung (DALL-E) und breitem Allgemeinwissen. Kann manchmal oberflächlich antworten und halluziniert bei Fakten.",strengths:"Kreatives Schreiben, DALL-E Bildgenerierung, Custom GPTs, breites Allgemeinwissen",weaker:"Manchmal oberflächlich, halluziniert bei Fakten",url:"https://chat.openai.com"},
+  {id:"perplexity",name:"Perplexity",by:"Perplexity AI",color:"#20B2AA",emoji:"\uD83D\uDD0D",vibe:"Der Rechercheur",sweet:"Fakten mit Quellen, aktuelle Infos",desc:"Perplexity ist eine KI-Suchmaschine. Jede Antwort kommt mit Quellenangaben. Stark bei Faktenrecherche und aktuellen Informationen. Weniger kreativ, keine Bildgenerierung.",strengths:"Echtzeit-Recherche mit Quellenangaben, aktuelle Informationen, Faktencheck",weaker:"Weniger kreativ, keine Bildgenerierung",url:"https://perplexity.ai"},
+  {id:"mistral",name:"Mistral",by:"Mistral AI",color:"#FF7000",emoji:"\uD83C\uDF0A",vibe:"Der Europaeer",sweet:"DSGVO-nah, schnell, Open Source",desc:"Mistral kommt aus Frankreich \u2014 EU-Server, DSGVO-konform. Schnell und effizient, Open Source als Basis. Kleineres \u00d6kosystem als die US-Anbieter, aber wachsend. Gute Wahl wenn Datenschutz Prioritaet hat.",strengths:"DSGVO-konform (EU-Server), schnell, Open Source, Canvas",weaker:"Kleineres \u00d6kosystem, weniger bekannt",url:"https://chat.mistral.ai"},
+];
+
+const USE_CASES=[
+  {id:"texte",label:"Mails & Texte formulieren",strong:["claude","chatgpt"]},
+  {id:"recherche",label:"Infos zusammensuchen & prüfen",strong:["perplexity"]},
+  {id:"doku",label:"Berichte & Dokumentation",strong:["claude","gemini"]},
+  {id:"ideen",label:"Ideen entwickeln & brainstormen",strong:["chatgpt","gemini"]},
+  {id:"feedback",label:"Feedback & Gespräche vorbereiten",strong:["claude"]},
+  {id:"planung",label:"Ablaeufe & Projekte planen",strong:["claude","chatgpt"]},
+  {id:"präsi",label:"Präsentationen & Konzepte",strong:["chatgpt","gemini"]},
+  {id:"daten",label:"Tabellen & Daten auswerten",strong:["claude","chatgpt"]},
+  {id:"lernen",label:"Für Prüfungen lernen",strong:["gemini","chatgpt"]},
+  {id:"sprache",label:"Übersetzen / Englisch arbeiten",strong:["claude","chatgpt","gemini"]},
+];
+const ROLES=[
+  {id:"azubi",label:"Azubi",ph:"z.B. Ich muss eine Präsentation für die Abteilung vorbereiten..."},
+  {id:"ausbilder",label:"Ausbildende",ph:"z.B. Ich muss Berichtsheft-Einträge prüfen und Feedback schreiben..."},
+  {id:"verwaltung",label:"Verwaltung / Buero",ph:"z.B. Ich muss einen Monatsbericht aus verschiedenen Abteilungen erstellen..."},
+  {id:"produktion",label:"Produktion / Werkstatt",ph:"z.B. Ich soll eine Arbeitsanweisung für eine neue Maschine schreiben..."},
+  {id:"vertrieb",label:"Vertrieb",ph:"z.B. Ich muss ein individuelles Kundenangebot mit technischen Details aufbereiten..."},
+  {id:"führung",label:"Führungskraft",ph:"z.B. Ich muss ein Strategiepapier für die Geschaeftsleitung vorbereiten..."},
+  {id:"sonstiges",label:"Sonstiges",ph:"z.B. Beschreibe eine Aufgabe die dich diese Woche nervt..."},
+];
+
+/* Role expansion: sub-roles (Feature 4) */
+const SUB_ROLES={
+  azubi:["Industriemechaniker","Mechatroniker","Land-/Baumaschinentechnik","Kaufleute","IT"]
+};
+
+const WORK_STYLES=[{id:"point",label:"Auf den Punkt"},{id:"structured",label:"Strukturiert"},{id:"detailed",label:"Ausführlich"}];
+const LEARN_STYLES=[{id:"facts",label:"Fakten & Stichpunkte"},{id:"examples",label:"Zeig mir Beispiele"},{id:"stepbystep",label:"Schritt für Schritt"}];
+const SPARKS=[{cat:"Alltag",items:[{l:"Lieferanten-Mail",uc:["texte"],p:"Schreibe eine freundliche aber bestimmte E-Mail an einen Lieferanten, der zum dritten Mal zu spaet liefert."},{l:"Feedback",uc:["feedback"],p:"Hilf mir ein Feedbackgespräch vorzubereiten. Mein Azubi ist motiviert, macht aber Fluechtikeitsfehler."}]},{cat:"Lernen",items:[{l:"Prüfungsfragen",uc:["lernen"],p:"Erstelle 5 IHK-Prüfungsfragen zum Thema Arbeitsschutz für Industriemechaniker."}]},{cat:"Kreativ",items:[{l:"Event-Ideen",uc:["ideen"],p:"Gib mir 7 ungewoehnliche Ideen für den Tag der offenen Tuer bei einem Landmaschinenhersteller."}]}];
+
+/* "Ich weiß nicht" everyday vignettes (N1) */
+const EVERYDAY_VIGNETTES=[
+  {l:"E-Mail-Flut",p:"Ich habe 47 ungelesene Mails und weiß nicht wo ich anfangen soll. Hilf mir eine Strategie zu entwickeln."},
+  {l:"Erklären ohne Fachwissen",p:"Ich muss einer fachfremden Person einen komplizierten Vorgang erklären und finde keine einfachen Worte."},
+  {l:"Protokoll schreiben",p:"Ich war im Meeting und habe nur Stichworte. Mach daraus ein sauberes Protokoll."},
+  {l:"Feedback formulieren",p:"Ich muss jemandem eine schwierige Rueckmeldung geben und will niemanden verletzen."},
+];
+
+const TOOL_TIERS={
+  claude:{free:{name:"Free",features:["Claude Sonnet","~30 Nachrichten/Tag","Web-Suche","Datei-Upload (begrenzt)"]},pro:{name:"Pro",features:["Alles aus Free","5\u00d7 mehr Nachrichten","Claude Opus","Projekte & Custom Instructions","Prioritaet"]},proTriggers:["doku","feedback","planung","daten","texte"]},
+  gemini:{free:{name:"Free",features:["Gemini Flash","Google-Integration","Bild-Analyse"]},pro:{name:"Advanced",features:["Alles aus Free","Gemini Pro","Deep Research","2TB Speicher"]},proTriggers:["recherche","daten","lernen"]},
+  chatgpt:{free:{name:"Free",features:["GPT-4o mini","Web-Suche","Bild-Generierung (begrenzt)"]},pro:{name:"Plus",features:["Alles aus Free","GPT-4o & o3","DALL-E","Custom GPTs"]},proTriggers:["präsi","ideen","daten","texte"]},
+  perplexity:{free:{name:"Free",features:["Suche mit Quellen","5 Pro-Suchen/Tag"]},pro:{name:"Pro",features:["Alles aus Free","300+ Pro-Suchen","Beste Modelle"]},proTriggers:["recherche","doku"]},
+  mistral:{free:{name:"Free",features:["Mistral Large","DSGVO-konform","Unbegrenzt"]},pro:{name:"Pro",features:["Alles aus Free","Prioritaet","Agents","Teams"]},proTriggers:["planung","texte"]},
+};
+const CHALLENGES={
+  azubi:{title:"Lass dir eine Prüfungsfrage erklären",body:"Frag dein Tool nach einer IHK-Frage zu deinem Beruf.",example:"Erkläre mir eine typische IHK-Prüfungsfrage zum Thema Arbeitsschutz."},
+  ausbilder:{title:"Lass ein Berichtsheft-Feedback schreiben",body:"Kopiere diesen Eintrag und bitte um konstruktives Feedback:",example:"Heute habe ich in der Werkstatt gearbeitet. Wir haben Teile sortiert und ich habe gelernt wie man schweißt."},
+  verwaltung:{title:"Lass eine Meeting-Einladung formulieren",body:"Gib Stichpunkte und lass eine Einladung schreiben:",example:"Quartalsreview Ausbildung. Teilnehmer: Ausbildungsleitung + HR. Nächste Woche Dienstag 10 Uhr."},
+  produktion:{title:"Lass eine Kurzanleitung erstellen",body:"Beschreibe einen Arbeitsschritt:",example:"Schritte zum sicheren Einrichten einer CNC-Fraese für einen neuen Azubi."},
+  vertrieb:{title:"Lass eine Kunden-Mail aufbereiten",body:"Stichpunkte rein, Mail raus:",example:"Kunde fragt nach Lieferzeit Joker 6 RT. Aktuell 8 Wochen. Sonderausstattung möglich."},
+  führung:{title:"Lass Argumente strukturieren",body:"Entscheidung beschreiben, Pro/Contra aufbereiten:",example:"Azubi-Rotation von 3 auf 6 Monate verlängern? Argumente für die GL."},
+  sonstiges:{title:"Lass dir bei einer echten Aufgabe helfen",body:"Nimm eine Aufgabe von heute:",example:"Formuliere eine freundliche Absage an eine bewerbende Person."},
+};
 const PRIVACY_HINTS={
   claude:{label:"Claude",hint:'Settings \u2192 Privacy \u2192 "Don\'t train on my data" aktivieren.'},
   chatgpt:{label:"ChatGPT",hint:'Settings \u2192 Data Controls \u2192 "Chat history & training" deaktivieren.'},
   gemini:{label:"Gemini",hint:'Activity Controls \u2192 "Gemini Apps Activity" deaktivieren.'},
   perplexity:{label:"Perplexity",hint:'Settings \u2192 Account \u2192 "AI Data Retention" deaktivieren.'},
-  mistral:{label:"Mistral",hint:'DSGVO-konform, EU-Server. Kein Training mit Nutzerdaten \u2014 keine Aktion n\u00f6tig.'},
+  mistral:{label:"Mistral",hint:'DSGVO-konform, EU-Server. Kein Training mit Nutzerdaten \u2014 keine Aktion noetig.'},
 };
 
 /* ===== API ===== */
 async function askAI(provider,prompt,system){
   try{
-    const controller=new AbortController();
-    const timeout=setTimeout(()=>controller.abort(),8000);
-    const doFetch=async()=>{
-      const res=await fetch(PROXY_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({provider,prompt,system}),signal:controller.signal});
+    const doFetch=async(sig)=>{
+      const res=await fetch(PROXY_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({provider,prompt,system}),signal:sig});
       return await res.json();
     };
     let data;
@@ -437,61 +576,134 @@ async function askAI(provider,prompt,system){
         try{
           const c2=new AbortController();const t2=setTimeout(()=>c2.abort(),8000);
           const res=await fetch(PROXY_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({provider,prompt,system}),signal:c2.signal});
-          clearTimeout(t2);
-          data=await res.json();
-          if(!data.error)break;
-          lastErr=data.error;
+          clearTimeout(t2);data=await res.json();
+          if(!data.error)break;lastErr=data.error;
           if(attempt<2)await new Promise(r=>setTimeout(r,2000));
-        }catch(e2){
-          lastErr=e2.message;
-          if(attempt<2)await new Promise(r=>setTimeout(r,2000));
-        }
+        }catch(e2){lastErr=e2.message;if(attempt<2)await new Promise(r=>setTimeout(r,2000));}
       }
-      clearTimeout(timeout);
-      if(!data||data.error){
-        return{text:null,noKey:true,geminiDown:true};
-      }
+      if(!data||data.error)return{text:null,noKey:true,geminiDown:true};
       if(data.error==="no_key")return{text:null,noKey:true};
       return{text:data.text,noKey:false};
     }
-    data=await doFetch();
-    clearTimeout(timeout);
+    const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),8000);
+    data=await doFetch(controller.signal);clearTimeout(timeout);
     if(data.error==="no_key")return{text:null,noKey:true};
-    if(data.error)return{text:"Fehler: "+data.error,noKey:false};
+    if(data.error)return{text:null,noKey:false,apiError:true};
     return{text:data.text,noKey:false};
   }catch(e){return{text:null,noKey:true};}
 }
+
+/* Feature 22: Anonymous analytics */
+function sendAnalytics(payload){
+  try{
+    fetch(PROXY_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({provider:"analytics",data:{...payload,timestamp:new Date().toISOString()}})}).catch(()=>{});
+  }catch(e){}
+}
+
 function esc(s){if(!s)return"";const d=document.createElement("div");d.textContent=s;return d.innerHTML;}
 function hasDeepLink(t){return["perplexity","chatgpt","gemini"].includes(t.id);}
 function buildDeepLink(t,p){const e=encodeURIComponent(p);if(t.id==="perplexity")return"https://www.perplexity.ai/search?q="+e;if(t.id==="chatgpt")return"https://chatgpt.com/?q="+e;if(t.id==="gemini")return"https://gemini.google.com/app?q="+e;return t.url;}
 let _fb={},_fi=0;
 function copyP(fid,btn){navigator.clipboard.writeText(_fb[fid]);btn.textContent="Kopiert!";setTimeout(()=>btn.textContent="Kopieren",1500);}
-function copyOpen(tid,prompt,btn){const t=TOOLS.find(x=>x.id===tid);navigator.clipboard.writeText(prompt).then(()=>{btn.textContent="Kopiert!";setTimeout(()=>{window.open(t.url,"_blank");btn.textContent="Prompt kopieren & "+t.name+" \u00f6ffnen";},600);});}
+function copyOpen(tid,prompt,btn){const t=TOOLS.find(x=>x.id===tid);navigator.clipboard.writeText(prompt).then(()=>{btn.textContent="Kopiert!";setTimeout(()=>{window.open(t.url,"_blank");btn.textContent="Prompt kopieren & "+t.name+" oeffnen";},600);});}
 function renderLoading(t){return'<div class="spinner">'+(t||"Denkt nach...")+'</div>';}
+
+/* Feature B2: Fallback card */
 function renderFallback(t,p){
-  return`<div class="tool-fallback"><div class="tool-icon" style="background:${t.color}22;">${t.emoji}</div><div class="tool-info"><div class="name">${t.name}</div><div class="desc">${t.sweet}</div></div><a href="${p?buildDeepLink(t,p):t.url}" target="_blank" class="try-link" style="background:${t.color}18;color:${t.color};">In ${t.name} ausprobieren \u2192</a></div>`;
+  const link = p ? buildDeepLink(t,p) : t.url;
+  return`<div class="fallback-card"><div class="fc-label">Demo-Modus</div><div class="fc-msg">Live-Verbindung nicht verfuegbar. Probiere es direkt im Tool:</div><div class="tool-fallback"><div class="tool-icon" style="background:${t.color}22;">${t.emoji}</div><div class="tool-info"><div class="name">${t.name}</div><div class="desc">${t.desc||t.sweet}</div></div><a href="${link}" target="_blank" class="try-link" style="background:${t.color}18;color:${t.color};">In ${t.name} ausprobieren \u2192</a></div></div>`;
 }
+
+/* Feature 21: Tool link button for every result */
 function renderToolLinkBtn(t,p){
   if(hasDeepLink(t)){
     const link=p?buildDeepLink(t,p):t.url;
     return`<a href="${link}" target="_blank" class="tool-link-btn" style="color:${t.color};border-color:${t.color}44;">In ${t.name} ausprobieren \u2192</a>`;
   }else{
     const fid="_fb"+(++_fi);_fb[fid]=p||"";
-    return`<button class="tool-link-btn" style="color:${t.color};border-color:${t.color}44;" onclick="navigator.clipboard.writeText(_fb['${fid}']).then(()=>{this.textContent='Kopiert!';setTimeout(()=>window.open('${t.url}','_blank'),500);setTimeout(()=>{this.textContent='Prompt kopieren & ${t.name} \u00f6ffnen';},2000);});">Prompt kopieren & ${t.name} \u00f6ffnen</button>`;
+    return`<button class="tool-link-btn" style="color:${t.color};border-color:${t.color}44;" onclick="navigator.clipboard.writeText(_fb['${fid}']).then(()=>{this.textContent='Kopiert!';setTimeout(()=>window.open('${t.url}','_blank'),500);setTimeout(()=>{this.textContent='Prompt kopieren & ${t.name} oeffnen';},2000);});">Prompt kopieren & ${t.name} oeffnen</button>`;
   }
 }
 
+function renderGeminiFallback(){
+  const t=TOOLS.find(x=>x.id==="gemini");
+  return renderFallback(t);
+}
+
+/* Feature B1: Observation hint */
+function renderObserveHint(text){
+  if(!text)return"";
+  return`<div class="observe-hint">\uD83D\uDC41\uFE0F ${esc(text)}</div>`;
+}
+
+/* Feature N2: Soft skip */
+function renderSoftSkip(action){
+  return`<button class="soft-skip" onclick="${action}">Überspringen, ist okay.</button>`;
+}
+
+/* Feature B3: Jargon tooltips */
+const JARGON_TERMS=["Context Window","Halluzination","Prompt","System Prompt","Token","Harness"];
+function applyJargonTooltips(){
+  /* Scan UI text and wrap known terms with clickable spans */
+  /* Done via delegation on click */
+}
+function showJargonTooltip(term,evt){
+  const data = (GLOSSARY_DATA||GLOSSARY_FALLBACK).find(g=>g.term===term);
+  if(!data)return;
+  const container=document.getElementById("jargon-tooltip-container");
+  const r = evt.target.getBoundingClientRect();
+  const top = Math.min(r.bottom+8, window.innerHeight-220);
+  const left = Math.max(16, Math.min(r.left, window.innerWidth-340));
+  container.innerHTML=`<div class="jargon-tip" style="top:${top}px;left:${left}px;"><span class="jt-close" onclick="document.getElementById('jargon-tooltip-container').innerHTML=''">\u2715</span><div class="jt-term">${esc(data.term)}</div><div class="jt-section"><div class="jt-label">Tech-Welt</div>${esc(data.tech)}</div><div class="jt-section"><div class="jt-label">Für dich</div>${esc(data.fürDich)}</div></div>`;
+}
+function wrapJargon(text){
+  let result = esc(text);
+  const glossary = GLOSSARY_DATA || GLOSSARY_FALLBACK;
+  glossary.forEach(g=>{
+    const escaped = g.term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    const regex = new RegExp('('+escaped+')','gi');
+    result = result.replace(regex, '<span class="jargon" onclick="showJargonTooltip(\''+g.term.replace(/'/g,"\\'")+'\',event)">$1</span>');
+  });
+  return result;
+}
+/* Close tooltip on outside click */
+document.addEventListener("click",function(e){
+  if(!e.target.closest(".jargon")&&!e.target.closest(".jargon-tip")){
+    document.getElementById("jargon-tooltip-container").innerHTML="";
+  }
+});
+
 /* ===== STATE ===== */
 let currentAct=-1,onboardStep=0;
-const profile={role:null,roleFree:"",language:"de",useCases:[],aiExp:null,currentTool:"",workStyle:null,learnStyle:null,task:""};
+const profile={role:null,roleFree:"",subRole:"",whatDoYouDo:"",language:"de",useCases:[],aiExp:null,currentTool:"",workStyle:null,learnStyle:null,task:"",dontKnow:false};
 let contextPrompt="";
-let setupData={primary:null,secondary:null,name:"",answers:["","",""],primaryTier:"free",secondaryTier:"free"};
+let setupData={primary:null,secondary:null,name:"",answers:["","","","",""],primaryTier:"free",secondaryTier:"free"};
 const sectionState={
   0:{sections:["kontext","tools","arena"],locked:{kontext:false,tools:true,arena:true},done:{}},
   1:{sections:["szenario","reflexion"],locked:{szenario:false,reflexion:true},done:{}},
   2:{sections:["reflexion","tool","plan","karte","los"],locked:{reflexion:false,tool:true,plan:true,karte:true,los:true},done:{}},
 };
 let selectedLimitIdx=null,reflectAnswers=[null,null,null],expandedTool=null,stickyCTA=null;
+/* Feature C1 */
+let entryMode=null; /* 'konkret','vage','unsicher' */
+/* Feature C3 */
+let moodCheck=null;
+/* Feature D3 */
+let trainingPartnerNeed=null;
+/* Feature M2 */
+let midAnchorWord="";
+/* Feature M3 */
+let closingAnchorRead=false;
+/* Feature F1 */
+let signatureLine1="";
+let signatureLine2="";
+let signatureLine3="";
+/* Feature E3 */
+let deepeningOpen=false;
+/* Feature G3/M1 */
+let breathDone=false;
+/* Feature C2 */
+let mirrorSentence="";
 
 /* ===== NAV ===== */
 const ACT_NAMES=["Dein Match","Der Pilot","Mein Setup"];
@@ -499,28 +711,25 @@ const SECTION_LABELS={kontext:"Kontext",tools:"5 Tools",arena:"Arena",szenario:"
 
 function renderProgress(){
   document.getElementById("progress").innerHTML=ACT_NAMES.map((n,i)=>{
-    const a = i<=currentAct;
-    const isCurrent = i===currentAct;
-    const onclick = i<currentAct ? `goToAct(${i})` : "";
+    const a=i<=currentAct;const isCurrent=i===currentAct;
+    const onclick=i<currentAct?`goToAct(${i})`:"";
     return`<div class="progress-step" ${onclick?`onclick="${onclick}" style="cursor:pointer;"`:''}><div class="progress-bar ${a?'active':''}"></div><span class="progress-label ${isCurrent?'active':''}">${n}</span></div>`;
   }).join("");
   updateTimer();
 }
 
 function updateTimer(){
-  const el=document.getElementById("progress-timer");
-  if(!el)return;
+  const el=document.getElementById("progress-timer");if(!el)return;
   if(currentAct<0){el.textContent="";return;}
-  const ss=sectionState[currentAct];
-  const dc=ss?Object.values(ss.done).filter(Boolean).length:0;
+  const ss=sectionState[currentAct];const dc=ss?Object.values(ss.done).filter(Boolean).length:0;
   let label="";
-  if(currentAct===0&&dc===0) label="\u23F1 ~8 Min";
-  else if(currentAct===0&&dc===1) label="\u23F1 ~6 Min";
-  else if(currentAct===0&&dc>=2) label="\u23F1 ~5 Min";
-  else if(currentAct===1&&dc===0) label="\u23F1 ~4 Min";
-  else if(currentAct===1&&dc>=1) label="\u23F1 ~3 Min";
-  else if(currentAct===2&&dc<=2) label="\u23F1 ~2 Min";
-  else if(currentAct===2&&dc>=3) label="Fast geschafft! \uD83C\uDFC1";
+  if(currentAct===0&&dc===0)label="\u23F1 ~8 Min";
+  else if(currentAct===0&&dc===1)label="\u23F1 ~6 Min";
+  else if(currentAct===0&&dc>=2)label="\u23F1 ~5 Min";
+  else if(currentAct===1&&dc===0)label="\u23F1 ~4 Min";
+  else if(currentAct===1&&dc>=1)label="\u23F1 ~3 Min";
+  else if(currentAct===2&&dc<=2)label="\u23F1 ~2 Min";
+  else if(currentAct===2&&dc>=3)label="Fast geschafft! \uD83C\uDFC1";
   el.textContent=label;
 }
 
@@ -529,30 +738,22 @@ function renderTabBar(){
   const ss=sectionState[currentAct];
   document.getElementById("tab-bar").innerHTML=ss.sections.map(s=>{
     let cls="tab";
-    if(ss.done[s])cls+=" done";
-    if(ss.locked[s])cls+=" locked";
+    if(ss.done[s])cls+=" done";if(ss.locked[s])cls+=" locked";
     if(s==="los"&&!ss.locked[s])cls+=" finale";
     const label=ss.done[s]?SECTION_LABELS[s]+" \u2713":ss.locked[s]?SECTION_LABELS[s]+" \uD83D\uDD12":SECTION_LABELS[s];
     return`<div class="${cls}" onclick="scrollToSection('${s}')">${label}</div>`;
   }).join("");
 }
 
-function scrollToSection(id){
-  if(sectionState[currentAct].locked[id])return;
-  document.getElementById("sec-"+id)?.scrollIntoView({behavior:"smooth",block:"start"});
-}
-
+function scrollToSection(id){if(sectionState[currentAct].locked[id])return;document.getElementById("sec-"+id)?.scrollIntoView({behavior:"smooth",block:"start"});}
 function unlock(sec){sectionState[currentAct].locked[sec]=false;renderTabBar();renderAct();}
 function markDone(sec){sectionState[currentAct].done[sec]=true;renderTabBar();updateTimer();}
-
 function goToAct(n){
   currentAct=n;renderProgress();renderTabBar();renderAct();window.scrollTo({top:0,behavior:"smooth"});
+  // Hide scroll teaser when not on Setup act
+  const t=document.getElementById("scroll-teaser");if(t&&n!==2)t.classList.add("hidden");
 }
-
-function updateStickyCTA(text,action){
-  stickyCTA={text,action};
-  document.getElementById("sticky-cta").innerHTML=text?`<button class="btn btn-primary" onclick="${action}">${text}</button>`:"";
-}
+function updateStickyCTA(text,action){stickyCTA={text,action};document.getElementById("sticky-cta").innerHTML=text?`<button class="btn btn-primary" onclick="${action}">${text}</button>`:"";  }
 
 function showOverlay(emoji,title,sub,insight,btn,onClose){
   const ov=document.getElementById("overlay");
@@ -562,13 +763,15 @@ function showOverlay(emoji,title,sub,insight,btn,onClose){
 }
 
 function buildContextPrompt(){
-  const role=ROLES.find(r=>r.id===profile.role)?.label||profile.roleFree||"Mitarbeiter*in";
+  const role=ROLES.find(r=>r.id===profile.role)?.label||profile.roleFree||"Mitarbeitende";
   const ucs=profile.useCases.map(id=>USE_CASES.find(u=>u.id===id)?.label).filter(Boolean);
-  const exp={none:"hat noch nie KI genutzt",some:"hat KI ein paar Mal ausprobiert",regular:"nutzt KI regelm\u00e4\u00dfig"};
-  const sty={point:"knappe Bullet Points",structured:"strukturierte Antworten",detailed:"ausf\u00fchrliche Antworten mit Kontext"};
-  const lrn={facts:"Stichpunkte",examples:"konkrete Beispiele",stepbystep:"Schritt-f\u00fcr-Schritt-Anleitungen"};
+  const exp={none:"hat noch nie KI genutzt",some:"hat KI ein paar Mal ausprobiert",regular:"nutzt KI regelmaessig"};
+  const sty={point:"knappe Bullet Points",structured:"strukturierte Antworten",detailed:"ausführliche Antworten mit Kontext"};
+  const lrn={facts:"Stichpunkte",examples:"konkrete Beispiele",stepbystep:"Schritt-für-Schritt-Anleitungen"};
   let p=[`"${role}" bei HORSCH Maschinen (Landmaschinenhersteller, 2000 MA).`,`${exp[profile.aiExp]||""}, bevorzugt ${sty[profile.workStyle]||""}, lernt am besten mit ${lrn[profile.learnStyle]||""}.`];
-  if(ucs.length)p.push("Anwendungsf\u00e4lle: "+ucs.join(", ")+".");
+  if(profile.subRole)p.push("Ausbildungsberuf: "+profile.subRole+".");
+  if(profile.whatDoYouDo)p.push("Taetigkeit: "+profile.whatDoYouDo+".");
+  if(ucs.length)p.push("Anwendungsfaelle: "+ucs.join(", ")+".");
   if(setupData.name)p.push("Name: "+setupData.name+".");
   p.push("Aufgabe: "+profile.task);
   contextPrompt=p.join(" ");
@@ -578,37 +781,36 @@ function buildContextPrompt(){
 function renderOnboarding(){
   const el=document.getElementById("act-content");
   const dots=`<div class="onboard-dots">${[0,1,2,3,4].map(i=>`<div class="onboard-dot ${i<onboardStep?'done':''} ${i===onboardStep?'active':''}"></div>`).join("")}</div>`;
-  const back=onboardStep>0?`<button class="btn-back" onclick="onboardStep--;renderOnboarding();">\u2190 Zur\u00fcck</button>`:"";
+  const back=onboardStep>0?`<button class="btn-back" onclick="onboardStep--;renderOnboarding();">\u2190 Zurück</button>`:"";
 
   if(onboardStep===0){
-    // Hide top-bar for welcome screen
-    document.querySelector(".top-bar").style.display="none";
+    /* Feature G3/M1: Breath screen before hero */
+    if(!breathDone){
+      document.querySelector(".top-bar").style.display="none";
+      el.innerHTML=`<div class="breath-screen"><p style="font-size:15px;color:var(--text-dim);margin-bottom:24px;">Bevor du anfaengst \u2014 ein Atemzug.</p><div class="breath-circle"></div><button class="btn btn-primary" style="max-width:240px;margin:0 auto;" onclick="breathDone=true;renderOnboarding();">Ich bin bereit</button></div>`;
+      return;
+    }
 
+    document.querySelector(".top-bar").style.display="none";
     el.innerHTML=`
     <div class="hero-intro">
       <div class="hi-badge">HORSCH AIKIDO</div>
       <h1>Willkommen in der<br>KI-Arena</h1>
-      <p>Finde heraus welches KI-Tool zu dir passt \u2014 und nimm dein pers\u00f6nliches Setup mit.</p>
+      <p>Finde heraus welches KI-Tool zu dir passt \u2014 und nimm dein persönliches Setup mit.</p>
       <div class="hi-tools">
-        <div class="hi-tool">\u{1F9E0}</div>
-        <div class="hi-tool">\u2728</div>
-        <div class="hi-tool">\u26A1</div>
-        <div class="hi-tool">\uD83D\uDD0D</div>
-        <div class="hi-tool">\uD83C\uDF0A</div>
+        <div class="hi-tool">\u{1F9E0}</div><div class="hi-tool">\u2728</div><div class="hi-tool">\u26A1</div><div class="hi-tool">\uD83D\uDD0D</div><div class="hi-tool">\uD83C\uDF0A</div>
       </div>
     </div>
 
     <div class="chat-flow">
       <div class="chat-bubble chat-ai" style="animation-delay:.5s;">
         <div class="chat-label">AIKIDO</div>
-        Hey! Sch\u00f6n, dass du da bist. \uD83D\uDC4B<br>Wie hei\u00dft du?
+        Hey! Schoen, dass du da bist. \uD83D\uDC4B<br>Wie heißt du?
       </div>
-
       <div class="chat-input-wrap">
         <input type="text" id="ob-name" placeholder="Dein Vorname..." value="${esc(setupData.name)}" autocomplete="off">
         <button class="chat-send" onclick="chatNameDone()" id="name-send">\u2192</button>
       </div>
-
       <div id="chat-step2" class="${setupData.name?'':'hide'}" style="margin-top:12px;">
         <div class="chat-bubble chat-user" id="chat-name-echo">${setupData.name||''}</div>
         <div class="chat-bubble chat-ai" style="animation-delay:.1s;">
@@ -617,79 +819,111 @@ function renderOnboarding(){
         </div>
         <div class="chip-row" id="ob-r">${ROLES.map(r=>`<span class="chip ${profile.role===r.id?'active':''}" data-v="${r.id}">${r.label}</span>`).join("")}</div>
         <div id="rfw" class="${profile.role==='sonstiges'?'':'hide'}" style="margin-top:6px;"><input type="text" id="rf" placeholder="Was machst du?" value="${esc(profile.roleFree)}"></div>
+        <div id="sub-role-wrap" class="${profile.role==='azubi'?'':'hide'}" style="margin-top:8px;">
+          <div style="font-size:12px;font-weight:600;margin-bottom:6px;">Ausbildungsberuf (optional)</div>
+          <div class="chip-row" id="ob-sr">${(SUB_ROLES.azubi||[]).map(sr=>`<span class="chip ${profile.subRole===sr?'active':''}" data-v="${esc(sr)}">${sr}</span>`).join("")}</div>
+        </div>
+        <div style="margin-top:8px;"><input type="text" id="what-do-you-do" placeholder="Was genau machst du? (optional)" value="${esc(profile.whatDoYouDo)}" style="font-size:13px;"></div>
       </div>
-
       <div id="chat-step3" class="${profile.role?'':'hide'}" style="margin-top:12px;">
         <div class="chat-bubble chat-ai" style="animation-delay:.1s;">
           <div class="chat-label">AIKIDO</div>
           Welche Sprache nutzt du bei der Arbeit?
         </div>
-        <div class="pill-row" id="ob-l" style="margin-bottom:12px;"><span class="pill ${profile.language==='de'?'active':''}" data-v="de">Haupts\u00e4chlich Deutsch</span><span class="pill ${profile.language==='mixed'?'active':''}" data-v="mixed">Deutsch + Englisch</span></div>
+        <div class="pill-row" id="ob-l" style="margin-bottom:12px;"><span class="pill ${profile.language==='de'?'active':''}" data-v="de">Hauptsaechlich Deutsch</span><span class="pill ${profile.language==='mixed'?'active':''}" data-v="mixed">Deutsch + Englisch</span></div>
         <button class="btn btn-primary" id="ob-n" onclick="nextOB()" ${!profile.role||!setupData.name?'disabled':''}>Weiter \u2192</button>
       </div>
     </div>
-
-    <div class="chat-or"><span>oder Schnellversion</span></div>
-    <button class="quick-role-btn" onclick="onboardStep=0;document.querySelector('.top-bar').style.display='';renderOnboardingClassic();">Klassisches Formular \u2192</button>
     `;
 
-    // Name input handler
     const nameInput=document.getElementById("ob-name");
     nameInput.addEventListener("keydown",e=>{if(e.key==="Enter")chatNameDone();});
     nameInput.addEventListener("input",function(){setupData.name=this.value.trim();});
-    if(setupData.name)nameInput.focus();
-    else setTimeout(()=>nameInput.focus(),600);
+    if(setupData.name)nameInput.focus();else setTimeout(()=>nameInput.focus(),600);
 
-    // Role chips handler
     document.getElementById("ob-r").onclick=e=>{
       const c=e.target.closest("[data-v]");if(!c)return;
       profile.role=c.dataset.v;
-      el.querySelectorAll("#ob-r [data-v]").forEach(x=>x.classList.remove("active"));
-      c.classList.add("active");
+      el.querySelectorAll("#ob-r [data-v]").forEach(x=>x.classList.remove("active"));c.classList.add("active");
       document.getElementById("rfw").classList.toggle("hide",profile.role!=="sonstiges");
+      /* Feature 4: sub-role for azubi */
+      const srw=document.getElementById("sub-role-wrap");
+      if(srw)srw.classList.toggle("hide",!SUB_ROLES[profile.role]);
       document.getElementById("chat-step3").classList.remove("hide");
       const btn=document.getElementById("ob-n");if(btn)btn.disabled=!profile.role||!setupData.name;
     };
 
-    // Language handler
+    /* Sub-role chip handler */
+    document.getElementById("ob-sr")?.addEventListener("click",e=>{
+      const c=e.target.closest("[data-v]");if(!c)return;
+      if(profile.subRole===c.dataset.v){profile.subRole="";c.classList.remove("active");}
+      else{document.querySelectorAll("#ob-sr [data-v]").forEach(x=>x.classList.remove("active"));profile.subRole=c.dataset.v;c.classList.add("active");}
+    });
+
     const langWrap=document.getElementById("ob-l");
-    if(langWrap) langWrap.onclick=e=>{const p=e.target.closest("[data-v]");if(!p)return;profile.language=p.dataset.v;langWrap.querySelectorAll("[data-v]").forEach(x=>x.classList.remove("active"));p.classList.add("active");};
+    if(langWrap)langWrap.onclick=e=>{const p=e.target.closest("[data-v]");if(!p)return;profile.language=p.dataset.v;langWrap.querySelectorAll("[data-v]").forEach(x=>x.classList.remove("active"));p.classList.add("active");};
 
   } else if(onboardStep===1){
-    // Show top-bar again for remaining steps
     document.querySelector(".top-bar").style.display="";
-    el.innerHTML=`${dots}${back}<h2>Wo k\u00f6nnte KI dir helfen?</h2><p class="subtitle">W\u00e4hle alles, was sich nach deinem Alltag anh\u00f6rt.</p>
-    <div class="chip-row" id="ob-u">${USE_CASES.map(u=>`<span class="chip ${profile.useCases.includes(u.id)?'active':''}" data-v="${u.id}">${u.label}</span>`).join("")}</div>
-    <div style="margin-top:8px;font-size:12px;color:var(--text-faint);" id="uc-c">${profile.useCases.length} gew\u00e4hlt</div>
-    <button class="btn btn-primary mt" id="ob-n" onclick="nextOB()" ${profile.useCases.length<2?'disabled':''}>Weiter</button>`;
-    el.querySelector("#ob-u").onclick=e=>{const c=e.target.closest("[data-v]");if(!c)return;const id=c.dataset.v;if(profile.useCases.includes(id)){profile.useCases=profile.useCases.filter(x=>x!==id);c.classList.remove("active");}else{profile.useCases.push(id);c.classList.add("active");}document.getElementById("uc-c").textContent=profile.useCases.length+" gew\u00e4hlt";document.getElementById("ob-n").disabled=profile.useCases.length<2;};
+    /* Feature N1: "Ich weiß nicht" chip */
+    el.innerHTML=`${dots}${back}<h2>Wo koennte KI dir helfen?</h2><p class="subtitle">Wähle alles, was sich nach deinem Alltag anhört.</p>
+    <div class="chip-row" id="ob-u">${USE_CASES.map(u=>`<span class="chip ${profile.useCases.includes(u.id)?'active':''}" data-v="${u.id}">${u.label}</span>`).join("")}<span class="chip ${profile.dontKnow?'active':''}" data-v="_dontknow">\uD83E\uDD37 Weiss ich noch nicht</span></div>
+    <div style="margin-top:8px;font-size:12px;color:var(--text-faint);" id="uc-c">${profile.dontKnow?'Leichterer Pfad gewählt':profile.useCases.length+' gewählt'}</div>
+    <button class="btn btn-primary mt" id="ob-n" onclick="nextOB()" ${!profile.dontKnow&&profile.useCases.length<2?'disabled':''}>Weiter</button>`;
+    el.querySelector("#ob-u").onclick=e=>{
+      const c=e.target.closest("[data-v]");if(!c)return;
+      const id=c.dataset.v;
+      if(id==="_dontknow"){
+        profile.dontKnow=!profile.dontKnow;
+        if(profile.dontKnow)profile.useCases=[];
+        el.querySelectorAll("#ob-u [data-v]").forEach(x=>{if(x.dataset.v!=="_dontknow")x.classList.remove("active");});
+        c.classList.toggle("active",profile.dontKnow);
+      }else{
+        profile.dontKnow=false;
+        el.querySelector("[data-v='_dontknow']").classList.remove("active");
+        if(profile.useCases.includes(id)){profile.useCases=profile.useCases.filter(x=>x!==id);c.classList.remove("active");}
+        else{profile.useCases.push(id);c.classList.add("active");}
+      }
+      document.getElementById("uc-c").textContent=profile.dontKnow?'Leichterer Pfad gewählt':profile.useCases.length+' gewählt';
+      document.getElementById("ob-n").disabled=!profile.dontKnow&&profile.useCases.length<2;
+    };
   } else if(onboardStep===2){
     el.innerHTML=`${dots}${back}<h2>Wie tickst du?</h2><p class="subtitle">Hilft uns, die Tools auf dich einzustellen.</p>
     <div style="font-size:13px;font-weight:600;margin-bottom:8px;">KI-Erfahrung</div>
-    <div class="pill-row mb" id="ob-e"><span class="pill ${profile.aiExp==='none'?'active':''}" data-v="none">Noch nie genutzt</span><span class="pill ${profile.aiExp==='some'?'active':''}" data-v="some">Ein paar Mal probiert</span><span class="pill ${profile.aiExp==='regular'?'active':''}" data-v="regular">Nutze es regelm\u00e4\u00dfig</span></div>
+    <div class="pill-row mb" id="ob-e"><span class="pill ${profile.aiExp==='none'?'active':''}" data-v="none">Noch nie genutzt</span><span class="pill ${profile.aiExp==='some'?'active':''}" data-v="some">Ein paar Mal probiert</span><span class="pill ${profile.aiExp==='regular'?'active':''}" data-v="regular">Nutze es regelmaessig</span></div>
     <div id="ed" class="${profile.aiExp==='regular'?'':'hide'}" style="margin-bottom:12px;"><input type="text" id="ct" placeholder="Welches Tool?" value="${esc(profile.currentTool)}"></div>
     <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Arbeitsstil</div>
     <div class="pill-row mb" id="ob-s">${WORK_STYLES.map(s=>`<span class="pill ${profile.workStyle===s.id?'active':''}" data-v="${s.id}">${s.label}</span>`).join("")}</div>
     <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Lerntyp</div>
     <div class="pill-row mb" id="ob-lr">${LEARN_STYLES.map(s=>`<span class="pill ${profile.learnStyle===s.id?'active':''}" data-v="${s.id}">${s.label}</span>`).join("")}</div>
-    <button class="btn btn-primary mt" id="ob-n" onclick="nextOB()" ${!(profile.aiExp&&profile.workStyle&&profile.learnStyle)?'disabled':''}>Weiter</button>`;
+    <button class="btn btn-primary mt" id="ob-n" onclick="nextOB()" ${!(profile.aiExp&&profile.workStyle&&profile.learnStyle)?'disabled':''}>Weiter</button>
+    ${renderSoftSkip("profile.aiExp=profile.aiExp||'some';profile.workStyle=profile.workStyle||'structured';profile.learnStyle=profile.learnStyle||'examples';nextOB();")}`;
     const ck=()=>{document.getElementById("ob-n").disabled=!(profile.aiExp&&profile.workStyle&&profile.learnStyle);};
     el.querySelector("#ob-e").onclick=e=>{const p=e.target.closest("[data-v]");if(!p)return;profile.aiExp=p.dataset.v;el.querySelectorAll("#ob-e [data-v]").forEach(x=>x.classList.remove("active"));p.classList.add("active");document.getElementById("ed").classList.toggle("hide",profile.aiExp!=="regular");ck();};
     el.querySelector("#ob-s").onclick=e=>{const p=e.target.closest("[data-v]");if(!p)return;profile.workStyle=p.dataset.v;el.querySelectorAll("#ob-s [data-v]").forEach(x=>x.classList.remove("active"));p.classList.add("active");ck();};
     el.querySelector("#ob-lr").onclick=e=>{const p=e.target.closest("[data-v]");if(!p)return;profile.learnStyle=p.dataset.v;el.querySelectorAll("#ob-lr [data-v]").forEach(x=>x.classList.remove("active"));p.classList.add("active");ck();};
   } else if(onboardStep===3){
     const ph=ROLES.find(r=>r.id===profile.role)?.ph||"z.B. Eine Aufgabe die dich nervt...";
-    el.innerHTML=`${dots}${back}<h2>Dein roter Faden</h2><p class="subtitle">Beschreib eine Aufgabe die dich diese Woche besch\u00e4ftigt.</p>
+    let vignetteHTML="";
+    if(profile.dontKnow){
+      vignetteHTML=`<div style="margin-bottom:12px;"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">Oder wähle eine Alltagssituation:</div><div class="chip-row" id="vignette-chips">${EVERYDAY_VIGNETTES.map((v,i)=>`<span class="chip" data-v="${i}">${v.l}</span>`).join("")}</div></div>`;
+    }
+    el.innerHTML=`${dots}${back}<h2>Dein roter Faden</h2><p class="subtitle">Beschreib eine Aufgabe die dich diese Woche beschaeftigt.</p>
+    ${vignetteHTML}
     <textarea id="ti" rows="3" placeholder="${esc(ph)}">${esc(profile.task)}</textarea>
     <button class="btn btn-primary mt" id="ob-n" onclick="finishOB()" ${!profile.task?'disabled':''}>Arena starten</button>`;
     const ta=document.getElementById("ti");
     const up=()=>{profile.task=ta.value.trim();document.getElementById("ob-n").disabled=!profile.task;};
     ta.addEventListener("input",up);ta.addEventListener("paste",()=>setTimeout(up,0));
+    document.getElementById("vignette-chips")?.addEventListener("click",e=>{
+      const c=e.target.closest("[data-v]");if(!c)return;
+      ta.value=EVERYDAY_VIGNETTES[parseInt(c.dataset.v)].p;up();
+    });
   }
 }
+
 function chatNameDone(){
-  const inp=document.getElementById("ob-name");
-  if(!inp||!inp.value.trim())return;
+  const inp=document.getElementById("ob-name");if(!inp||!inp.value.trim())return;
   setupData.name=inp.value.trim();
   document.getElementById("chat-name-echo").textContent=setupData.name;
   document.getElementById("chat-greeting").textContent="Hi "+setupData.name+"!";
@@ -697,28 +931,17 @@ function chatNameDone(){
   document.getElementById("chat-step2").scrollIntoView({behavior:"smooth",block:"start"});
 }
 
-function renderOnboardingClassic(){
-  // Fallback to traditional form onboarding
-  const el=document.getElementById("act-content");
-  el.innerHTML=`<h2>Wer bist du?</h2><p class="subtitle">Damit wir dir die richtigen Tools zeigen.</p>
-    <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Dein Name</div>
-    <input type="text" id="ob-name" placeholder="Dein Vorname" value="${esc(setupData.name)}" style="margin-bottom:12px;">
-    <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Deine Rolle bei HORSCH</div>
-    <div class="chip-row" id="ob-r">${ROLES.map(r=>`<span class="chip ${profile.role===r.id?'active':''}" data-v="${r.id}">${r.label}</span>`).join("")}</div>
-    <div id="rfw" class="${profile.role==='sonstiges'?'':'hide'}" style="margin-top:8px;"><input type="text" id="rf" placeholder="Was machst du?" value="${esc(profile.roleFree)}"></div>
-    <div style="margin-top:16px;font-size:13px;font-weight:600;margin-bottom:8px;">Sprache</div>
-    <div class="pill-row" id="ob-l"><span class="pill ${profile.language==='de'?'active':''}" data-v="de">Haupts\u00e4chlich Deutsch</span><span class="pill ${profile.language==='mixed'?'active':''}" data-v="mixed">Deutsch + Englisch</span></div>
-    <button class="btn btn-primary mt" id="ob-n" onclick="nextOB()" ${!profile.role||!setupData.name?'disabled':''}>Weiter</button>`;
-  document.getElementById("ob-name").addEventListener("input",function(){setupData.name=this.value.trim();const b=document.getElementById("ob-n");if(b)b.disabled=!profile.role||!setupData.name;});
-  el.querySelector("#ob-r").onclick=e=>{const c=e.target.closest("[data-v]");if(!c)return;profile.role=c.dataset.v;el.querySelectorAll("#ob-r [data-v]").forEach(x=>x.classList.remove("active"));c.classList.add("active");document.getElementById("rfw").classList.toggle("hide",profile.role!=="sonstiges");const b=document.getElementById("ob-n");if(b)b.disabled=!profile.role||!setupData.name;};
-  el.querySelector("#ob-l").onclick=e=>{const p=e.target.closest("[data-v]");if(!p)return;profile.language=p.dataset.v;el.querySelectorAll("#ob-l [data-v]").forEach(x=>x.classList.remove("active"));p.classList.add("active");};
-}
-
 function nextOB(){
-  if(onboardStep===0){const f=document.getElementById("rf");if(f)profile.roleFree=f.value.trim();const nm=document.getElementById("ob-name");if(nm)setupData.name=nm.value.trim();document.querySelector(".top-bar").style.display="";}
+  if(onboardStep===0){
+    const f=document.getElementById("rf");if(f)profile.roleFree=f.value.trim();
+    const nm=document.getElementById("ob-name");if(nm)setupData.name=nm.value.trim();
+    const wd=document.getElementById("what-do-you-do");if(wd)profile.whatDoYouDo=wd.value.trim();
+    document.querySelector(".top-bar").style.display="";
+  }
   if(onboardStep===2){const t=document.getElementById("ct");if(t)profile.currentTool=t.value.trim();}
   onboardStep++;renderOnboarding();window.scrollTo({top:0,behavior:"smooth"});
 }
+
 function finishOB(){
   profile.task=document.getElementById("ti").value.trim();if(!profile.task)return;
   buildContextPrompt();goToAct(0);loadCtxDemo();
@@ -733,40 +956,30 @@ function renderAct(){
   setupScrollSpy();
 }
 
-/* ===== SCROLL SPY ===== */
 function setupScrollSpy(){
   const tabs=document.querySelectorAll(".tab-bar .tab");
   const sections=sectionState[currentAct].sections;
   const observer=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        const id=e.target.id.replace("sec-","");
-        tabs.forEach(t=>{t.classList.remove("active");if(t.textContent.includes(SECTION_LABELS[id]))t.classList.add("active");});
-      }
-    });
+    entries.forEach(e=>{if(e.isIntersecting){const id=e.target.id.replace("sec-","");tabs.forEach(t=>{t.classList.remove("active");if(t.textContent.includes(SECTION_LABELS[id]))t.classList.add("active");});}});
   },{threshold:0.3,rootMargin:"-100px 0px 0px 0px"});
   sections.forEach(s=>{const el=document.getElementById("sec-"+s);if(el)observer.observe(el);});
 }
 
-/* ===== LOCKED SECTION HTML ===== */
 function lockedHTML(id,desc,previewHTML){
-  return`<div class="section-locked" id="sec-${id}">
-    <div class="lock-overlay"><div class="lock-title">\uD83D\uDD12 ${SECTION_LABELS[id]}</div><div class="lock-desc">${desc}</div></div>
-    <div class="blur-preview">${previewHTML}</div>
-  </div>`;
+  return`<div class="section-locked" id="sec-${id}"><div class="lock-overlay"><div class="lock-title">\uD83D\uDD12 ${SECTION_LABELS[id]}</div><div class="lock-desc">${desc}</div></div><div class="blur-preview">${previewHTML}</div></div>`;
 }
 
 /* ===== AKT 0: Dein Match ===== */
 let ctxLoaded=false;
 async function loadCtxDemo(){
   if(ctxLoaded)return;ctxLoaded=true;
-  const[n,t]=await Promise.all([askAI("claude",profile.task,"Antworte auf Deutsch. Max 80 W\u00f6rter."),askAI("claude",profile.task,contextPrompt+" Antworte auf Deutsch, passgenau. Max 80 W\u00f6rter.")]);
+  const[n,t]=await Promise.all([askAI("claude",profile.task,"Antworte auf Deutsch. Max 80 Woerter."),askAI("claude",profile.task,contextPrompt+" Antworte auf Deutsch, passgenau. Max 80 Woerter.")]);
   window._cn=n;window._ct=t;if(currentAct===0)renderAct();
 }
 let toolsLoaded=false;
 async function loadTools(){
   if(toolsLoaded)return;toolsLoaded=true;
-  const p=contextPrompt+"\n\nStell dich vor: Was sind deine St\u00e4rken allgemein? Nenne kurz wie du bei meiner Aufgabe helfen k\u00f6nntest, aber zeig auch dar\u00fcber hinaus was du kannst. Ehrlich \u00fcber Grenzen. Max 100 W\u00f6rter.";
+  const p=contextPrompt+"\n\nStell dich vor: Was sind deine Stärken allgemein? Nenne kurz wie du bei meiner Aufgabe helfen koenntest, aber zeig auch darüber hinaus was du kannst. Ehrlich über Grenzen. Max 100 Woerter.";
   const res=await Promise.all(TOOLS.map(t=>askAI(t.id,p,"Du bist "+t.name+". Ich-Form, Deutsch.").then(r=>({id:t.id,...r}))));
   window._tp={};res.forEach(r=>{window._tp[r.id]=r;});if(currentAct===0)renderAct();
 }
@@ -776,8 +989,8 @@ function renderAct0(el){
   const role=ROLES.find(r=>r.id===profile.role)?.label||"";
   const ucs=profile.useCases.map(id=>USE_CASES.find(u=>u.id===id)?.label).filter(Boolean);
   const tags=[role+" bei HORSCH",WORK_STYLES.find(s=>s.id===profile.workStyle)?.label,...ucs.slice(0,2)].filter(Boolean);
-  const nH=window._cn?.text&&!window._cn?.noKey?`<div class="result-text" style="font-size:12px;">${esc(window._cn.text)}</div>`:renderLoading();
-  const tH=window._ct?.text&&!window._ct?.noKey?`<div class="result-text" style="font-size:12px;">${esc(window._ct.text)}</div>`:renderLoading();
+  const nH=window._cn?.text&&!window._cn?.noKey?`<div class="result-text" style="font-size:12px;">${esc(window._cn.text)}</div>`:window._cn?.noKey||window._cn?.apiError?renderFallback(TOOLS[0],profile.task):renderLoading();
+  const tH=window._ct?.text&&!window._ct?.noKey?`<div class="result-text" style="font-size:12px;">${esc(window._ct.text)}</div>`:window._ct?.noKey||window._ct?.apiError?renderFallback(TOOLS[0],profile.task):renderLoading();
 
   let html=`
   <div class="section" id="sec-kontext">
@@ -787,31 +1000,37 @@ function renderAct0(el){
       <div class="ctx-card naked"><div class="ctx-label">Ohne Kontext</div><div class="ctx-prompt">\u201e${esc(profile.task)}\u201c</div>${nH}</div>
       <div class="ctx-card tuned"><div class="ctx-label">Mit deinem Profil</div><div class="ctx-prompt">\u201e${esc(profile.task)}\u201c<br><span style="color:#16a34a;font-style:normal;font-weight:500;font-size:10px;">+ ${tags.join(" \u00b7 ")}</span></div>${tH}</div>
     </div>
-    <div class="insight"><p><strong>Der Unterschied ist nicht das Tool \u2014 sondern wie du es einrichtest.</strong></p></div>
+    <div class="insight"><p>${wrapJargon("Der Unterschied ist nicht das Tool \u2014 sondern wie du es einrichtest. Dein Prompt und dein Kontext machen den Unterschied.")}</p></div>
     ${ss.locked.tools?`<button class="btn btn-primary" onclick="markDone('kontext');unlock('tools');loadTools();">Verstanden \u2014 5 Tools freischalten \u2192</button>`:''}
   </div><hr class="section-divider">`;
 
-  // Tools section (card grid)
   if(ss.locked.tools){
     html+=lockedHTML("tools","Wird freigeschaltet nach dem Kontext-Vergleich",`<div class="chip-row"><span class="chip">\u{1F9E0} Claude</span><span class="chip">\u2728 Gemini</span><span class="chip">\u26A1 ChatGPT</span></div>`);
-  } else {
+  }else{
     if(!toolsLoaded)loadTools();
+    /* Feature E1: Tool info hint */
     html+=`<div class="section" id="sec-tools">
       <h2 style="font-size:18px;">Bin ich bei dir richtig?</h2>
-      <p class="subtitle">Jedes Tool stellt sich vor. Klick f\u00fcr Details.</p>
+      <p class="subtitle">Jedes Tool stellt sich vor. Klick für Details.</p>
+      <div style="font-size:11px;color:var(--text-faint);margin-bottom:10px;padding:8px 10px;background:var(--surface-2);border-radius:8px;">\uD83D\uDCA1 Tipp: Das Verhalten jedes Tools laesst sich über ${wrapJargon("Prompt")} und System-Einstellungen anpassen \u2014 du bestimmst, wie es antwortet.</div>
       <div class="tool-grid">${TOOLS.map(t=>`<div class="tool-grid-card ${expandedTool===t.id?'active':''}" style="${expandedTool===t.id?'border-color:'+t.color:''}" onclick="expandTool('${t.id}')"><div class="tg-emoji">${t.emoji}</div><div class="tg-name">${t.name}</div><div class="tg-vibe">${t.vibe}</div></div>`).join("")}</div>
-      ${expandedTool?renderToolDetail():"<p style='font-size:12px;color:var(--text-faint);text-align:center;margin-top:8px;'>Klick auf ein Tool f\u00fcr Details</p>"}
-      ${ss.locked.arena?`<button class="btn btn-primary mt" onclick="markDone('tools');unlock('arena');">Arena freischalten \u2192</button><button class="btn-skip" onclick="markDone('tools');unlock('arena');markDone('arena');goToAct(1);">Arena \u00fcberspringen \u2192</button>`:''}
+      ${expandedTool?renderToolDetail():"<p style='font-size:12px;color:var(--text-faint);text-align:center;margin-top:8px;'>Klick auf ein Tool für Details</p>"}
+      ${ss.locked.arena?`<button class="btn btn-primary mt" onclick="markDone('tools');unlock('arena');">Arena freischalten \u2192</button><button class="btn-skip" onclick="markDone('tools');unlock('arena');markDone('arena');goToAct(1);">Arena überspringen \u2192</button>`:''}
     </div><hr class="section-divider">`;
   }
 
-  // Arena section (separate, list/leiste format)
   if(ss.locked.arena){
     html+=lockedHTML("arena","Wird freigeschaltet nach den 5 Tools",`<div class="chip-row"><span class="chip">Lieferanten-Mail</span><span class="chip">Feedback</span></div><div style="height:40px;background:var(--surface-2);border-radius:8px;"></div>`);
-  } else if(!ss.done.arena) {
-    // When arena is active, minimize tools section above
+  }else if(!ss.done.arena){
+    /* Feature C1: entry helpers */
     html+=`<div class="section" id="sec-arena">
       <h2 style="font-size:18px;">Arena</h2><p class="subtitle">Eigene Prompts testen \u2014 alle 5 Tools antworten.</p>
+      <div class="entry-helpers">
+        <div class="entry-helper ${entryMode==='konkret'?'active':''}" onclick="entryMode='konkret';renderAct();">Ich habe eine konkrete Aufgabe</div>
+        <div class="entry-helper ${entryMode==='vage'?'active':''}" onclick="entryMode='vage';renderAct();">Ich habe nur eine vage Idee</div>
+        <div class="entry-helper ${entryMode==='unsicher'?'active':''}" onclick="entryMode='unsicher';renderAct();">Ich weiß noch nicht was ich will</div>
+      </div>
+      ${entryMode==='unsicher'?`<div style="margin:8px 0;"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">Wähle eine Alltagssituation:</div><div class="chip-row" id="arena-vignettes">${EVERYDAY_VIGNETTES.map((v,i)=>`<span class="chip" data-v="${i}">${v.l}</span>`).join("")}</div></div>`:''}
       <div class="chip-row" id="arena-chips">${SPARKS.map((c,ci)=>c.items.map((it,ii)=>`<span class="chip" data-s="${ci}-${ii}">${it.l}</span>`).join("")).join("")}</div>
       <textarea id="arena-in" rows="3" placeholder="Eigenen Prompt eingeben..."></textarea>
       <button class="btn btn-primary mt" id="arena-go" onclick="fireArena()">Alle fragen</button>
@@ -823,26 +1042,31 @@ function renderAct0(el){
   el.innerHTML=html;
   updateStickyCTA(ss.locked.tools?"":"Weiter \u2014 Du bist der Pilot","markDone('arena');goToAct(1);");
 
-  // Arena chip clicks
   el.querySelector("#arena-chips")?.addEventListener("click",e=>{const c=e.target.closest("[data-s]");if(!c)return;const[ci,ii]=c.dataset.s.split("-").map(Number);const inp=document.getElementById("arena-in");if(inp)inp.value=SPARKS[ci].items[ii].p;});
+  el.querySelector("#arena-vignettes")?.addEventListener("click",e=>{const c=e.target.closest("[data-v]");if(!c)return;const inp=document.getElementById("arena-in");if(inp)inp.value=EVERYDAY_VIGNETTES[parseInt(c.dataset.v)].p;});
 }
 
 function expandTool(id){expandedTool=expandedTool===id?null:id;renderAct();}
+
 function renderToolDetail(){
   const t=TOOLS.find(x=>x.id===expandedTool);
   const pitch=window._tp?.[t.id];
   const promptText=contextPrompt||profile.task||"";
-  const pH=pitch?.text&&!pitch?.noKey?`<div class="result-text" style="font-size:12px;">${esc(pitch.text)}</div>${renderToolLinkBtn(t,promptText)}`:pitch?.noKey?(pitch?.geminiDown?renderGeminiFallback():renderFallback(t)):`<div class="result-text" style="font-size:12px;">${renderLoading(t.name+" denkt nach...")}</div>`;
+  let pH;
+  if(pitch?.text&&!pitch?.noKey){
+    pH=`<div class="result-text" style="font-size:12px;">${esc(pitch.text)}</div>${renderToolLinkBtn(t,promptText)}`;
+  }else if(pitch?.noKey||pitch?.apiError){
+    pH=pitch?.geminiDown?renderGeminiFallback():renderFallback(t,promptText);
+  }else{
+    pH=`<div class="result-text" style="font-size:12px;">${renderLoading(t.name+" denkt nach...")}</div>`;
+  }
+  /* Feature E1: differentiated description */
   return`<div class="tool-detail fade-up" style="border-left:3px solid ${t.color};">
     <div class="td-header"><div class="td-icon" style="background:${t.color}22;">${t.emoji}</div><div><div style="font-size:15px;font-weight:700;">${t.name}</div><div style="font-size:10px;color:var(--text-dim);">${t.vibe} \u00b7 ${t.by}</div></div></div>
+    <div class="td-body" style="margin-bottom:8px;">${t.desc}</div>
     <div class="td-body"><strong>Stark bei:</strong> ${t.strengths}<br><strong>Weniger:</strong> ${t.weaker}</div>
     <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">${pH}</div>
   </div>`;
-}
-
-function renderGeminiFallback(){
-  const t=TOOLS.find(x=>x.id==="gemini");
-  return`<div class="tool-fallback"><div class="tool-icon" style="background:${t.color}22;">${t.emoji}</div><div class="tool-info"><div class="name">${t.name}</div><div class="desc">Gerade nicht erreichbar \u2014 direkt in Gemini ausprobieren.</div></div><a href="https://gemini.google.com" target="_blank" class="try-link" style="background:${t.color}18;color:${t.color};">In Gemini ausprobieren \u2192</a></div>`;
 }
 
 async function fireArena(){
@@ -850,15 +1074,11 @@ async function fireArena(){
   const btn=document.getElementById("arena-go");btn.disabled=true;btn.textContent="Tools antworten...";
   const c=document.getElementById("arena-res");
   c.innerHTML=TOOLS.map(t=>`<div class="card mb" style="border-left:3px solid ${t.color};"><div class="tool-badge"><span class="tool-dot" style="background:${t.color};"></span>${t.name}</div><div id="ar-${t.id}">${renderLoading(t.name+"...")}</div></div>`).join("");
-  const res=await Promise.all(TOOLS.map(t=>askAI(t.id,p,contextPrompt+" Antworte auf Deutsch. Max 150 W\u00f6rter.").then(r=>({id:t.id,...r}))));
+  const res=await Promise.all(TOOLS.map(t=>askAI(t.id,p,contextPrompt+" Antworte auf Deutsch. Max 150 Woerter.").then(r=>({id:t.id,...r}))));
   res.forEach(r=>{
     const t=TOOLS.find(x=>x.id===r.id);
-    if(r.noKey||!r.text){
-      if(r.geminiDown){
-        document.getElementById("ar-"+r.id).innerHTML=renderGeminiFallback();
-      }else{
-        document.getElementById("ar-"+r.id).innerHTML=renderFallback(t,p);
-      }
+    if(r.noKey||!r.text||r.apiError){
+      document.getElementById("ar-"+r.id).innerHTML=renderFallback(t,p);
     }else{
       document.getElementById("ar-"+r.id).innerHTML=`<div class="result-text">${esc(r.text)}</div>${renderToolLinkBtn(t,p)}`;
     }
@@ -866,70 +1086,164 @@ async function fireArena(){
   btn.textContent="Nochmal fragen";btn.disabled=false;
 }
 
-/* ===== AKT 1: Du bist der Pilot ===== */
+/* ===== AKT 1: Du bist der Pilot (role-adaptive, Feature A0.1) ===== */
 function renderAct1(el){
   const ss=sectionState[1];
+  const scenarios = getScenarios(profile.role);
+
+  /* Feature C1: Entry helpers for pilot */
+  let entryHTML="";
+  if(!selectedLimitIdx&&selectedLimitIdx!==0){
+    entryHTML=`<div class="entry-helpers" style="margin-bottom:14px;">
+      <div class="entry-helper" onclick="entryMode='konkret';renderAct();">Ich habe eine konkrete Aufgabe</div>
+      <div class="entry-helper" onclick="entryMode='vage';renderAct();">Ich habe nur eine vage Idee</div>
+      <div class="entry-helper" onclick="entryMode='unsicher';showPilotVignettes();">Ich weiß noch nicht was ich will</div>
+    </div>`;
+  }
+
   let html=`<div class="section" id="sec-szenario">
     <div class="act-label">Akt 2</div><h2>Du bist der Pilot</h2>
     <p class="subtitle">KI kann brillant antworten. Aber reicht das?</p>
-    <div id="grenz-cards">${pickThree().map((li,i)=>{const l=LIMITS[li];return`<div class="card mb fade-up" style="border-left:3px solid ${l.color};cursor:pointer;" onclick="selectLimit(${li})" id="gc-${li}"><div style="font-size:10px;font-weight:600;color:${l.color};text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">${l.cat}</div><p style="font-size:13px;line-height:1.5;">${l.q}</p></div>`;}).join("")}</div>
-    <button onclick="renderAct1(document.getElementById('act-content'))" style="background:none;border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-size:12px;font-family:var(--font);color:var(--text-dim);cursor:pointer;">Andere Szenarien</button>
+    ${entryHTML}
+    <div id="grenz-cards">${pickScenarios(scenarios).map((li,i)=>{const l=scenarios[li];return`<div class="card mb fade-up" style="border-left:3px solid ${l.color};cursor:pointer;" onclick="selectLimit(${li})" id="gc-${li}"><div style="font-size:10px;font-weight:600;color:${l.color};text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">${l.cat}</div><p style="font-size:13px;line-height:1.5;">${l.q}</p></div>`;}).join("")}</div>
+    <button onclick="usedScenarioIdxs.clear();renderAct();" style="background:none;border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-size:12px;font-family:var(--font);color:var(--text-dim);cursor:pointer;">Andere Szenarien</button>
     <div id="grenz-loading"></div>
   </div><hr class="section-divider">`;
 
   if(ss.locked.reflexion){
-    html+=lockedHTML("reflexion","W\u00e4hle oben ein Szenario \u2014 dann antwortet die KI",`<div class="reflect-card"><div class="rq">H\u00e4ttest du das so gesagt?</div><div class="rq-btns"><div class="rq-btn">Ja</div><div class="rq-btn">Anders</div></div></div>`);
-  } else {
-    const limit=LIMITS[selectedLimitIdx];
+    html+=lockedHTML("reflexion","Wähle oben ein Szenario \u2014 dann antwortet die KI",`<div class="reflect-card"><div class="rq">Hättest du das so gesagt?</div><div class="rq-btns"><div class="rq-btn">Ja</div><div class="rq-btn">Anders</div></div></div>`);
+  }else{
+    const limit=scenarios[selectedLimitIdx];
     const ans=window._limitAns;
-    const aH=ans?.text&&!ans?.noKey?`<div class="result-text" style="font-size:12px;">${esc(ans.text)}</div>`:"";
-    // Multi-select question detection: question index 1 ("Was weiss die KI nicht?") is multi-select
+    const aH=ans?.text&&!ans?.noKey?`<div class="result-text" style="font-size:12px;">${esc(ans.text)}</div>${renderToolLinkBtn(TOOLS[0],limit.q)}`:(ans?.noKey||ans?.apiError)?renderFallback(TOOLS[0],limit.q):"";
     const isMultiQ=(qi)=>qi===1;
-    const allDone=reflectAnswers.every((a,i)=>{
-      if(isMultiQ(i)){return Array.isArray(a)&&a.length>0;}
-      return a!==null;
-    });
+    const allDone=reflectAnswers.every((a,i)=>{if(isMultiQ(i)){return Array.isArray(a)&&a.length>0;}return a!==null;});
+
     html+=`<div class="section" id="sec-reflexion">
       <div class="card mb" style="border-left:3px solid var(--claude);"><div class="tool-badge"><span class="tool-dot" style="background:var(--claude);"></span>Claude antwortet</div>${aH}</div>
+      ${renderObserveHint(limit.observe)}
       <div class="insight mb"><p>Die Antwort klingt gut. Aber frag dich:</p></div>
       ${limit.reflect.map((rq,i)=>{
         if(isMultiQ(i)){
-          // Multi-select chips
           const sel=Array.isArray(reflectAnswers[i])?reflectAnswers[i]:[];
-          return`<div class="reflect-card"><div class="rq">${rq[0]} <span style="font-size:10px;color:var(--text-faint);">(Mehrfachauswahl)</span></div><div class="rq-btns">${rq.slice(1).map((o,j)=>`<div class="rq-btn ${sel.includes(j)?'picked':''}" onclick="toggleMultiReflect(${i},${j})">${o}</div>`).join("")}</div></div>`;
+          return`<div class="reflect-card"><div class="rq">${rq[0]} <span style="font-size:10px;color:var(--text-faint);">(Mehrfachauswahl)</span></div><div class="rq-btns">${rq.slice(1).map((o,j)=>`<div class="rq-btn ${sel.includes(j)?'picked':''}" onclick="toggleMultiReflect(${i},${j})">${o}</div>`).join("")}</div>${renderSoftSkip("reflectAnswers["+i+"]=[0];renderAct();")}</div>`;
         }else{
-          return`<div class="reflect-card"><div class="rq">${rq[0]}</div><div class="rq-btns">${rq.slice(1).map((o,j)=>`<div class="rq-btn ${reflectAnswers[i]===j?'picked':''}" onclick="reflectAnswers[${i}]=${j};renderAct();">${o}</div>`).join("")}</div></div>`;
+          return`<div class="reflect-card"><div class="rq">${rq[0]}</div><div class="rq-btns">${rq.slice(1).map((o,j)=>`<div class="rq-btn ${reflectAnswers[i]===j?'picked':''}" onclick="reflectAnswers[${i}]=${j};renderAct();">${o}</div>`).join("")}</div>${renderSoftSkip("reflectAnswers["+i+"]=0;renderAct();")}</div>`;
         }
       }).join("")}
-      <button class="btn btn-primary mt" ${allDone?'':'disabled'} onclick="showOverlay('\uD83C\uDFAF','KI denkt mit \u2014\\ndu entscheidest.','Das macht dich nicht \u00fcberfl\u00fcssig.<br>Das macht dich zum Piloten.','${limit.insight.replace(/'/g,"\\'")}','Weiter \u2014 Mein Setup',()=>{markDone('reflexion');goToAct(2);})">Mein Fazit</button>
+      <button class="btn btn-primary mt" ${allDone?'':'disabled'} onclick="finishPilotReflection()">Mein Fazit</button>
     </div>`;
   }
   el.innerHTML=html;
   updateStickyCTA("","");
 }
 
-function toggleMultiReflect(qi,val){
-  if(!Array.isArray(reflectAnswers[qi]))reflectAnswers[qi]=[];
-  const idx=reflectAnswers[qi].indexOf(val);
-  if(idx>=0)reflectAnswers[qi].splice(idx,1);
-  else reflectAnswers[qi].push(val);
+function showPilotVignettes(){
+  const ta=document.getElementById("arena-in");
+  /* Just render the act with vignettes visible */
   renderAct();
 }
 
-let usedLimits=new Set();
-function pickThree(){let a=LIMITS.map((_,i)=>i).filter(i=>!usedLimits.has(i));if(a.length<3){usedLimits.clear();a=LIMITS.map((_,i)=>i);}for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}const r=a.slice(0,3);r.forEach(i=>usedLimits.add(i));return r;}
+function finishPilotReflection(){
+  const scenarios = getScenarios(profile.role);
+  const limit = scenarios[selectedLimitIdx];
+  /* Feature C2: Generate mirror sentence */
+  mirrorSentence="";
+  if(reflectAnswers[0]===1){mirrorSentence="Du hast bei der ersten Frage 'anders' gewählt \u2014 dein eigener Kompass ist aktiv.";}
+  else if(Array.isArray(reflectAnswers[1])&&reflectAnswers[1].length>=2){mirrorSentence="Du hast mehrere blinde Flecken der KI erkannt \u2014 dein Erfahrungswissen ist ein echtes Asset.";}
+  else{mirrorSentence="Du hast reflektiert statt nur konsumiert \u2014 genau das macht den Unterschied.";}
+
+  /* Send analytics (Feature 22) */
+  sendAnalytics({role:profile.role,event:"pilot_reflection",reflections:reflectAnswers});
+
+  const insightText=limit.insight.replace(/'/g,"\\'");
+  let mirrorHTML=mirrorSentence?`<strong>Dein Spiegel:</strong> ${mirrorSentence}<br><br>`:"";
+  showOverlay('\uD83C\uDFAF','KI denkt mit \u2014\ndu entscheidest.','Das macht dich nicht überfluessig.<br>Das macht dich zum Piloten.',mirrorHTML+insightText,'Weiter',()=>{
+    markDone('reflexion');
+    showMoodCheck();
+  });
+}
+
+/* Feature C3: Mood check */
+function showMoodCheck(){
+  const el=document.getElementById("act-content");
+  el.innerHTML=`<div style="text-align:center;padding:2rem 1rem;">
+    <h2>Was spuerst du gerade?</h2>
+    <p class="subtitle" style="margin-bottom:16px;">Nur für dich \u2014 keine richtige Antwort.</p>
+    <div class="mood-chips">
+      <div class="mood-chip" onclick="pickMood('begeistert')">Begeistert</div>
+      <div class="mood-chip" onclick="pickMood('überfordert')">Überfordert</div>
+      <div class="mood-chip" onclick="pickMood('skeptisch')">Skeptisch</div>
+      <div class="mood-chip" onclick="pickMood('neugierig')">Neugierig</div>
+    </div>
+    ${renderSoftSkip("showMidAnchor();")}
+  </div>`;
+}
+
+function pickMood(mood){
+  moodCheck=mood;
+  sendAnalytics({role:profile.role,mood:mood});
+  showMidAnchor();
+}
+
+/* Feature M2: Mid-session anchor */
+function showMidAnchor(){
+  const el=document.getElementById("act-content");
+  el.innerHTML=`<div class="anchor-section">
+    <h3>Kurzer Stopp.</h3>
+    <p>Was nimmst du bis hierher mit \u2014 in einem Wort?</p>
+    <input type="text" id="mid-anchor-input" placeholder="Ein Wort..." value="${esc(midAnchorWord)}" style="max-width:280px;margin:0 auto 16px;display:block;text-align:center;">
+    <button class="btn btn-primary" style="max-width:280px;margin:0 auto;" onclick="midAnchorWord=document.getElementById('mid-anchor-input').value.trim();showTrainingFrame();">Weiter</button>
+    ${renderSoftSkip("showTrainingFrame();")}
+  </div>`;
+}
+
+/* Feature D3: Training partner framing */
+function showTrainingFrame(){
+  const el=document.getElementById("act-content");
+  el.innerHTML=`<div class="training-frame">
+    <h3>Das Tool ist nicht dein Freund.</h3>
+    <p>Es ist dein Trainingspartner. Was brauchst du?</p>
+    <div class="tf-options">
+      <div class="tf-opt" onclick="pickTrainingNeed('herausfordernd')">Herausfordernd</div>
+      <div class="tf-opt" onclick="pickTrainingNeed('strukturiert')">Strukturiert</div>
+      <div class="tf-opt" onclick="pickTrainingNeed('schnell')">Schnelle Ergebnisse</div>
+    </div>
+    ${renderSoftSkip("goToAct(2);")}
+  </div>`;
+}
+
+function pickTrainingNeed(need){
+  trainingPartnerNeed=need;
+  sendAnalytics({role:profile.role,trainingNeed:need});
+  goToAct(2);
+}
+
+function toggleMultiReflect(qi,val){
+  if(!Array.isArray(reflectAnswers[qi]))reflectAnswers[qi]=[];
+  const idx=reflectAnswers[qi].indexOf(val);
+  if(idx>=0)reflectAnswers[qi].splice(idx,1);else reflectAnswers[qi].push(val);
+  renderAct();
+}
+
+let usedScenarioIdxs=new Set();
+function pickScenarios(scenarios){
+  let a=scenarios.map((_,i)=>i).filter(i=>!usedScenarioIdxs.has(i));
+  if(a.length<3){usedScenarioIdxs.clear();a=scenarios.map((_,i)=>i);}
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  const count=Math.min(3,a.length);
+  const r=a.slice(0,count);r.forEach(i=>usedScenarioIdxs.add(i));return r;
+}
 
 async function selectLimit(idx){
-  selectedLimitIdx=idx;reflectAnswers=[null,null,null];
-  // Reset multi-select question to empty array
-  reflectAnswers[1]=[];
+  const scenarios=getScenarios(profile.role);
+  selectedLimitIdx=idx;reflectAnswers=[null,[],null];
   document.querySelectorAll("[id^='gc-']").forEach(c=>{c.style.opacity=c.id==="gc-"+idx?"1":"0.3";c.style.cursor="default";c.onclick=null;});
   document.getElementById("grenz-loading").innerHTML=renderLoading("KI antwortet...");
-  const r=await askAI("claude",LIMITS[idx].q,"Antworte auf Deutsch, kompetent. Gib eine gute Antwort. Max 150 W\u00f6rter.");
+  const r=await askAI("claude",scenarios[idx].q,"Antworte auf Deutsch, kompetent. Gib eine gute Antwort. Max 150 Woerter.");
   window._limitAns=r;
   markDone("szenario");unlock("reflexion");
-  renderAct();
-  setTimeout(()=>scrollToSection("reflexion"),300);
+  renderAct();setTimeout(()=>scrollToSection("reflexion"),300);
 }
 
 /* ===== AKT 2: Mein Setup ===== */
@@ -937,55 +1251,57 @@ function renderAct2(el){
   const ss=sectionState[2];
   let html="";
 
-  // Reflexion
+  /* Feature D1+D2: 5 reflection questions */
   html+=`<div class="section" id="sec-reflexion">
-    <div class="act-label">Akt 3</div><h2>Kurze Reflexion</h2><p class="subtitle">Drei Fragen bevor du dein Tool w\u00e4hlst.</p>
-    <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">1. Was hat dich \u00fcberrascht?</div><textarea rows="2" placeholder="z.B. Dass die Tools so unterschiedlich..." oninput="setupData.answers[0]=this.value">${esc(setupData.answers[0])}</textarea></div>
-    <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">2. Welches Tool testest du diese Woche?</div><textarea rows="2" placeholder="z.B. Claude f\u00fcr Feedback..." oninput="setupData.answers[1]=this.value">${esc(setupData.answers[1])}</textarea></div>
-    <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">3. Wof\u00fcr bewusst keine KI?</div><textarea rows="2" placeholder="z.B. Pers\u00f6nliche Gespr\u00e4che..." oninput="setupData.answers[2]=this.value">${esc(setupData.answers[2])}</textarea></div>
-    ${ss.locked.tool?`<button class="btn btn-primary" onclick="markDone('reflexion');unlock('tool');">Weiter \u2014 Tool w\u00e4hlen</button>`:''}
+    <div class="act-label">Akt 3</div><h2>Kurze Reflexion</h2><p class="subtitle">Fuenf Fragen bevor du dein Tool wählst.</p>
+    <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">1. Was hat dich überrascht?</div><textarea rows="2" placeholder="z.B. Dass die Tools so unterschiedlich..." oninput="setupData.answers[0]=this.value">${esc(setupData.answers[0])}</textarea>${renderSoftSkip("setupData.answers[0]='--';renderAct();")}</div>
+    <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">2. Welches Tool testest du diese Woche?</div><textarea rows="2" placeholder="z.B. Claude für Feedback..." oninput="setupData.answers[1]=this.value">${esc(setupData.answers[1])}</textarea>${renderSoftSkip("setupData.answers[1]='--';renderAct();")}</div>
+    <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">3. Wofür bewusst keine KI?</div><textarea rows="2" placeholder="z.B. Persönliche Gespräche..." oninput="setupData.answers[2]=this.value">${esc(setupData.answers[2])}</textarea>${renderSoftSkip("setupData.answers[2]='--';renderAct();")}</div>
+    <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">4. Was hättest du die KI fragen sollen, hast es aber nicht?</div><textarea rows="2" placeholder="z.B. Ich hätte nach konkreten Beispielen fragen sollen..." oninput="setupData.answers[3]=this.value">${esc(setupData.answers[3])}</textarea>${renderSoftSkip("setupData.answers[3]='--';renderAct();")}</div>
+    <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">5. Was weißt du jetzt NICHT mehr, was du vorher wusstest? <span style="font-size:10px;color:var(--text-faint);">(optional)</span></div><textarea rows="2" placeholder="z.B. Ich war mir sicher, dass KI nur für Texte taugt..." oninput="setupData.answers[4]=this.value">${esc(setupData.answers[4])}</textarea>${renderSoftSkip("setupData.answers[4]='--';renderAct();")}</div>
+    ${ss.locked.tool?`<button class="btn btn-primary" onclick="markDone('reflexion');unlock('tool');sendAnalytics({role:profile.role,event:'setup_reflection',answers:setupData.answers});">Weiter \u2014 Tool wählen</button>`:''}
   </div><hr class="section-divider">`;
 
-  // Tool
+  /* Tool selection */
   if(ss.locked.tool){
-    html+=lockedHTML("tool","Erst die Reflexion abschlie\u00dfen",`<div class="gap-8 flex-wrap"><span class="chip">\u{1F9E0} Claude</span><span class="chip">\u2728 Gemini</span><span class="chip">\u26A1 ChatGPT</span></div>`);
-  } else {
+    html+=lockedHTML("tool","Erst die Reflexion abschliessen",`<div class="gap-8 flex-wrap"><span class="chip">\u{1F9E0} Claude</span><span class="chip">\u2728 Gemini</span><span class="chip">\u26A1 ChatGPT</span></div>`);
+  }else{
     const conf=window._toolConf;
-    const confH=conf?.text&&!conf?.noKey?`<div class="insight green mb"><p>${esc(conf.text)}</p></div>`:conf==="loading"?`<div class="mb">${renderLoading("Pr\u00fcfe ob das Tool passt...")}</div>`:"";
+    const confH=conf?.text&&!conf?.noKey?`<div class="insight green mb"><p>${esc(conf.text)}</p></div>`:conf==="loading"?`<div class="mb">${renderLoading("Prüfe ob das Tool passt...")}</div>`:"";
     html+=`<div class="section" id="sec-tool">
-      <h2 style="font-size:18px;">Mein Prim\u00e4r-Tool</h2><p class="subtitle">W\u00e4hle \u2014 die KI gibt dir sofort Feedback.</p>
+      <h2 style="font-size:18px;">Mein Primaer-Tool</h2><p class="subtitle">Wähle \u2014 die KI gibt dir sofort Feedback.</p>
       <div class="gap-8 flex-wrap mb">${TOOLS.map(t=>`<button class="btn-tool ${setupData.primary===t.id?'selected':''}" style="${setupData.primary===t.id?'background:'+t.color+';color:#fff;':''}" onclick="pickPrimary('${t.id}')">${t.emoji} ${t.name}</button>`).join("")}</div>
       ${confH}
       ${setupData.primary&&conf&&conf!=="loading"&&ss.locked.plan?`<button class="btn btn-primary" onclick="markDone('tool');unlock('plan');">Weiter \u2014 Dein Plan</button>`:''}
     </div><hr class="section-divider">`;
   }
 
-  // Plan (no large HORSCH block; cost hint only under Pro)
+  /* Plan / Tier */
   if(ss.locked.plan){
-    html+=lockedHTML("plan","Erst dein Tool w\u00e4hlen",`<div style="height:60px;background:var(--surface-2);border-radius:8px;"></div>`);
-  } else {
+    html+=lockedHTML("plan","Erst dein Tool wählen",`<div style="height:60px;background:var(--surface-2);border-radius:8px;"></div>`);
+  }else{
     const t=TOOLS.find(x=>x.id===setupData.primary);
     const tier=TOOL_TIERS[setupData.primary];
     const mc=tier?.proTriggers.filter(u=>profile.useCases.includes(u)).length||0;
     const pr=mc>=2||(mc>=1&&profile.aiExp==="regular");
     const ct=setupData.primaryTier;
     html+=`<div class="section" id="sec-plan">
-      <div style="font-size:13px;font-weight:600;margin-bottom:6px;">Welcher Plan f\u00fcr ${t.name}?</div>
+      <div style="font-size:13px;font-weight:600;margin-bottom:6px;">Welcher Plan für ${t.name}?</div>
       <div class="tier-toggle"><div class="tier-option ${ct==='free'?'active':''}" onclick="setupData.primaryTier='free';renderAct();"><div class="tier-name">${tier.free.name}</div></div><div class="tier-option ${ct==='pro'?'active':''} ${pr?'recommended':''}" onclick="setupData.primaryTier='pro';renderAct();"><div class="tier-name">${tier.pro.name}</div></div></div>
       ${pr?`<style>.tier-option.recommended::after{background:${t.color}18;color:${t.color};}</style>`:''}
       <ul class="tier-features">${(ct==='pro'?tier.pro:tier.free).features.map(f=>`<li>${f}</li>`).join("")}</ul>
-      ${ct==='pro'?`<div class="insight pink"><p>${tier.pro.name} kostet ca. 20 \u20ac/Monat \u2014 <strong>HORSCH \u00fcbernimmt die Kosten f\u00fcr 2\u20133 Monate.</strong> Der einzige Haken: Aktiv damit arbeiten und Erfahrungen teilen.</p></div>`:''}
-      ${pr&&ct==='free'?`<div class="insight yellow"><p>F\u00fcr deine Anwendungsf\u00e4lle k\u00f6nnte sich <strong>${tier.pro.name}</strong> lohnen.</p></div>`:''}
-      <div style="font-size:13px;font-weight:600;margin:16px 0 6px;">Sekund\u00e4r-Tool <span style="font-weight:400;color:var(--text-faint);">(optional)</span></div>
+      ${ct==='pro'?`<div class="insight pink"><p>${tier.pro.name} kostet ca. 20 \u20ac/Monat \u2014 <strong>HORSCH übernimmt die Kosten für 2\u20133 Monate.</strong> Der einzige Haken: Aktiv damit arbeiten und Erfahrungen teilen.</p></div>`:''}
+      ${pr&&ct==='free'?`<div class="insight yellow"><p>Für deine Anwendungsfaelle koennte sich <strong>${tier.pro.name}</strong> lohnen.</p></div>`:''}
+      <div style="font-size:13px;font-weight:600;margin:16px 0 6px;">Sekundaer-Tool <span style="font-weight:400;color:var(--text-faint);">(optional)</span></div>
       <div class="gap-8 flex-wrap mb">${TOOLS.filter(x=>x.id!==setupData.primary).map(t=>`<button class="btn-tool ${setupData.secondary===t.id?'selected':''}" style="${setupData.secondary===t.id?'background:'+t.color+';color:#fff;':''}" onclick="setupData.secondary='${t.id}';renderAct();">${t.emoji} ${t.name}</button>`).join("")}<button class="btn-tool" style="color:var(--text-faint);font-size:11px;" onclick="setupData.secondary=null;renderAct();">Keins</button></div>
-      ${ss.locked.karte?`<button class="btn btn-primary" onclick="markDone('plan');unlock('karte');">Weiter \u2014 Karte erstellen</button>`:''}
+      ${ss.locked.karte?`<button class="btn btn-primary" onclick="markDone('plan');unlock('karte');sendAnalytics({role:profile.role,tool:setupData.primary,tier:setupData.primaryTier});">Weiter \u2014 Karte erstellen</button>`:''}
     </div><hr class="section-divider">`;
   }
 
-  // Karte
+  /* Karte */
   if(ss.locked.karte){
-    html+=lockedHTML("karte","Erst den Plan abschlie\u00dfen",`<div style="height:80px;background:linear-gradient(135deg,#1a1a1a,#2d2d2d);border-radius:12px;"></div>`);
-  } else {
+    html+=lockedHTML("karte","Erst den Plan abschliessen",`<div style="height:80px;background:linear-gradient(135deg,#1a1a1a,#2d2d2d);border-radius:12px;"></div>`);
+  }else{
     html+=`<div class="section" id="sec-karte">
       <h2 style="font-size:18px;">Deine KI-Karte</h2><p class="subtitle">Gib deinen Namen ein.</p>
       <input type="text" id="sn" placeholder="Dein Name" value="${esc(setupData.name)}" oninput="setupData.name=this.value" style="margin-bottom:12px;">
@@ -994,15 +1310,36 @@ function renderAct2(el){
     </div><hr class="section-divider">`;
   }
 
-  // Los! (merged Setup + Werkzeugkoffer in ONE flow)
+  /* Los! */
   if(ss.locked.los){
     html+=lockedHTML("los","Erst die Karte erstellen",`<div style="text-align:center;font-size:24px;padding:12px;">\uD83D\uDE80</div>`);
-  } else {
+  }else{
     html+=renderLosSection();
   }
 
   el.innerHTML=html;
   updateStickyCTA("","");
+
+  // Show scroll teaser if Los! section is visible and not locked
+  const teaser=document.getElementById("scroll-teaser");
+  if(teaser){
+    const losVisible=!ss.locked.los;
+    if(losVisible){
+      teaser.classList.remove("hidden");
+      // Hide teaser when user scrolls near bottom
+      const hideOnScroll=()=>{
+        const scrollBottom=window.innerHeight+window.scrollY;
+        const pageHeight=document.body.scrollHeight;
+        if(pageHeight-scrollBottom<200){teaser.classList.add("hidden");}
+        else{teaser.classList.remove("hidden");}
+      };
+      window.removeEventListener("scroll",window._teaserScroll);
+      window._teaserScroll=hideOnScroll;
+      window.addEventListener("scroll",hideOnScroll,{passive:true});
+    }else{
+      teaser.classList.add("hidden");
+    }
+  }
 }
 
 function renderLosSection(){
@@ -1013,32 +1350,54 @@ function renderLosSection(){
   const activePackage=getActivePackage();
 
   let html=`<div class="section" id="sec-los">
-    <div style="text-align:center;margin-bottom:16px;"><div style="font-size:32px;">\uD83D\uDE80</div><h2>Jetzt wird\u2019s ernst</h2><p class="subtitle" style="margin-bottom:0;">Dein Starter-Prompt \u2014 sofort einsatzbereit.</p></div>
+    <div style="text-align:center;margin-bottom:16px;"><div style="font-size:32px;">\uD83D\uDE80</div><h2>Jetzt wird's ernst</h2><p class="subtitle" style="margin-bottom:0;">Dein Starter-Prompt \u2014 sofort einsatzbereit.</p></div>
 
-    <div style="font-size:14px;font-weight:700;margin-bottom:8px;">Dein Starter-Prompt</div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:8px;">Dein Starter-${wrapJargon("Prompt")}</div>
     <div class="starter-box" style="margin-bottom:12px;"><button class="copy-btn" onclick="copyP('${bfid}',this)">Kopieren</button><div class="result-text" style="font-size:11px;padding-right:60px;">${esc(basicPrompt)}</div></div>
-    <button class="btn btn-primary mb" style="background:${pri.color};" onclick="copyOpen('${pri.id}',_fb['${bfid}'],this)">Basic-Prompt kopieren & ${pri.name} \u00f6ffnen</button>`;
+    <button class="btn btn-primary mb" style="background:${pri.color};" onclick="copyOpen('${pri.id}',_fb['${bfid}'],this)">Basic-Prompt kopieren & ${pri.name} oeffnen</button>`;
 
-  // Privacy hint (collapsible, tool-specific)
+  /* Privacy hint */
   const ph=PRIVACY_HINTS[setupData.primary];
   if(ph){
-    html+=`<div class="privacy-section">
-      <div class="privacy-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ah-arrow').classList.toggle('open');">\uD83D\uDD12 Datenschutz-Tipp <span class="ah-arrow" style="font-size:11px;color:var(--text-faint);transition:transform .2s;">\u25BC</span></div>
-      <div class="privacy-body"><strong>${ph.label}:</strong> ${ph.hint}</div>
+    html+=`<div class="privacy-section"><div class="privacy-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ah-arrow').classList.toggle('open');">\uD83D\uDD12 Datenschutz-Tipp <span class="ah-arrow" style="font-size:11px;color:var(--text-faint);transition:transform .2s;">\u25BC</span></div><div class="privacy-body"><strong>${ph.label}:</strong> ${ph.hint}</div></div>`;
+  }
+
+  /* Feature F1: Signature section */
+  html+=`<div class="signature-section" id="signature-section">
+    <div class="sig-label">Deine AIKIDO-Signatur</div>
+    <div class="sig-line"><div class="sig-line-label">Zeile 1 \u2014 Dein KI-Spiegel (wird generiert)</div><div class="sig-line-text" id="sig-line-1">${signatureLine1||'<span style="color:rgba(255,255,255,.3);">Wird nach dem Erstellen angezeigt...</span>'}</div></div>
+    <div class="sig-line"><div class="sig-line-label">Zeile 2 \u2014 Dein Versprechen</div><textarea rows="2" placeholder="z.B. Ich werde KI als Denkpartner nutzen, nicht als Ersatz." oninput="signatureLine2=this.value" style="margin-top:4px;">${esc(signatureLine2)}</textarea></div>
+    <div class="sig-line"><div class="sig-line-label">Zeile 3 \u2014 Was fragst du dich in 7 Tagen?</div><input type="text" placeholder="z.B. Nutze ich es wirklich?" oninput="signatureLine3=this.value" value="${esc(signatureLine3)}" style="margin-top:4px;"></div>
+    <button class="btn btn-secondary" style="margin-top:12px;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#fff;" onclick="generateSignatureLine1()">Signatur-Zeile 1 generieren</button>
+  </div>`;
+
+  /* Feature M3: Closing anchor */
+  if(signatureLine1&&signatureLine2){
+    html+=`<div class="anchor-section" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);">
+      <p style="font-size:14px;font-weight:500;">Du hast eine Signatur gesetzt. Lies sie nochmal \u2014 für dich.</p>
+      <div style="margin:12px 0;padding:12px;background:var(--surface-2);border-radius:8px;font-size:13px;text-align:left;line-height:1.6;">
+        <div style="margin-bottom:4px;font-weight:600;">${esc(signatureLine1)}</div>
+        <div style="margin-bottom:4px;">${esc(signatureLine2)}</div>
+        <div style="color:var(--text-faint);">${esc(signatureLine3)}</div>
+      </div>
+      <button class="btn btn-secondary" style="max-width:200px;margin:0 auto;" onclick="closingAnchorRead=true;reRenderLos();">Gelesen</button>
     </div>`;
   }
 
-  // "Gib mir mehr?" section in HORSCH-Red border
+  /* Feature F2: Markdown export */
+  html+=`<button class="btn btn-secondary mt mb" onclick="downloadMarkdown()">Dein Starter-Set herunterladen (.md)</button>`;
+
+  /* "Gib mir mehr?" section */
   html+=`<div class="mehr-box">
     <div class="mehr-title">\uD83D\uDCA1 Gib mir mehr?</div>
-    <p style="font-size:13px;color:var(--text-dim);margin-bottom:14px;">Dein Werkzeugkoffer: W\u00e4hle ein Paket oder stell dir alles selbst zusammen.</p>
+    <p style="font-size:13px;color:var(--text-dim);margin-bottom:14px;">Dein Werkzeugkoffer: Wähle ein Paket oder stell dir alles selbst zusammen.</p>
 
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
       <span style="font-size:16px;">\uD83E\uDDF0</span>
       <span style="font-size:14px;font-weight:700;">Werkzeugkoffer</span>
       <span class="info-btn" onclick="document.getElementById('harness-info').classList.toggle('show')">i</span>
     </div>
-    <div class="info-tooltip" id="harness-info"><strong>Was ist ein Harness?</strong><br>Ein Harness ist das "Geschirr" f\u00fcr deine KI \u2014 es gibt ihr Kontext, Regeln und Pers\u00f6nlichkeit. Ohne Harness bekommt jeder die gleiche generische Antwort. Mit Harness wird dein Tool zu DEINEM Tool.<br><br>Dein Starter-Prompt + Add-ons = dein pers\u00f6nlicher Harness.</div>
+    <div class="info-tooltip" id="harness-info"><strong>Was ist ein ${wrapJargon("Harness")}?</strong><br>Ein Harness ist das "Geschirr" für deine KI \u2014 es gibt ihr Kontext, Regeln und Persönlichkeit. Ohne Harness bekommt jeder die gleiche generische Antwort. Mit Harness wird dein Tool zu DEINEM Tool.<br><br>Dein Starter-Prompt + Add-ons = dein persönlicher Harness.</div>
 
     <div class="paket-grid-4">
       <div class="paket-card-sm ${activePackage==='einsteiger'?'selected':''}" onclick="applyPackage('einsteiger');reRenderLos()"><div class="pk-emoji">\uD83C\uDF31</div><div class="pk-name">Einsteiger</div><div class="pk-count">4 Add-ons</div></div>
@@ -1049,7 +1408,6 @@ function renderLosSection(){
 
     <div class="divider-text">Feintuning \u2014 klick auf einen Cluster</div>`;
 
-  // Clusters (accordion)
   CLUSTERS.forEach(cl=>{
     const items=ADDONS.filter(a=>a.cluster===cl.id);
     const onCount=items.filter(a=>selectedAddons.has(a.id)).length;
@@ -1060,7 +1418,7 @@ function renderLosSection(){
         <span class="ah-arrow">\u25BC</span>
       </div>
       <div class="akk-body">
-        ${isBreaker?'<div style="font-size:10px;color:var(--red);font-weight:500;margin-bottom:6px;line-height:1.4;">Nicht dein Spiegel \u2014 dein Wachstumspartner. Diese Add-ons sorgen daf\u00fcr, dass die KI dich weiterbringt, nicht nur best\u00e4tigt.</div>':''}
+        ${isBreaker?'<div style="font-size:10px;color:var(--red);font-weight:500;margin-bottom:6px;line-height:1.4;">Nicht dein Spiegel \u2014 dein Wachstumspartner. Diese Add-ons sorgen dafür, dass die KI dich weiterbringt, nicht nur bestaetigt.</div>':''}
         ${items.map(a=>`<div class="addon-card-full ${selectedAddons.has(a.id)?'on':''}" onclick="toggleAddon('${a.id}');reRenderLos();">
           <span class="acf-emoji">${a.emoji}</span>
           <div class="acf-info"><div class="acf-name">${a.name}</div><div class="acf-desc">${a.desc}</div></div>
@@ -1072,23 +1430,34 @@ function renderLosSection(){
 
   html+=`<div style="text-align:center;font-size:12px;color:var(--text-faint);margin:10px 0;">${selectedAddons.size} von ${ADDONS.length} aktiviert</div>`;
 
-  // Enhanced prompt preview (live update)
   const fullPrompt=buildFullPrompt();
   const pfid="_fb"+(++_fi);_fb[pfid]=fullPrompt;
   html+=`<div class="prompt-preview">
     <button class="copy-btn" onclick="copyP('${pfid}',this)">Kopieren</button>
-    <div class="pp-label">Dein zusammengebauter Prompt</div>
+    <div class="pp-label">Dein zusammengebauter ${wrapJargon("Prompt")}</div>
     <div class="pp-text">${esc(fullPrompt)}</div>
   </div>
-  <div class="insight"><p><strong>Tipp:</strong> Starte erstmal mit deinem Paket. Wenn du dich eingespielt hast, komm hierher zur\u00fcck und aktiviere nach und nach mehr.</p></div>
-  <button class="btn btn-primary mt mb" style="background:${pri.color};" onclick="copyOpen('${pri.id}',_fb['${pfid}'],this)">Erweiterten Prompt kopieren & ${pri.name} \u00f6ffnen</button>
+  <div class="insight"><p><strong>Tipp:</strong> Starte erstmal mit deinem Paket. Wenn du dich eingespielt hast, komm hierher zurück und aktiviere nach und nach mehr.</p></div>
+  <button class="btn btn-primary mt mb" style="background:${pri.color};" onclick="copyOpen('${pri.id}',_fb['${pfid}'],this)">Erweiterten Prompt kopieren & ${pri.name} oeffnen</button>
   </div>`;
-  // end of mehr-box
+  /* end of mehr-box */
 
-  // Live-Challenge (role-based)
+  /* Feature E3: Deepening arena */
+  html+=`<div class="deepen-box">
+    <h3>Du bist schnell durch?</h3>
+    <p style="font-size:13px;color:var(--text-dim);margin-bottom:10px;">Willst du die Vertiefungs-Arena?</p>
+    <button class="btn btn-secondary" onclick="document.getElementById('deepen-content').classList.toggle('hide');">Vertiefungs-Arena oeffnen</button>
+    <div id="deepen-content" class="hide" style="margin-top:12px;">
+      <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">Haertere Prompts</div><p style="font-size:12px;color:var(--text-dim);">Teste dein Tool mit ambivalenten Szenarien: "Schreibe eine E-Mail die gleichzeitig Lob und Kritik enthält, ohne passiv-aggressiv zu klingen."</p><textarea rows="2" placeholder="Probiere es..." id="deepen-prompt"></textarea><button class="btn btn-primary mt" style="font-size:12px;padding:8px;" onclick="fireDeepen()">An ${pri.name} senden</button><div id="deepen-result" class="mt"></div></div>
+      <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">Fehleranalyse</div><p style="font-size:12px;color:var(--text-dim);">Lies diese KI-Antwort und finde den Fehler: "HORSCH wurde 1984 von Michael Horsch in Schwandorf gegründet und hat heute ca. 5.000 Mitarbeitende weltweit."</p><p style="font-size:11px;color:var(--red);margin-top:6px;">Hinweis: Prüfe die Zahlen. KI klingt überzeugend \u2014 auch wenn Details nicht stimmen.</p></div>
+      <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">${wrapJargon("Prompt")} Engineering Mini-Drill</div><p style="font-size:12px;color:var(--text-dim);">Versuche die gleiche Frage in 3 verschiedenen Formulierungen zu stellen und vergleiche die Antworten. Was ändert sich?</p></div>
+    </div>
+  </div>`;
+
+  /* Challenge */
   html+=`<div class="challenge-card"><div class="ch-label">Deine erste Aufgabe</div><div class="ch-title">${ch.title}</div><div class="ch-body">${ch.body}</div><div class="ch-example">\u201e${ch.example}\u201c</div></div>
   <div style="text-align:center;"><div class="timer-badge">\u23F1 2 Minuten</div></div>
-  <div class="insight mt"><p><strong>Erinnerst du dich?</strong> Ohne Kontext \u2192 generisch. Mit Starter-Prompt \u2192 passgenau.</p></div>
+  <div class="insight mt"><p><strong>Erinnerst du dich?</strong> Ohne Kontext \u2192 generisch. Mit Starter-${wrapJargon("Prompt")} \u2192 passgenau.</p></div>
 
   <button class="btn btn-primary mt" onclick="showCelebration()" style="background:var(--text);">\uD83D\uDE4C Geschafft! High Five</button>
   </div>`;
@@ -1096,22 +1465,86 @@ function renderLosSection(){
   return html;
 }
 
-function reRenderLos(){
-  renderAct();
-  setTimeout(()=>scrollToSection("los"),100);
+function reRenderLos(){renderAct();setTimeout(()=>scrollToSection("los"),100);}
+
+/* Feature F1: Generate signature line 1 via API */
+async function generateSignatureLine1(){
+  const el=document.getElementById("sig-line-1");
+  if(!el)return;
+  el.innerHTML=renderLoading("Generiere...");
+  const reflStr=setupData.answers.filter(a=>a&&a!=="--").join(". ");
+  const prompt="Erstelle einen einzigen, persönlichen Satz der zusammenfasst was diese Person über KI gelernt hat. Basierend auf: "+reflStr+(midAnchorWord?" Schluesselwort: "+midAnchorWord:"")+(mirrorSentence?" Spiegel: "+mirrorSentence:"");
+  const r=await askAI("claude",prompt,"Max 1 Satz. Deutsch. Du-Anrede. Kein Jargon.");
+  if(r.text&&!r.noKey){
+    signatureLine1=r.text;
+    el.textContent=signatureLine1;
+    /* Pre-fill line 2 if empty */
+    if(!signatureLine2){
+      signatureLine2="Ich nutze KI als Denkpartner \u2014 nicht als Ersatz für mein Urteil.";
+    }
+  }else{
+    signatureLine1="Du hast KI ausprobiert, hinterfragt und dein eigenes Setup gefunden.";
+    el.textContent=signatureLine1;
+  }
+}
+
+/* Feature F2: Markdown export */
+function downloadMarkdown(){
+  const pri=TOOLS.find(x=>x.id===setupData.primary);
+  const role=ROLES.find(r=>r.id===profile.role)?.label||"";
+  let md=`# AIKIDO KI-Arena \u2014 Mein Starter-Set\n\n`;
+  md+=`**Name:** ${setupData.name}\n**Rolle:** ${role}\n**Tool:** ${pri?.name||""}\n**Datum:** ${new Date().toLocaleDateString("de-DE")}\n\n`;
+  md+=`## Meine Signatur\n\n`;
+  md+=`- ${signatureLine1||"(nicht generiert)"}\n`;
+  md+=`- ${signatureLine2||"(nicht ausgefuellt)"}\n`;
+  md+=`- ${signatureLine3||"(nicht ausgefuellt)"}\n\n`;
+  md+=`## Reflexionen\n\n`;
+  const qLabels=["Was hat mich überrascht?","Welches Tool teste ich?","Wofür keine KI?","Was hätte ich fragen sollen?","Was weiß ich nicht mehr?"];
+  setupData.answers.forEach((a,i)=>{if(a&&a!=="--")md+=`**${qLabels[i]}**\n${a}\n\n`;});
+  if(midAnchorWord)md+=`**Mein Wort:** ${midAnchorWord}\n\n`;
+  if(moodCheck)md+=`**Stimmung nach Akt 2:** ${moodCheck}\n\n`;
+  md+=`## Starter-Prompt\n\n\`\`\`\n${buildFullPrompt()}\n\`\`\`\n\n`;
+  const ch=CHALLENGES[profile.role]||CHALLENGES.sonstiges;
+  md+=`## Micro-Challenge\n\n**${ch.title}**\n${ch.body}\n> ${ch.example}\n\n`;
+  md+=`## Kontext-Profil\n\n${contextPrompt}\n`;
+
+  const blob=new Blob([md],{type:"text/markdown"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;a.download=`aikido-starter-${(setupData.name||"setup").replace(/\s+/g,"-").toLowerCase()}.md`;
+  a.click();URL.revokeObjectURL(url);
+}
+
+/* Feature E3: Deepening arena fire */
+async function fireDeepen(){
+  const p=document.getElementById("deepen-prompt")?.value?.trim();if(!p)return;
+  const pri=TOOLS.find(x=>x.id===setupData.primary);
+  const el=document.getElementById("deepen-result");
+  el.innerHTML=renderLoading(pri.name+" denkt nach...");
+  const r=await askAI(pri.id,p,contextPrompt+" Antworte auf Deutsch. Max 150 Woerter.");
+  if(r.text&&!r.noKey){
+    el.innerHTML=`<div class="result-text" style="font-size:12px;">${esc(r.text)}</div>${renderToolLinkBtn(pri,p)}`;
+  }else{
+    el.innerHTML=renderFallback(pri,p);
+  }
 }
 
 async function pickPrimary(id){
   setupData.primary=id;setupData.primaryTier="free";
   window._toolConf="loading";renderAct();
   const t=TOOLS.find(x=>x.id===id);
-  const r=await askAI("claude","User w\u00e4hlte "+t.name+". Profil: "+contextPrompt+"\n\nKurze Best\u00e4tigung (3\u20134 S\u00e4tze): Warum passt "+t.name+"? Welches Zweit-Tool erg\u00e4nzt gut?","Auf Deutsch, warm, max 60 W\u00f6rter.");
-  window._toolConf=r.text&&!r.noKey?r:{text:t.name+" passt gut zu dir \u2014 besonders f\u00fcr "+t.sweet+".",noKey:false};
+  /* Slightly adjust recommendation based on training partner need (D3) */
+  let extra="";
+  if(trainingPartnerNeed==="herausfordernd")extra=" Der User will herausgefordert werden.";
+  if(trainingPartnerNeed==="strukturiert")extra=" Der User braucht Struktur.";
+  if(trainingPartnerNeed==="schnell")extra=" Der User will schnelle Ergebnisse.";
+  const r=await askAI("claude","User wählte "+t.name+". Profil: "+contextPrompt+extra+"\n\nKurze Bestaetigung (3\u20134 Saetze): Warum passt "+t.name+"? Welches Zweit-Tool ergaenzt gut?","Auf Deutsch, warm, max 60 Woerter. Du-Anrede.");
+  window._toolConf=r.text&&!r.noKey?r:{text:t.name+" passt gut zu dir \u2014 besonders für "+t.sweet+".",noKey:false};
   renderAct();setTimeout(()=>document.getElementById("sec-tool")?.scrollIntoView({behavior:"smooth",block:"start"}),200);
 }
 
 async function genCard(){
-  if(!setupData.name.trim()){alert("Bitte Namen eingeben.");return;}
+  if(!setupData.name.trim()){return;}
   const pri=TOOLS.find(x=>x.id===setupData.primary);
   const sec=setupData.secondary?TOOLS.find(x=>x.id===setupData.secondary):null;
   const role=ROLES.find(r=>r.id===profile.role)?.label||"";
@@ -1122,8 +1555,8 @@ async function genCard(){
       <div style="font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px;">AIKIDO KI-Arena \u2014 Mein Setup</div>
       <div style="font-size:20px;font-weight:700;margin-bottom:4px;">${esc(setupData.name)}</div>
       <div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:16px;">${role}${ucs.length?" \u00b7 "+ucs.join(", "):""}</div>
-      <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;"><div style="width:40px;height:40px;border-radius:10px;background:${pri.color};display:flex;align-items:center;justify-content:center;font-size:20px;">${pri.emoji}</div><div><div style="font-size:15px;font-weight:600;">${pri.name} <span style="font-size:10px;padding:2px 8px;border-radius:4px;background:${setupData.primaryTier==='pro'?pri.color:'rgba(255,255,255,.15)'};color:#fff;">${tn}</span></div><div style="font-size:11px;color:rgba(255,255,255,.5);">Prim\u00e4res Tool</div></div></div>
-      ${sec?`<div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;"><div style="width:32px;height:32px;border-radius:8px;background:${sec.color}44;display:flex;align-items:center;justify-content:center;font-size:16px;">${sec.emoji}</div><div><div style="font-size:13px;font-weight:500;">${sec.name}</div><div style="font-size:10px;color:rgba(255,255,255,.4);">Sekund\u00e4r</div></div></div>`:""}
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;"><div style="width:40px;height:40px;border-radius:10px;background:${pri.color};display:flex;align-items:center;justify-content:center;font-size:20px;">${pri.emoji}</div><div><div style="font-size:15px;font-weight:600;">${pri.name} <span style="font-size:10px;padding:2px 8px;border-radius:4px;background:${setupData.primaryTier==='pro'?pri.color:'rgba(255,255,255,.15)'};color:#fff;">${tn}</span></div><div style="font-size:11px;color:rgba(255,255,255,.5);">Primaeres Tool</div></div></div>
+      ${sec?`<div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;"><div style="width:32px;height:32px;border-radius:8px;background:${sec.color}44;display:flex;align-items:center;justify-content:center;font-size:16px;">${sec.emoji}</div><div><div style="font-size:13px;font-weight:500;">${sec.name}</div><div style="font-size:10px;color:rgba(255,255,255,.4);">Sekundaer</div></div></div>`:""}
       <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:10px;font-size:10px;color:rgba(255,255,255,.3);">HORSCH AIKIDO \u00b7 ${new Date().toLocaleDateString("de-DE",{day:"2-digit",month:"long",year:"numeric"})}</div>
     </div></div>
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 0;">
@@ -1131,11 +1564,11 @@ async function genCard(){
       <button onclick="shareCard()" id="share-btn" class="btn btn-secondary" style="width:auto;padding:8px 16px;font-size:12px;">\uD83D\uDCE4 Teilen</button>
       <button onclick="copyShareText(this)" class="btn btn-secondary" style="width:auto;padding:8px 16px;font-size:12px;">\uD83D\uDCCB Text kopieren</button>
     </div>
-    <div class="insight pink" style="margin-top:14px;"><p><strong>N\u00e4chster Schritt:</strong> Teile deine Karte in der <strong>AIKIDO Teams-Gruppe</strong> \u2014 so k\u00f6nnen wir dein Pro-Tool f\u00fcr dich einrichten!</p></div>
+    <div class="insight pink" style="margin-top:14px;"><p><strong>Nächster Schritt:</strong> Teile deine Karte in der <strong>AIKIDO Teams-Gruppe</strong> \u2014 so koennen wir dein Pro-Tool für dich einrichten!</p></div>
     <button class="btn btn-primary" onclick="markDone('karte');unlock('los');renderAct();setTimeout(()=>scrollToSection('los'),300);">Letzter Schritt \u2014 Loslegen!</button>`;
 }
 
-/* ===== CELEBRATION (in-place, no separate act) ===== */
+/* ===== CELEBRATION ===== */
 function showCelebration(){
   fireConfetti();
   const el=document.getElementById("act-content");
@@ -1148,10 +1581,11 @@ function showCelebration(){
       <div class="hf-title">Fertig! Du bist drin.</div>
       <div class="hf-sub">Dein Tool kennt dich. Jetzt zeig ihm was du drauf hast.</div>
     </div>
-    <div class="insight pink" style="max-width:400px;margin:0 auto 16px;"><p>Teile deine Karte in der <strong>AIKIDO Teams-Gruppe</strong> \u2014 so k\u00f6nnen wir dein Pro-Tool f\u00fcr dich einrichten!</p></div>
+    <div class="insight pink" style="max-width:400px;margin:0 auto 16px;"><p>Teile deine Karte in der <strong>AIKIDO Teams-Gruppe</strong> \u2014 so koennen wir dein Pro-Tool für dich einrichten!</p></div>
     <div style="max-width:400px;margin:0 auto;display:flex;flex-direction:column;gap:10px;">
-      <button class="btn btn-primary" style="background:${pri.color};" onclick="copyOpen('${pri.id}',_fb['${cfid}'],this)">Prompt kopieren & ${pri.name} \u00f6ffnen</button>
-      <button class="btn btn-secondary" onclick="goToAct(2);setTimeout(()=>scrollToSection('los'),300);">Zur\u00fcck zum Werkzeugkoffer</button>
+      <button class="btn btn-primary" style="background:${pri.color};" onclick="copyOpen('${pri.id}',_fb['${cfid}'],this)">Prompt kopieren & ${pri.name} oeffnen</button>
+      <button class="btn btn-secondary" onclick="downloadMarkdown()">Dein Starter-Set herunterladen (.md)</button>
+      <button class="btn btn-secondary" onclick="goToAct(2);setTimeout(()=>scrollToSection('los'),300);">Zurück zum Werkzeugkoffer</button>
     </div>`;
   window.scrollTo({top:0,behavior:"smooth"});
 }
@@ -1171,35 +1605,35 @@ function copyShareText(btn){
 
 /* ===== ADD-ONS DATA ===== */
 const ADDONS = [
-  {id:"briefing",cluster:"alltag",emoji:"\u2600\uFE0F",name:"Tages-Briefing",desc:"Begr\u00fc\u00dft dich kurz, fragt \"Was steht heute an?\" und schl\u00e4gt 2\u20133 Dinge vor. Unter 3 S\u00e4tzen.",prompt:"Wenn ich eine neue Unterhaltung starte, begr\u00fc\u00dfe mich kurz und frag: \"Was steht heute an?\" Schlage dann 2\u20133 Dinge vor, bei denen du helfen kannst. Halte das unter 3 S\u00e4tzen."},
-  {id:"modi",cluster:"alltag",emoji:"\uD83D\uDD00",name:"Modi-Schalter",desc:"4 Modi per Stichwort: schnell \u00b7 tief \u00b7 kreativ \u00b7 check.",prompt:"Du hast 4 Modi die ich per Stichwort aktiviere: \"schnell\" \u2192 Bullet Points, keine Erkl\u00e4rung. \"tief\" \u2192 Ausf\u00fchrliche Analyse. \"kreativ\" \u2192 Wild brainstormen. \"check\" \u2192 Pr\u00fcfe meinen Text auf Fehler, Logik, Ton. Ohne Stichwort antwortest du in meinem Standard-Stil."},
-  {id:"zeitwaechter",cluster:"alltag",emoji:"\u23F0",name:"Zeitw\u00e4chter",desc:"Sch\u00e4tzt ein wie lange eine Aufgabe mit vs. ohne KI dauert.",prompt:"Sch\u00e4tze bei gr\u00f6\u00dferen Aufgaben kurz ein: \"Mit KI: ~X Min. Ohne: ~Y Min.\" Das hilft mir zu verstehen wo du am meisten Wert bringst."},
-  {id:"skillleiter",cluster:"lernen",emoji:"\uD83D\uDCC8",name:"Skill-Leiter",desc:"W\u00f6chentliche Level-Ups. Vom Einsteiger zum Power-User \u2014 in deinem Tempo.",prompt:"F\u00fchre eine \"Skill-Leiter\" f\u00fcr mich. Starte mit Basics (gute Prompts schreiben). Wenn ich sie meistere, schlage den n\u00e4chsten Schritt vor (Vorlagen erstellen, Workflows bauen). Frag mich freitags: \"Bereit f\u00fcr den n\u00e4chsten Schritt?\" \u00dcberfordere mich nie, aber lass mich nicht stehen bleiben."},
-  {id:"prompttrainer",cluster:"lernen",emoji:"\uD83C\uDFAF",name:"Prompt-Trainer",desc:"Nach jeder Antwort ein kurzer Tipp wie dein Prompt besser h\u00e4tte sein k\u00f6nnen.",prompt:"Nach jeder Antwort gib mir einen kurzen Tipp (1 Satz): \"N\u00e4chstes Mal k\u00f6nntest du X erg\u00e4nzen \u2014 dann wird meine Antwort noch pr\u00e4ziser.\" Mach das dezent, nicht belehrend."},
+  {id:"briefing",cluster:"alltag",emoji:"\u2600\uFE0F",name:"Tages-Briefing",desc:"Begruesst dich kurz, fragt \"Was steht heute an?\" und schlaegt 2\u20133 Dinge vor. Unter 3 Saetzen.",prompt:"Wenn ich eine neue Unterhaltung starte, begruesse mich kurz und frag: \"Was steht heute an?\" Schlage dann 2\u20133 Dinge vor, bei denen du helfen kannst. Halte das unter 3 Saetzen."},
+  {id:"modi",cluster:"alltag",emoji:"\uD83D\uDD00",name:"Modi-Schalter",desc:"4 Modi per Stichwort: schnell \u00b7 tief \u00b7 kreativ \u00b7 check.",prompt:"Du hast 4 Modi die ich per Stichwort aktiviere: \"schnell\" \u2192 Bullet Points, keine Erklärung. \"tief\" \u2192 Ausführliche Analyse. \"kreativ\" \u2192 Wild brainstormen. \"check\" \u2192 Prüfe meinen Text auf Fehler, Logik, Ton. Ohne Stichwort antwortest du in meinem Standard-Stil."},
+  {id:"zeitwaechter",cluster:"alltag",emoji:"\u23F0",name:"Zeitwaechter",desc:"Schaetzt ein wie lange eine Aufgabe mit vs. ohne KI dauert.",prompt:"Schaetze bei groesseren Aufgaben kurz ein: \"Mit KI: ~X Min. Ohne: ~Y Min.\" Das hilft mir zu verstehen wo du am meisten Wert bringst."},
+  {id:"skillleiter",cluster:"lernen",emoji:"\uD83D\uDCC8",name:"Skill-Leiter",desc:"Woechentliche Level-Ups. Vom Einsteiger zum Power-User \u2014 in deinem Tempo.",prompt:"Führe eine \"Skill-Leiter\" für mich. Starte mit Basics (gute Prompts schreiben). Wenn ich sie meistere, schlage den nächsten Schritt vor. Frag mich freitags: \"Bereit für den nächsten Schritt?\" Überfordere mich nie, aber lass mich nicht stehen bleiben."},
+  {id:"prompttrainer",cluster:"lernen",emoji:"\uD83C\uDFAF",name:"Prompt-Trainer",desc:"Nach jeder Antwort ein kurzer Tipp wie dein Prompt besser hätte sein koennen.",prompt:"Nach jeder Antwort gib mir einen kurzen Tipp (1 Satz): \"Nächstes Mal koenntest du X ergaenzen \u2014 dann wird meine Antwort noch präziser.\" Mach das dezent, nicht belehrend."},
   {id:"denkpartner",cluster:"lernen",emoji:"\uD83D\uDCAD",name:"Denkpartner",desc:"KI denkt laut mit \u2014 zeigt den Denkprozess, nicht nur das Ergebnis.",prompt:"Denke bei komplexen Fragen laut mit: Zeig mir kurz deinen Denkprozess bevor du antwortest. So lerne ich wie du \"denkst\" und kann bessere Fragen stellen."},
-  {id:"fehlerfreund",cluster:"qualitaet",emoji:"\uD83E\uDEE2",name:"Fehlerfreund",desc:"KI sagt ehrlich wenn sie unsicher ist. Kein falsches Selbstbewusstsein.",prompt:"Wenn du unsicher bist, sage das ehrlich: \"Meine Einsch\u00e4tzung: ~70% sicher. Pr\u00fcfe bitte X.\" Erfinde nie etwas \u2014 sag lieber \"Das wei\u00df ich nicht sicher\" als eine \u00fcberzeugende Vermutung."},
-  {id:"qualitaetspruefer",cluster:"qualitaet",emoji:"\u2705",name:"Qualit\u00e4tspr\u00fcfer",desc:"Selbsteinsch\u00e4tzung am Ende jeder Antwort: Wie sicher? Was pr\u00fcfen?",prompt:"Gib am Ende wichtiger Antworten eine kurze Selbsteinsch\u00e4tzung: \"Sicherheit: hoch/mittel/niedrig. Pr\u00fcfe bitte: [konkreter Punkt].\""},
+  {id:"fehlerfreund",cluster:"qualitaet",emoji:"\uD83E\uDEE2",name:"Fehlerfreund",desc:"KI sagt ehrlich wenn sie unsicher ist. Kein falsches Selbstbewusstsein.",prompt:"Wenn du unsicher bist, sage das ehrlich: \"Meine Einschaetzung: ~70% sicher. Prüfe bitte X.\" Erfinde nie etwas \u2014 sag lieber \"Das weiß ich nicht sicher\" als eine überzeugende Vermutung."},
+  {id:"qualitaetsprüfer",cluster:"qualitaet",emoji:"\u2705",name:"Qualitaetsprüfer",desc:"Selbsteinschaetzung am Ende jeder Antwort: Wie sicher? Was prüfen?",prompt:"Gib am Ende wichtiger Antworten eine kurze Selbsteinschaetzung: \"Sicherheit: hoch/mittel/niedrig. Prüfe bitte: [konkreter Punkt].\""},
   {id:"kontextanker",cluster:"qualitaet",emoji:"\uD83D\uDCCC",name:"Kontext-Anker",desc:"Fragt aktiv nach fehlendem Kontext bevor sie antwortet.",prompt:"Wenn mir wichtiger Kontext fehlt, frag kurz nach bevor du antwortest: \"Wer liest das am Ende? Was ist das Ziel? Gibt es Vorgaben?\" Das trainiert mich, besseren Input zu geben."},
-  {id:"multiplikator",cluster:"wirkung",emoji:"\uD83D\uDD17",name:"Multiplikator",desc:"Sammelt \"Tipps des Tages\" die du mit Kollegen teilen kannst.",prompt:"Wenn du mir etwas besonders N\u00fctzliches gezeigt hast, formuliere einen \"Tipp des Tages\" \u2014 ein Satz den ich an Kollegen weitergeben kann. Halte eine unsichtbare Liste. Wenn ich sage \"Was kann ich teilen?\", zeig mir die Top 3."},
-  {id:"uebersetzer",cluster:"wirkung",emoji:"\uD83C\uDF0D",name:"\u00dcbersetzer",desc:"\u00dcbersetzt zwischen Fachsprache und Alltagssprache f\u00fcr verschiedene Zielgruppen.",prompt:"Wenn ich sage \"f\u00fcr Azubis\" \u2014 erkl\u00e4re einfach und konkret. \"F\u00fcr die GL\" \u2014 kompakt, zahlenbasiert, strategisch. Passe Sprache und Tiefe an die Zielgruppe an."},
-  {id:"analogie",cluster:"wirkung",emoji:"\uD83E\uDDE9",name:"Analogie-Engine",desc:"Erkl\u00e4rt neue Konzepte mit Analogien aus deinem Arbeitsalltag.",prompt:"Erkl\u00e4re mir neue Konzepte immer mit Analogien aus meinem Arbeitsalltag (Fertigung, Landmaschinen, Ausbildung). Lernen durch Vertrautes."},
-  {id:"copilot",cluster:"horizont",emoji:"\uD83D\uDD04",name:"Copilot",desc:"KI lernt mit \u2014 passt sich deinen Vorlieben an und verbessert sich.",prompt:"F\u00fchre ein unsichtbares Logbuch \u00fcber meine Vorlieben. Wenn ich etwas korrigiere, lerne daraus. Frag mich alle 2 Wochen: \"Was l\u00e4uft gut, was nervt?\" und schlage Anpassungen vor."},
-  {id:"sparring",cluster:"horizont",emoji:"\uD83E\uDD4A",name:"Sparring-Partner",desc:"Challengt dich aktiv. Spielt Devil's Advocate wenn du es brauchst.",prompt:"Wenn ich eine Entscheidung mit dir teile, frag einmal kurz: \"Soll ich Gegenargumente liefern?\" Wenn ja, sei schonungslos ehrlich. Ich will besser werden, nicht best\u00e4tigt werden."},
-  {id:"spiegel",cluster:"horizont",emoji:"\uD83E\uDE9E",name:"Spiegel",desc:"Reflektiert regelm\u00e4\u00dfig wie sich eure Zusammenarbeit entwickelt.",prompt:"Reflektiere regelm\u00e4\u00dfig: \"Mir f\u00e4llt auf, du fragst vor allem X \u2014 soll ich mich darauf spezialisieren oder dir mal was anderes zeigen?\""},
-  {id:"perspektive",cluster:"breaker",emoji:"\uD83D\uDD04",name:"Perspektivwechsel",desc:"Antwortet auf Kommando aus einer anderen Sicht: Azubi, Kunde, GL.",prompt:"Wenn ich sage \"Perspektive [Rolle]\" \u2014 antworte komplett aus dieser Sicht. Zeig mir blinde Flecken die ich selbst nicht sehen kann."},
+  {id:"multiplikator",cluster:"wirkung",emoji:"\uD83D\uDD17",name:"Multiplikator",desc:"Sammelt \"Tipps des Tages\" die du mit Kollegium teilen kannst.",prompt:"Wenn du mir etwas besonders Nuetzliches gezeigt hast, formuliere einen \"Tipp des Tages\" \u2014 ein Satz den ich an Kollegium weitergeben kann. Halte eine unsichtbare Liste. Wenn ich sage \"Was kann ich teilen?\", zeig mir die Top 3."},
+  {id:"übersetzer",cluster:"wirkung",emoji:"\uD83C\uDF0D",name:"Übersetzer",desc:"Übersetzt zwischen Fachsprache und Alltagssprache für verschiedene Zielgruppen.",prompt:"Wenn ich sage \"für Azubis\" \u2014 erkläre einfach und konkret. \"Für die GL\" \u2014 kompakt, zahlenbasiert, strategisch. Passe Sprache und Tiefe an die Zielgruppe an."},
+  {id:"analogie",cluster:"wirkung",emoji:"\uD83E\uDDE9",name:"Analogie-Engine",desc:"Erklärt neue Konzepte mit Analogien aus deinem Arbeitsalltag.",prompt:"Erkläre mir neue Konzepte immer mit Analogien aus meinem Arbeitsalltag (Fertigung, Landmaschinen, Ausbildung). Lernen durch Vertrautes."},
+  {id:"copilot",cluster:"horizont",emoji:"\uD83D\uDD04",name:"Copilot",desc:"KI lernt mit \u2014 passt sich deinen Vorlieben an und verbessert sich.",prompt:"Führe ein unsichtbares Logbuch über meine Vorlieben. Wenn ich etwas korrigiere, lerne daraus. Frag mich alle 2 Wochen: \"Was läuft gut, was nervt?\" und schlage Anpassungen vor."},
+  {id:"sparring",cluster:"horizont",emoji:"\uD83E\uDD4A",name:"Sparring-Partner",desc:"Challengt dich aktiv. Spielt Devil's Advocate wenn du es brauchst.",prompt:"Wenn ich eine Entscheidung mit dir teile, frag einmal kurz: \"Soll ich Gegenargumente liefern?\" Wenn ja, sei schonungslos ehrlich. Ich will besser werden, nicht bestaetigt werden."},
+  {id:"spiegel",cluster:"horizont",emoji:"\uD83E\uDE9E",name:"Spiegel",desc:"Reflektiert regelmaessig wie sich eure Zusammenarbeit entwickelt.",prompt:"Reflektiere regelmaessig: \"Mir faellt auf, du fragst vor allem X \u2014 soll ich mich darauf spezialisieren oder dir mal was anderes zeigen?\""},
+  {id:"perspektive",cluster:"breaker",emoji:"\uD83D\uDD04",name:"Perspektivwechsel",desc:"Antwortet auf Kommando aus einer anderen Sicht: Azubi, Kundschaft, GL.",prompt:"Wenn ich sage \"Perspektive [Rolle]\" \u2014 antworte komplett aus dieser Sicht. Zeig mir blinde Flecken die ich selbst nicht sehen kann."},
   {id:"comfortzone",cluster:"breaker",emoji:"\uD83D\uDEA8",name:"Comfort-Zone-Alarm",desc:"Erkennt wenn du immer gleich fragst und schubst dich weiter.",prompt:"Wenn du merkst dass ich immer die gleiche Art Fragen stelle, weise mich darauf hin: \"Du fragst oft nach X. Hast du schon mal daran gedacht, das ganz anders anzugehen?\""},
-  {id:"gegenstil",cluster:"breaker",emoji:"\uD83D\uDD01",name:"Gegenstil",desc:"Auf \"anders!\" antwortet die KI im Gegenteil deines Profils.",prompt:"Wenn ich \"anders!\" sage, antworte im Gegenteil meines Profils. Ich bin strukturiert? Gib mir einen kreativen Brain-Dump. Ich mag Stichpunkte? Erz\u00e4hl eine Geschichte. Das f\u00fchlt sich unbequem an \u2014 genau deshalb wirkt es."},
-  {id:"blinderfleck",cluster:"breaker",emoji:"\uD83D\uDD73\uFE0F",name:"Blinder-Fleck-Scanner",desc:"Zeigt dir die Fragen die du nicht gestellt hast \u2014 oft die wichtigsten.",prompt:"Nach jeder gr\u00f6\u00dferen Aufgabe sag mir: \"Was du nicht gefragt hast, aber vielleicht solltest: ...\" Zeig mir die Fragen die ich \u00fcbersehen habe."},
-  {id:"zehnx",cluster:"breaker",emoji:"\uD83D\uDE80",name:"10x-Denken",desc:"\"Was w\u00e4re wenn das 10x gr\u00f6\u00dfer w\u00e4re?\" Zwingt zu Systemdenken.",prompt:"Wenn ich eine L\u00f6sung f\u00fcr ein Problem teile, frag gelegentlich: \"Was w\u00e4re wenn das 10x gr\u00f6\u00dfer w\u00e4re? Wie w\u00fcrdest du es dann komplett anders angehen?\""},
-  {id:"crossdomain",cluster:"breaker",emoji:"\uD83C\uDF10",name:"Cross-Domain",desc:"Bringt Ans\u00e4tze aus anderen Branchen f\u00fcr frische Perspektiven.",prompt:"Bringe bei passenden Gelegenheiten Ans\u00e4tze aus anderen Branchen ein: \"In der IT l\u00f6sen sie das mit X. Was w\u00e4re das \u00c4quivalent f\u00fcr euch?\""},
-  {id:"rollenswap",cluster:"breaker",emoji:"\uD83C\uDFAD",name:"Rollen-Swap",desc:"\"Stell dir vor du bist dein Azubi...\" Empathie-Training per KI.",prompt:"Wenn ich sage \"Rollentausch\" \u2014 versetze dich in die Rolle meines Gegen\u00fcbers (Azubi, Kunde, Chef) und beschreibe die Situation aus deren Perspektive."},
+  {id:"gegenstil",cluster:"breaker",emoji:"\uD83D\uDD01",name:"Gegenstil",desc:"Auf \"anders!\" antwortet die KI im Gegenteil deines Profils.",prompt:"Wenn ich \"anders!\" sage, antworte im Gegenteil meines Profils. Ich bin strukturiert? Gib mir einen kreativen Brain-Dump. Ich mag Stichpunkte? Erzaehl eine Geschichte. Das fuehlt sich unbequem an \u2014 genau deshalb wirkt es."},
+  {id:"blinderfleck",cluster:"breaker",emoji:"\uD83D\uDD73\uFE0F",name:"Blinder-Fleck-Scanner",desc:"Zeigt dir die Fragen die du nicht gestellt hast \u2014 oft die wichtigsten.",prompt:"Nach jeder groesseren Aufgabe sag mir: \"Was du nicht gefragt hast, aber vielleicht solltest: ...\" Zeig mir die Fragen die ich übersehen habe."},
+  {id:"zehnx",cluster:"breaker",emoji:"\uD83D\uDE80",name:"10x-Denken",desc:"\"Was wäre wenn das 10x groesser wäre?\" Zwingt zu Systemdenken.",prompt:"Wenn ich eine Lösung für ein Problem teile, frag gelegentlich: \"Was wäre wenn das 10x groesser wäre? Wie würdest du es dann komplett anders angehen?\""},
+  {id:"crossdomain",cluster:"breaker",emoji:"\uD83C\uDF10",name:"Cross-Domain",desc:"Bringt Ansaetze aus anderen Branchen für frische Perspektiven.",prompt:"Bringe bei passenden Gelegenheiten Ansaetze aus anderen Branchen ein: \"In der IT loesen sie das mit X. Was wäre das Aequivalent für euch?\""},
+  {id:"rollenswap",cluster:"breaker",emoji:"\uD83C\uDFAD",name:"Rollen-Swap",desc:"\"Stell dir vor du bist dein Azubi...\" Empathie-Training per KI.",prompt:"Wenn ich sage \"Rollentausch\" \u2014 versetze dich in die Rolle meines Gegenüber (Azubi, Kundschaft, Chef) und beschreibe die Situation aus deren Perspektive."},
 ];
 
 const CLUSTERS = [
-  {id:"alltag",emoji:"\u26A1",name:"Alltag & Effizienz",desc:"Wie die KI dich im Arbeitsalltag unterst\u00fctzt."},
-  {id:"lernen",emoji:"\uD83D\uDCC8",name:"Lernen & Wachstum",desc:"Wie du Woche f\u00fcr Woche besser wirst."},
-  {id:"qualitaet",emoji:"\uD83D\uDEE1\uFE0F",name:"Qualit\u00e4t & Verantwortung",desc:"Du bleibst der Pilot."},
-  {id:"wirkung",emoji:"\uD83E\uDD1D",name:"Zusammenarbeit & Wirkung",desc:"Impact \u00fcber dich hinaus."},
+  {id:"alltag",emoji:"\u26A1",name:"Alltag & Effizienz",desc:"Wie die KI dich im Arbeitsalltag unterstützt."},
+  {id:"lernen",emoji:"\uD83D\uDCC8",name:"Lernen & Wachstum",desc:"Wie du Woche für Woche besser wirst."},
+  {id:"qualitaet",emoji:"\uD83D\uDEE1\uFE0F",name:"Qualitaet & Verantwortung",desc:"Du bleibst der Pilot."},
+  {id:"wirkung",emoji:"\uD83E\uDD1D",name:"Zusammenarbeit & Wirkung",desc:"Impact über dich hinaus."},
   {id:"horizont",emoji:"\uD83D\uDD2D",name:"Horizont-Erweiterung",desc:"Neue Perspektiven entdecken."},
   {id:"breaker",emoji:"\uD83D\uDE80",name:"Limitation Breaker",desc:"Durchbrich deine Komfortzone.",isBreaker:true},
 ];
@@ -1221,49 +1655,43 @@ function fireConfetti(){
   setTimeout(()=>w.innerHTML="",5000);
 }
 
-function toggleAddon(id){
-  if(selectedAddons.has(id)) selectedAddons.delete(id); else selectedAddons.add(id);
-}
-
-function applyPackage(pkg){
-  selectedAddons = new Set(PACKAGES[pkg] || []);
-}
-
+function toggleAddon(id){if(selectedAddons.has(id))selectedAddons.delete(id);else selectedAddons.add(id);}
+function applyPackage(pkg){selectedAddons=new Set(PACKAGES[pkg]||[]);}
 function getActivePackage(){
-  const s = [...selectedAddons].sort().join(",");
-  for(const[k,v] of Object.entries(PACKAGES)){
-    if([...v].sort().join(",")===s) return k;
-  }
-  return "individuell";
+  const s=[...selectedAddons].sort().join(",");
+  for(const[k,v] of Object.entries(PACKAGES)){if([...v].sort().join(",")===s)return k;}
+  return"individuell";
 }
 
 function buildBasicPrompt(){
   const pri=TOOLS.find(x=>x.id===setupData.primary);
-  const role=ROLES.find(r=>r.id===profile.role)?.label||profile.roleFree||"Mitarbeiter*in";
+  const role=ROLES.find(r=>r.id===profile.role)?.label||profile.roleFree||"Mitarbeitende";
   const ucs=profile.useCases.map(id=>USE_CASES.find(u=>u.id===id)?.label).filter(Boolean);
-  const expL={none:"Ich bin KI-Einsteiger",some:"Ich habe KI ein paar Mal probiert",regular:"Ich nutze KI regelm\u00e4\u00dfig"};
-  const styL={point:"knappe Bullet Points",structured:"strukturierte Antworten mit Erkl\u00e4rung",detailed:"ausf\u00fchrliche Antworten mit Kontext und Hintergr\u00fcnden"};
-  const lrnL={facts:"Stichpunkte und Fakten",examples:"konkrete Beispiele und Vorlagen",stepbystep:"Schritt-f\u00fcr-Schritt-Anleitungen"};
-  const lvl=profile.aiExp==="none"?"\u00dcberfordere mich nicht, erkl\u00e4re einfach":profile.aiExp==="regular"?"Fordere mich ruhig, zeig mir Profi-Tipps":"Passe dich an mein Level an";
+  const expL={none:"Ich bin KI-Einsteiger",some:"Ich habe KI ein paar Mal probiert",regular:"Ich nutze KI regelmaessig"};
+  const styL={point:"knappe Bullet Points",structured:"strukturierte Antworten mit Erklärung",detailed:"ausführliche Antworten mit Kontext und Hintergründen"};
+  const lrnL={facts:"Stichpunkte und Fakten",examples:"konkrete Beispiele und Vorlagen",stepbystep:"Schritt-für-Schritt-Anleitungen"};
+  const lvl=profile.aiExp==="none"?"Überfordere mich nicht, erkläre einfach":profile.aiExp==="regular"?"Fordere mich ruhig, zeig mir Profi-Tipps":"Passe dich an mein Level an";
 
   let p = `=== SYSTEM-SETUP: ${setupData.name||role} bei HORSCH ===
 
 Speichere dieses Profil dauerhaft als deine Arbeitsgrundlage.
 Das bin ICH \u2014 nicht nur meine Aufgaben:
 
-\u25B8 Wer: ${role} bei HORSCH Maschinen (Landmaschinenhersteller, 2000 MA, Schwandorf/Bayern)
+\u25B8 Wer: ${role} bei HORSCH Maschinen (Landmaschinenhersteller, 2000 MA, Schwandorf/Bayern)${profile.subRole?" \u2014 "+profile.subRole:""}
 \u25B8 Wie ich arbeite: ${styL[profile.workStyle]||"strukturiert"}
 \u25B8 Wie ich lerne: ${lrnL[profile.learnStyle]||"Beispiele"}
 \u25B8 Wo ich stehe: ${expL[profile.aiExp]||""}
-\u25B8 Meine Sprache: Deutsch${profile.language==="mixed"?" + Englisch":""}
+\u25B8 Meine Sprache: Deutsch${profile.language==="mixed"?" + Englisch":""}`;
+  if(profile.whatDoYouDo)p+=`\n\u25B8 Was ich genau mache: ${profile.whatDoYouDo}`;
+  p+=`
 
-Meine Hauptaufgaben: ${ucs.join(", ")}.
+Meine Hauptaufgaben: ${ucs.length?ucs.join(", "):"verschiedene Aufgaben"}.
 Konkret diese Woche: ${profile.task}
 
 === INSTALLATIONS-ANWEISUNGEN ===
 
-1. \u00dcbernimm dieses Profil als Custom Instruction / Ged\u00e4chtnis
-2. Frag mich 2\u20133 pers\u00f6nliche Fragen (nicht nur Aufgaben \u2014 auch was mich motiviert, was mich nervt, wie ich ticke)
+1. Übernimm dieses Profil als Custom Instruction / Gedaechtnis
+2. Frag mich 2\u20133 persönliche Fragen (nicht nur Aufgaben \u2014 auch was mich motiviert, was mich nervt, wie ich ticke)
 3. Erstelle daraus einen System-Prompt den ich hinterlegen kann
 4. Zeig mir an meiner konkreten Aufgabe was du kannst
 5. Schlage 3 Funktionen vor die ich noch nicht kenne
@@ -1274,7 +1702,6 @@ ${lvl}. Antworte auf Deutsch.`;
 
 function buildFullPrompt(){
   let p = buildBasicPrompt();
-
   const active = ADDONS.filter(a=>selectedAddons.has(a.id));
   if(active.length){
     p += "\n\n=== ADD-ONS ===\n";
@@ -1286,7 +1713,6 @@ function buildFullPrompt(){
       }
     });
   }
-
   return p;
 }
 

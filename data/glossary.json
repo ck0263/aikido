@@ -1,0 +1,67 @@
+[
+  {
+    "term": "Context Window",
+    "tech": "Die Zeichenmenge, die das Modell gleichzeitig verarbeiten kann — typisch 100.000 bis 1.000.000 Zeichen.",
+    "fuerDich": "Wenn du ein langes Dokument übergibst, kann die KI den Anfang 'vergessen'. Halte Wichtiges oben und wiederhole Kerninformationen am Ende."
+  },
+  {
+    "term": "Halluzination",
+    "tech": "Das Modell generiert überzeugend klingende Informationen, die faktisch falsch sind — ohne es zu kennzeichnen.",
+    "fuerDich": "Wenn die KI dir eine Zahl, einen Namen oder ein Gesetz nennt: Immer prüfen. Je selbstbewusster die Antwort klingt, desto kritischer hinsehen."
+  },
+  {
+    "term": "Prompt",
+    "tech": "Die Eingabe, die du dem Modell gibst — deine Frage, Anweisung oder dein Kontext.",
+    "fuerDich": "Je präziser dein Prompt, desto besser die Antwort. 'Schreib mir was über Feedback' → generisch. 'Schreib mir konstruktives Feedback für einen Azubi der motiviert ist aber Flüchtigkeitsfehler macht' → passgenau."
+  },
+  {
+    "term": "System Prompt",
+    "tech": "Eine unsichtbare Anweisung, die dem Modell sagt, wie es sich verhalten soll — vor jeder Nutzer-Eingabe.",
+    "fuerDich": "Das ist dein 'Harness'. Du kannst festlegen: Antworte auf Deutsch, kurz und knapp, mit Beispielen. Das Tool verhält sich dann immer so — nicht nur einmal."
+  },
+  {
+    "term": "Token",
+    "tech": "Die kleinste Einheit, in der KI-Modelle Text verarbeiten. Ein deutsches Wort = ca. 1,5 Token.",
+    "fuerDich": "Tokens bestimmen die Kosten und die maximale Textlänge. Wenn die KI mitten im Satz aufhört, ist das Token-Limit erreicht."
+  },
+  {
+    "term": "Temperature",
+    "tech": "Ein Parameter, der steuert, wie kreativ oder vorhersagbar das Modell antwortet. Niedrig = präzise, Hoch = kreativ.",
+    "fuerDich": "Für Fakten und Berichte: niedrige Temperature. Für Brainstorming und Ideen: hohe Temperature. Die meisten Tools stellen das automatisch ein."
+  },
+  {
+    "term": "Multimodal",
+    "tech": "Das Modell kann nicht nur Text, sondern auch Bilder, Audio oder Video verarbeiten und erzeugen.",
+    "fuerDich": "Du kannst z.B. ein Foto von einem Maschinenteil hochladen und fragen: 'Was ist das und wie baue ich es ein?'"
+  },
+  {
+    "term": "RAG",
+    "tech": "Retrieval-Augmented Generation — das Modell durchsucht erst eine Wissensdatenbank und antwortet dann basierend auf echten Dokumenten.",
+    "fuerDich": "Statt zu raten, schaut die KI erst in echten Unterlagen nach. Perplexity macht das mit dem Internet. Unternehmen bauen das mit internen Dokumenten."
+  },
+  {
+    "term": "Fine-Tuning",
+    "tech": "Ein Basismodell wird mit spezifischen Daten nachtrainiert, um es für einen bestimmten Einsatz zu optimieren.",
+    "fuerDich": "Wie wenn du einem neuen Mitarbeiter nicht alles von Grund auf beibringst, sondern ihm Beispiele zeigst wie ihr es bei HORSCH macht."
+  },
+  {
+    "term": "Chain of Thought",
+    "tech": "Das Modell wird angewiesen, seinen Denkprozess Schritt für Schritt zu zeigen, statt nur das Ergebnis zu liefern.",
+    "fuerDich": "Wenn du 'Denke Schritt für Schritt' in deinen Prompt schreibst, wird die Antwort oft besser — weil die KI sich selbst kontrolliert."
+  },
+  {
+    "term": "Agent",
+    "tech": "Ein KI-System, das nicht nur antwortet, sondern eigenständig Aufgaben ausführt — recherchieren, planen, Tools nutzen.",
+    "fuerDich": "Stell dir vor, du gibst der KI nicht eine Frage, sondern ein Ziel: 'Recherchiere diese 5 Themen und erstelle mir einen Bericht.' Der Agent erledigt das in mehreren Schritten."
+  },
+  {
+    "term": "Embedding",
+    "tech": "Text wird in Zahlenreihen umgewandelt, die seine Bedeutung repräsentieren. Ähnliche Texte haben ähnliche Embeddings.",
+    "fuerDich": "So findet die KI inhaltlich ähnliche Dokumente — auch wenn sie andere Wörter verwenden. Wie eine intelligente Suche."
+  },
+  {
+    "term": "Harness",
+    "tech": "Die Gesamtheit aus System Prompt, Kontext und Verhaltensregeln, die ein KI-Tool für einen bestimmten Nutzer konfiguriert.",
+    "fuerDich": "Dein persönliches 'Geschirr' für die KI. Ohne Harness bekommt jeder die gleiche generische Antwort. Mit Harness wird das Tool zu DEINEM Tool."
+  }
+]

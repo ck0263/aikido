@@ -1,0 +1,326 @@
+{
+  "azubi": {
+    "scenarios": [
+      {
+        "cat": "Beziehung",
+        "color": "#8B5CF6",
+        "q": "Dein Ausbilder kritisiert deine Arbeit, und du bist dir sicher, dass die Kritik nicht ganz fair ist. Wie bereitest du das Gespräch vor?",
+        "reflect": [
+          ["Hättest du das so formuliert?", "Ja, genau so", "Würde ich anders sagen"],
+          ["Was weiß die KI nicht über eure Beziehung?", "Vorgeschichte", "Tonfall im Alltag", "Was mich wirklich stört"],
+          ["Wer sollte dieses Gespräch führen?", "Ich allein", "Mit Unterstützung"]
+        ],
+        "insight": "Die KI kann dir helfen, Argumente zu sortieren. Aber den Mut, es anzusprechen — den bringst du mit.",
+        "observe": "Achte auf den Ton: Klingt die KI diplomatisch oder ausweichend? Würdest du so reden?"
+      },
+      {
+        "cat": "Lernen",
+        "color": "#3B82F6",
+        "q": "Du hast morgen Zwischenprüfung und merkst heute Abend, dass du einen ganzen Themenbereich übersehen hast. Was tust du?",
+        "reflect": [
+          ["Hat die KI dir Panik genommen oder gemacht?", "Beruhigt", "Eher Stress"],
+          ["Was weiß die KI nicht über deine Prüfung?", "Prüfungsformat", "Meine Stärken", "Was drankommt"],
+          ["Würdest du den Plan so umsetzen?", "Ja, sofort", "Müsste ich anpassen"]
+        ],
+        "insight": "KI kann beim Strukturieren helfen. Aber ob du dich an den Plan hältst oder lieber ins Bett gehst — das entscheidest du.",
+        "observe": "Achte auf Aufgabenteilung: Wo nimmt dir die KI Denkarbeit ab — und wo sollte sie das nicht?"
+      },
+      {
+        "cat": "Verantwortung",
+        "color": "#EF4444",
+        "q": "Ein Kollege aus deinem Azubi-Jahrgang macht wiederholt Sicherheitsfehler in der Werkstatt. Sagst du es dem Ausbilder?",
+        "reflect": [
+          ["Was rät die KI — und was sagt dein Bauchgefühl?", "Stimmt überein", "Widerspricht sich"],
+          ["Was weiß die KI nicht?", "Teamdynamik", "Konsequenzen für den Kollegen", "Eure Freundschaft"],
+          ["Wer trägt die Verantwortung für die Sicherheit?", "Jeder einzeln", "Das Team zusammen"]
+        ],
+        "insight": "Sicherheit ist nicht verhandelbar. Aber wie du es ansprichst — das braucht Fingerspitzengefühl, das keine KI hat.",
+        "observe": "Achte auf Empathie-Marker: Berücksichtigt die KI deine Beziehung zum Kollegen?"
+      },
+      {
+        "cat": "Kontext",
+        "color": "#F59E0B",
+        "q": "Welche HORSCH-Sämaschine wäre die richtige für einen 200-Hektar-Biobetrieb in Bayern?",
+        "reflect": [
+          ["Klingt die Antwort überzeugend?", "Sehr überzeugend", "Erkennbar unsicher"],
+          ["Stimmen die genannten Modelle?", "Ja", "Teilweise", "Keine Ahnung"],
+          ["Wie prüfst du das?", "HORSCH-Website", "Kollegen fragen", "Katalog"]
+        ],
+        "insight": "Du kennst die Maschinen besser als jede KI. Nutze dein Fachwissen als Halluzinations-Radar.",
+        "observe": "Achte auf Sicherheitsmarker: Sagt die KI 'meines Wissens' oder behauptet sie einfach?"
+      }
+    ]
+  },
+  "ausbilder": {
+    "scenarios": [
+      {
+        "cat": "Beziehung",
+        "color": "#8B5CF6",
+        "q": "Dein Azubi hat dir im Vertrauen erzählt, dass es ihm zuhause nicht gut geht. Was rätst du ihm?",
+        "reflect": [
+          ["Hättest du das so gesagt?", "Ja, passt so", "Würde ich anders"],
+          ["Was weiß die KI nicht?", "Vorgeschichte", "Persönlichkeit", "Teamdynamik"],
+          ["Würde sich der Azubi verstanden fühlen?", "Vermutlich ja", "Eher nicht"]
+        ],
+        "insight": "Vertrauen entsteht durch Beziehung, nicht durch Textbausteine. Du kennst den Menschen — die KI kennt nur die Frage.",
+        "observe": "Achte auf Empathie-Marker: Sind sie echt oder performativ?"
+      },
+      {
+        "cat": "Beziehung",
+        "color": "#8B5CF6",
+        "q": "Dein Azubi kommt nach dem Urlaub zurück und wirkt verändert — zurückhaltend, unkonzentriert. Wie sprichst du ihn an?",
+        "reflect": [
+          ["Hättest du das so gesagt?", "Ja, passt so", "Würde ich anders"],
+          ["Was weiß die KI nicht?", "Vorgeschichte", "Persönlichkeit", "Teamdynamik"],
+          ["Was würdest du zuerst tun?", "Direkt ansprechen", "Erst beobachten"]
+        ],
+        "insight": "Die KI gibt dir ein Gesprächsskript. Ob du erst beobachtest oder direkt ansprichst, hängt von eurer Beziehung ab.",
+        "observe": "Achte auf Konkretheit: Gibt die KI Rezepte oder Prinzipien?"
+      },
+      {
+        "cat": "Verantwortung",
+        "color": "#EF4444",
+        "q": "Soll ich den Ausbildungsvertrag mit diesem Azubi verlängern, obwohl seine Leistungen grenzwertig sind? Er hat eine schwierige Familiensituation.",
+        "reflect": [
+          ["Kann eine KI das entscheiden?", "Nein, niemals", "Teilweise als Input"],
+          ["Wer trägt die Verantwortung?", "Ich allein", "Team-Entscheidung"],
+          ["Welche Konsequenzen übersiehst du?", "Für den Azubi", "Fürs Team"]
+        ],
+        "insight": "Die KI zeigt Pro und Contra — aber die Entscheidung hat Konsequenzen für einen echten Menschen. Nicht delegierbar.",
+        "observe": "Achte auf Konjunktive: Was heißt es, wenn die KI 'könnte man' schreibt?"
+      },
+      {
+        "cat": "Kontext",
+        "color": "#F59E0B",
+        "q": "Wie viele Mitarbeiter hat HORSCH Maschinen aktuell am Standort Ronneburg und wer ist dort Standortleiter?",
+        "reflect": [
+          ["Woher soll die KI das wissen?", "Guter Punkt", "Vielleicht Internet"],
+          ["Wie überzeugend klingt die Antwort?", "Sehr überzeugend", "Erkennbar unsicher"],
+          ["Wie prüfst du das?", "Interne Quelle", "Kollegen fragen"]
+        ],
+        "insight": "KI kennt deinen Betrieb nicht von innen. Je überzeugender die Antwort, desto wichtiger: Woher weiß sie das?",
+        "observe": "Achte auf Sicherheitsmarker: Sagt die KI 'meines Wissens' oder behauptet sie einfach?"
+      },
+      {
+        "cat": "Alltag",
+        "color": "#10B981",
+        "q": "Die HR-Abteilung hat neue Richtlinien für Entwicklungsgespräche aufgestellt, die dich methodisch einschränken. Wie gehst du damit um?",
+        "reflect": [
+          ["Hilft dir die Antwort konkret weiter?", "Ja, gute Ansätze", "Zu allgemein"],
+          ["Was fehlt der KI?", "Unsere HR-Kultur", "Meine Erfahrung", "Der politische Kontext"],
+          ["Würdest du das so an HR kommunizieren?", "Ja", "Müsste ich anpassen"]
+        ],
+        "insight": "KI kann Formulierungshilfe geben. Aber die Frage, ob du dich anpasst oder dagegen argumentierst — das ist deine Haltung.",
+        "observe": "Achte auf Konkretheit: Gibt die KI Rezepte oder Prinzipien?"
+      }
+    ]
+  },
+  "fachkraft": {
+    "scenarios": [
+      {
+        "cat": "Verantwortung",
+        "color": "#EF4444",
+        "q": "Du entdeckst in einem Prozess ein Sicherheitsrisiko, das seit Jahren so läuft. Wie bringst du es zur Sprache, ohne Kollegen zu exponieren?",
+        "reflect": [
+          ["Hilft dir die Antwort praktisch?", "Ja, gute Strategie", "Zu theoretisch"],
+          ["Was weiß die KI nicht?", "Betriebskultur", "Hierarchien", "Wer betroffen ist"],
+          ["Würdest du es so ansprechen?", "Ja", "Zu diplomatisch", "Zu direkt"]
+        ],
+        "insight": "Sicherheit braucht Mut. Die KI kann den Ton helfen zu finden — aber das Gespräch führst du.",
+        "observe": "Achte auf Konjunktive: Was heißt es, wenn die KI 'könnte man' schreibt?"
+      },
+      {
+        "cat": "Kontext",
+        "color": "#F59E0B",
+        "q": "Welche neuen Anforderungen an die Arbeitssicherheit in der Landmaschinenfertigung gelten ab 2026?",
+        "reflect": [
+          ["Klingt die Antwort aktuell?", "Ja", "Vermutlich veraltet"],
+          ["Nennt die KI konkrete Quellen?", "Ja, mit Links", "Keine Quellen"],
+          ["Wie prüfst du das?", "BG-Website", "Fachzeitschrift", "Kollegen"]
+        ],
+        "insight": "Hier glänzen Recherche-Tools. Aber bei Rechtsfragen: Immer die offizielle Quelle prüfen, nie nur der KI vertrauen.",
+        "observe": "Achte auf Sicherheitsmarker: Sagt die KI 'meines Wissens' oder behauptet sie einfach?"
+      },
+      {
+        "cat": "Alltag",
+        "color": "#10B981",
+        "q": "Du musst einen 20-seitigen Fachtext in eine halbstündige Schulung übersetzen. Wie baust du die Struktur auf?",
+        "reflect": [
+          ["Würde die Struktur für deine Kolleg:innen funktionieren?", "Ja", "Zu akademisch"],
+          ["Was fehlt?", "Praxis-Bezug", "Unser Sprachniveau", "Zeitmanagement"],
+          ["Würdest du die Schulung so halten?", "Ja, guter Start", "Muss ich stark anpassen"]
+        ],
+        "insight": "KI ist stark im Strukturieren. Aber ob die Schulung ankommt, hängt von dir ab — nicht vom Foliensatz.",
+        "observe": "Achte auf Konkretheit: Gibt die KI Rezepte oder Prinzipien?"
+      },
+      {
+        "cat": "Beziehung",
+        "color": "#8B5CF6",
+        "q": "Ein erfahrener Kollege macht eine Sache anders als das neue Handbuch vorschreibt — und seine Art funktioniert besser. Wie gehst du damit um?",
+        "reflect": [
+          ["Berücksichtigt die KI beide Seiten?", "Ja, ausgewogen", "Eher einseitig"],
+          ["Was weiß die KI nicht?", "Den Kollegen", "Warum es funktioniert", "Die Teamdynamik"],
+          ["Was würdest du tun?", "Handbuch anpassen", "Kollegen bestärken", "Beides"]
+        ],
+        "insight": "Erfahrungswissen schlägt manchmal das Handbuch. Die KI kennt das Handbuch — du kennst den Kollegen.",
+        "observe": "Achte auf Empathie-Marker: Berücksichtigt die KI die menschliche Seite?"
+      }
+    ]
+  },
+  "verwaltung": {
+    "scenarios": [
+      {
+        "cat": "Alltag",
+        "color": "#10B981",
+        "q": "Dein Chef schickt dir einen ungeordneten Gedanken-Dump per Mail zur Ausarbeitung. Wie gehst du vor?",
+        "reflect": [
+          ["Hilft dir die Struktur?", "Ja, guter Ansatz", "Zu schematisch"],
+          ["Was fehlt der KI?", "Was der Chef wirklich will", "Unser Stil", "Die Dringlichkeit"],
+          ["Würdest du so an die Aufgabe gehen?", "Ja", "Teilweise"]
+        ],
+        "insight": "KI kann Chaos sortieren. Aber zu verstehen was dein Chef eigentlich meint — das ist deine Übersetzungsleistung.",
+        "observe": "Achte auf Konkretheit: Gibt die KI Rezepte oder Prinzipien?"
+      },
+      {
+        "cat": "Beziehung",
+        "color": "#8B5CF6",
+        "q": "Ein Kollege aus einer anderen Abteilung bittet dich wiederholt um Zuarbeit, die eigentlich nicht dein Job ist. Wie reagierst du?",
+        "reflect": [
+          ["Ist der Ton der Antwort passend?", "Ja, professionell", "Zu hart", "Zu weich"],
+          ["Was weiß die KI nicht?", "Unsere Büro-Dynamik", "Ob ich Nein sagen kann", "Die Vorgeschichte"],
+          ["Würdest du das so formulieren?", "Ja, genau so", "Müsste ich anpassen"]
+        ],
+        "insight": "Grenzen setzen ist keine Unhöflichkeit. Die KI kann dir die Worte geben — aber die Haltung kommt von dir.",
+        "observe": "Achte auf Empathie-Marker: Berücksichtigt die KI beide Seiten?"
+      },
+      {
+        "cat": "Verantwortung",
+        "color": "#EF4444",
+        "q": "Du findest in einer Akte einen Fehler, der einem Mitarbeitenden zum Nachteil geworden ist. Der Vorgang ist abgeschlossen. Was tust du?",
+        "reflect": [
+          ["Was rät die KI — und was sagt dein Gewissen?", "Stimmt überein", "Widerspricht sich"],
+          ["Wer trägt die Verantwortung?", "Ich als Finder", "Die ursprüngliche Bearbeiterin", "Das System"],
+          ["Was sind die Konsequenzen?", "Für die Person", "Für mich", "Für die Abteilung"]
+        ],
+        "insight": "Fehler melden kostet Überwindung. Die KI kann den Weg zeigen — aber den Schritt machst du.",
+        "observe": "Achte auf Konjunktive: Was heißt es, wenn die KI 'könnte man' schreibt?"
+      },
+      {
+        "cat": "Kontext",
+        "color": "#F59E0B",
+        "q": "Welche HORSCH-internen Regelungen gelten für Homeoffice bei Sachbearbeitenden mit kleinem Kind?",
+        "reflect": [
+          ["Klingt die Antwort nach HORSCH?", "Könnte stimmen", "Klingt generisch"],
+          ["Woher hat die KI diese Info?", "Keine Ahnung", "Geraten"],
+          ["Wo findest du die echte Antwort?", "Intranet", "HR fragen", "Betriebsvereinbarung"]
+        ],
+        "insight": "Interne Regelungen kennt keine KI. Bei Personalfragen: Immer die offizielle Quelle.",
+        "observe": "Achte auf Sicherheitsmarker: Sagt die KI 'meines Wissens' oder behauptet sie einfach?"
+      }
+    ]
+  },
+  "werkstudent": {
+    "scenarios": [
+      {
+        "cat": "Beziehung",
+        "color": "#8B5CF6",
+        "q": "Du willst deiner Betreuerin ein Projektkonzept vorschlagen, hast aber Sorge, dass sie es als Übergriff auffasst. Wie formulierst du die Mail?",
+        "reflect": [
+          ["Trifft die KI den richtigen Ton?", "Ja, passend", "Zu unterwürfig", "Zu forsch"],
+          ["Was weiß die KI nicht?", "Eure Beziehung", "Die Hierarchie", "Den Kontext"],
+          ["Würdest du die Mail so senden?", "Ja", "Mit Anpassungen"]
+        ],
+        "insight": "Initiative zeigen ist keine Übergriffigkeit. Die KI kann den Ton feinjustieren — aber die Idee ist deine.",
+        "observe": "Achte auf den Ton: Klingt die KI diplomatisch oder ausweichend?"
+      },
+      {
+        "cat": "Alltag",
+        "color": "#10B981",
+        "q": "Du hast drei offene Baustellen parallel — Semesterarbeit, Projekt X im Unternehmen, Referat. Welche Sortierung macht Sinn?",
+        "reflect": [
+          ["Ist die Priorisierung realistisch?", "Ja, machbar", "Zu optimistisch"],
+          ["Was fehlt der KI?", "Meine Energie-Level", "Deadlines im Detail", "Was mir Spaß macht"],
+          ["Würdest du dich an den Plan halten?", "Ja", "Wahrscheinlich nicht"]
+        ],
+        "insight": "KI kann sortieren helfen. Aber ob du den Plan durchziehst, hängt von dir ab — nicht vom Tool.",
+        "observe": "Achte auf Konkretheit: Gibt die KI Rezepte oder Prinzipien?"
+      },
+      {
+        "cat": "Verantwortung",
+        "color": "#EF4444",
+        "q": "Du merkst, dass ein etablierter Prozess in deinem Arbeitsbereich zeitlich ineffizient ist. Sagst du es als Werkstudierende:r offen?",
+        "reflect": [
+          ["Rät die KI zur Offenheit?", "Ja", "Eher zur Vorsicht"],
+          ["Was weiß die KI nicht?", "Meine Position im Team", "Wie offen die Kultur ist", "Ob es erwünscht ist"],
+          ["Was würdest du wirklich tun?", "Ansprechen", "Abwarten", "Erstmal Verbündete suchen"]
+        ],
+        "insight": "Als Werkstudierende:r hast du einen frischen Blick. Die KI kann dir helfen, ihn diplomatisch zu formulieren.",
+        "observe": "Achte auf Konjunktive: Was heißt es, wenn die KI 'könnte man' schreibt?"
+      },
+      {
+        "cat": "Kontext",
+        "color": "#F59E0B",
+        "q": "Wie hoch ist die Fluktuation bei HORSCH und wie ordnet sich das im Branchenvergleich ein?",
+        "reflect": [
+          ["Klingt die Zahl plausibel?", "Könnte stimmen", "Klingt erfunden"],
+          ["Nennt die KI eine Quelle?", "Ja", "Nein"],
+          ["Wie würdest du es prüfen?", "HR fragen", "Geschäftsbericht", "Statista"]
+        ],
+        "insight": "HR-Kennzahlen sind intern. Die KI rät bestenfalls — und klingt dabei überzeugend.",
+        "observe": "Achte auf Sicherheitsmarker: Sagt die KI 'meines Wissens' oder behauptet sie einfach?"
+      }
+    ]
+  },
+  "sonstiges": {
+    "scenarios": [
+      {
+        "cat": "Beziehung",
+        "color": "#8B5CF6",
+        "q": "Ein Teammitglied leistet konstant weniger als der Rest, ohne dass es Konsequenzen gibt. Das Team ist frustriert. Wie gehst du damit um?",
+        "reflect": [
+          ["Berücksichtigt die KI alle Perspektiven?", "Ja", "Eher einseitig"],
+          ["Was weiß die KI nicht?", "Die Person", "Die Teamdynamik", "Die Vorgeschichte"],
+          ["Was würdest du tun?", "Ansprechen", "An Führung eskalieren", "Team stärken"]
+        ],
+        "insight": "Teamkonflikte sind komplex. Die KI sieht das Pattern — du siehst die Menschen.",
+        "observe": "Achte auf Empathie-Marker: Berücksichtigt die KI beide Seiten?"
+      },
+      {
+        "cat": "Alltag",
+        "color": "#10B981",
+        "q": "Du sollst in 30 Minuten eine Zusammenfassung eines 50-seitigen Dokuments erstellen. Wie gehst du vor?",
+        "reflect": [
+          ["Würde die Zusammenfassung deinen Anforderungen genügen?", "Ja, guter Start", "Zu oberflächlich"],
+          ["Was fehlt?", "Die Gewichtung", "Unser Kontext", "Was der Empfänger braucht"],
+          ["Würdest du das Ergebnis so weitergeben?", "Ja", "Nach Überarbeitung"]
+        ],
+        "insight": "KI ist stark beim Komprimieren. Aber was wichtig ist und was nicht — das weißt du besser.",
+        "observe": "Achte auf Konkretheit: Gibt die KI Rezepte oder Prinzipien?"
+      },
+      {
+        "cat": "Verantwortung",
+        "color": "#EF4444",
+        "q": "Du sollst eine Entscheidungsvorlage erstellen, die implizit eine bestimmte Option bevorzugt. Du findest das unfair. Was tust du?",
+        "reflect": [
+          ["Rät die KI zur Neutralität?", "Ja", "Eher zum Pragmatismus"],
+          ["Wer trägt die Verantwortung für die Vorlage?", "Ich", "Wer sie in Auftrag gegeben hat"],
+          ["Was würdest du wirklich tun?", "Neutral formulieren", "Ansprechen", "Wie gewünscht liefern"]
+        ],
+        "insight": "Integrität in der Arbeit ist kein Luxus. Die KI kann neutral formulieren — aber die Haltung ist deine Entscheidung.",
+        "observe": "Achte auf Konjunktive: Was heißt es, wenn die KI 'könnte man' schreibt?"
+      },
+      {
+        "cat": "Kontext",
+        "color": "#F59E0B",
+        "q": "Was sind die drei größten strategischen Herausforderungen für die europäische Landmaschinenindustrie in den nächsten 5 Jahren?",
+        "reflect": [
+          ["Klingt die Analyse fundiert?", "Ja, plausibel", "Zu generisch"],
+          ["Nennt die KI aktuelle Quellen?", "Ja", "Nein"],
+          ["Fehlte etwas Wichtiges?", "HORSCH-Perspektive", "Regulierung", "Technologie"]
+        ],
+        "insight": "Strategische Fragen brauchen Branchenexpertise. KI gibt den Überblick — die Einordnung für HORSCH machst du.",
+        "observe": "Achte auf Sicherheitsmarker: Sagt die KI 'meines Wissens' oder behauptet sie einfach?"
+      }
+    ]
+  }
+}
