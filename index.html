@@ -496,7 +496,7 @@ const TOOLS=[
   {id:"gemini",name:"Gemini",by:"Google",color:"#4285F4",emoji:"\u2728",vibe:"Der Vernetzer",sweet:"Google-\u00d6kosystem, \u00dcberblick, multimodal",desc:"Gemini ist tief in Google integriert \u2014 Drive, Docs, Gmail. Stark bei Zusammenfassungen, Bild-Analyse und wenn du schon im Google-\u00d6kosystem arbeitest. Kann bei hoher Last langsamer werden.",strengths:"Google-Integration (Drive, Docs), \u00dcberblick, Zusammenfassungen, multimodal",weaker:"Verf\u00fcgbarkeit bei hoher Last, weniger pr\u00e4zise bei Code",url:"https://gemini.google.com"},
   {id:"chatgpt",name:"ChatGPT",by:"OpenAI",color:"#10A37F",emoji:"\u26A1",vibe:"Der Allrounder",sweet:"Kreativ, Bilder, breites Wissen",desc:"ChatGPT ist der bekannteste Allrounder. Stark bei kreativem Schreiben, Bildgenerierung (DALL-E) und breitem Allgemeinwissen. Kann manchmal oberflächlich antworten und halluziniert bei Fakten.",strengths:"Kreatives Schreiben, DALL-E Bildgenerierung, Custom GPTs, breites Allgemeinwissen",weaker:"Manchmal oberflächlich, halluziniert bei Fakten",url:"https://chat.openai.com"},
   {id:"perplexity",name:"Perplexity",by:"Perplexity AI",color:"#20B2AA",emoji:"\uD83D\uDD0D",vibe:"Der Rechercheur",sweet:"Fakten mit Quellen, aktuelle Infos",desc:"Perplexity ist eine KI-Suchmaschine. Jede Antwort kommt mit Quellenangaben. Stark bei Faktenrecherche und aktuellen Informationen. Weniger kreativ, keine Bildgenerierung.",strengths:"Echtzeit-Recherche mit Quellenangaben, aktuelle Informationen, Faktencheck",weaker:"Weniger kreativ, keine Bildgenerierung",url:"https://perplexity.ai"},
-  {id:"mistral",name:"Mistral",by:"Mistral AI",color:"#FF7000",emoji:"\uD83C\uDF0A",vibe:"Der Europaeer",sweet:"DSGVO-nah, schnell, Open Source",desc:"Mistral kommt aus Frankreich \u2014 EU-Server, DSGVO-konform. Schnell und effizient, Open Source als Basis. Kleineres \u00d6kosystem als die US-Anbieter, aber wachsend. Gute Wahl wenn Datenschutz Prioritaet hat.",strengths:"DSGVO-konform (EU-Server), schnell, Open Source, Canvas",weaker:"Kleineres \u00d6kosystem, weniger bekannt",url:"https://chat.mistral.ai"},
+  {id:"mistral",name:"Mistral",by:"Mistral AI",color:"#FF7000",emoji:"\uD83C\uDF0A",vibe:"Der Europäer",sweet:"DSGVO-nah, schnell, Open Source",desc:"Mistral kommt aus Frankreich \u2014 EU-Server, DSGVO-konform. Schnell und effizient, Open Source als Basis. Kleineres \u00d6kosystem als die US-Anbieter, aber wachsend. Gute Wahl wenn Datenschutz Prioritaet hat.",strengths:"DSGVO-konform (EU-Server), schnell, Open Source, Canvas",weaker:"Kleineres \u00d6kosystem, weniger bekannt",url:"https://chat.mistral.ai"},
 ];
 
 const USE_CASES=[
@@ -505,7 +505,7 @@ const USE_CASES=[
   {id:"doku",label:"Berichte & Dokumentation",strong:["claude","gemini"]},
   {id:"ideen",label:"Ideen entwickeln & brainstormen",strong:["chatgpt","gemini"]},
   {id:"feedback",label:"Feedback & Gespräche vorbereiten",strong:["claude"]},
-  {id:"planung",label:"Ablaeufe & Projekte planen",strong:["claude","chatgpt"]},
+  {id:"planung",label:"Abläufe & Projekte planen",strong:["claude","chatgpt"]},
   {id:"präsi",label:"Präsentationen & Konzepte",strong:["chatgpt","gemini"]},
   {id:"daten",label:"Tabellen & Daten auswerten",strong:["claude","chatgpt"]},
   {id:"lernen",label:"Für Prüfungen lernen",strong:["gemini","chatgpt"]},
@@ -514,10 +514,10 @@ const USE_CASES=[
 const ROLES=[
   {id:"azubi",label:"Azubi",ph:"z.B. Ich muss eine Präsentation für die Abteilung vorbereiten..."},
   {id:"ausbilder",label:"Ausbildende",ph:"z.B. Ich muss Berichtsheft-Einträge prüfen und Feedback schreiben..."},
-  {id:"verwaltung",label:"Verwaltung / Buero",ph:"z.B. Ich muss einen Monatsbericht aus verschiedenen Abteilungen erstellen..."},
+  {id:"verwaltung",label:"Verwaltung / Büro",ph:"z.B. Ich muss einen Monatsbericht aus verschiedenen Abteilungen erstellen..."},
   {id:"produktion",label:"Produktion / Werkstatt",ph:"z.B. Ich soll eine Arbeitsanweisung für eine neue Maschine schreiben..."},
   {id:"vertrieb",label:"Vertrieb",ph:"z.B. Ich muss ein individuelles Kundenangebot mit technischen Details aufbereiten..."},
-  {id:"führung",label:"Führungskraft",ph:"z.B. Ich muss ein Strategiepapier für die Geschaeftsleitung vorbereiten..."},
+  {id:"führung",label:"Führungskraft",ph:"z.B. Ich muss ein Strategiepapier für die Geschäftsleitung vorbereiten..."},
   {id:"sonstiges",label:"Sonstiges",ph:"z.B. Beschreibe eine Aufgabe die dich diese Woche nervt..."},
 ];
 
@@ -549,7 +549,7 @@ const CHALLENGES={
   azubi:{title:"Lass dir eine Prüfungsfrage erklären",body:"Frag dein Tool nach einer IHK-Frage zu deinem Beruf.",example:"Erkläre mir eine typische IHK-Prüfungsfrage zum Thema Arbeitsschutz."},
   ausbilder:{title:"Lass ein Berichtsheft-Feedback schreiben",body:"Kopiere diesen Eintrag und bitte um konstruktives Feedback:",example:"Heute habe ich in der Werkstatt gearbeitet. Wir haben Teile sortiert und ich habe gelernt wie man schweißt."},
   verwaltung:{title:"Lass eine Meeting-Einladung formulieren",body:"Gib Stichpunkte und lass eine Einladung schreiben:",example:"Quartalsreview Ausbildung. Teilnehmer: Ausbildungsleitung + HR. Nächste Woche Dienstag 10 Uhr."},
-  produktion:{title:"Lass eine Kurzanleitung erstellen",body:"Beschreibe einen Arbeitsschritt:",example:"Schritte zum sicheren Einrichten einer CNC-Fraese für einen neuen Azubi."},
+  produktion:{title:"Lass eine Kurzanleitung erstellen",body:"Beschreibe einen Arbeitsschritt:",example:"Schritte zum sicheren Einrichten einer CNC-Fräse für einen neuen Azubi."},
   vertrieb:{title:"Lass eine Kunden-Mail aufbereiten",body:"Stichpunkte rein, Mail raus:",example:"Kunde fragt nach Lieferzeit Joker 6 RT. Aktuell 8 Wochen. Sonderausstattung möglich."},
   führung:{title:"Lass Argumente strukturieren",body:"Entscheidung beschreiben, Pro/Contra aufbereiten:",example:"Azubi-Rotation von 3 auf 6 Monate verlängern? Argumente für die GL."},
   sonstiges:{title:"Lass dir bei einer echten Aufgabe helfen",body:"Nimm eine Aufgabe von heute:",example:"Formuliere eine freundliche Absage an eine bewerbende Person."},
@@ -908,7 +908,7 @@ function renderOnboarding(){
     if(profile.dontKnow){
       vignetteHTML=`<div style="margin-bottom:12px;"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">Oder wähle eine Alltagssituation:</div><div class="chip-row" id="vignette-chips">${EVERYDAY_VIGNETTES.map((v,i)=>`<span class="chip" data-v="${i}">${v.l}</span>`).join("")}</div></div>`;
     }
-    el.innerHTML=`${dots}${back}<h2>Dein roter Faden</h2><p class="subtitle">Beschreib eine Aufgabe die dich diese Woche beschaeftigt.</p>
+    el.innerHTML=`${dots}${back}<h2>Dein roter Faden</h2><p class="subtitle">Beschreib eine Aufgabe die dich diese Woche beschäftigt.</p>
     ${vignetteHTML}
     <textarea id="ti" rows="3" placeholder="${esc(ph)}">${esc(profile.task)}</textarea>
     <button class="btn btn-primary mt" id="ob-n" onclick="finishOB()" ${!profile.task?'disabled':''}>Arena starten</button>`;
@@ -1012,7 +1012,7 @@ function renderAct0(el){
     html+=`<div class="section" id="sec-tools">
       <h2 style="font-size:18px;">Bin ich bei dir richtig?</h2>
       <p class="subtitle">Jedes Tool stellt sich vor. Klick für Details.</p>
-      <div style="font-size:11px;color:var(--text-faint);margin-bottom:10px;padding:8px 10px;background:var(--surface-2);border-radius:8px;">\uD83D\uDCA1 Tipp: Das Verhalten jedes Tools laesst sich über ${wrapJargon("Prompt")} und System-Einstellungen anpassen \u2014 du bestimmst, wie es antwortet.</div>
+      <div style="font-size:11px;color:var(--text-faint);margin-bottom:10px;padding:8px 10px;background:var(--surface-2);border-radius:8px;">\uD83D\uDCA1 Tipp: Das Verhalten jedes Tools lässt sich über ${wrapJargon("Prompt")} und System-Einstellungen anpassen \u2014 du bestimmst, wie es antwortet.</div>
       <div class="tool-grid">${TOOLS.map(t=>`<div class="tool-grid-card ${expandedTool===t.id?'active':''}" style="${expandedTool===t.id?'border-color:'+t.color:''}" onclick="expandTool('${t.id}')"><div class="tg-emoji">${t.emoji}</div><div class="tg-name">${t.name}</div><div class="tg-vibe">${t.vibe}</div></div>`).join("")}</div>
       ${expandedTool?renderToolDetail():"<p style='font-size:12px;color:var(--text-faint);text-align:center;margin-top:8px;'>Klick auf ein Tool für Details</p>"}
       ${ss.locked.arena?`<button class="btn btn-primary mt" onclick="markDone('tools');unlock('arena');">Arena freischalten \u2192</button><button class="btn-skip" onclick="markDone('tools');unlock('arena');markDone('arena');goToAct(1);">Arena überspringen \u2192</button>`:''}
@@ -1168,7 +1168,7 @@ function finishPilotReflection(){
 function showMoodCheck(){
   const el=document.getElementById("act-content");
   el.innerHTML=`<div style="text-align:center;padding:2rem 1rem;">
-    <h2>Was spuerst du gerade?</h2>
+    <h2>Was spürst du gerade?</h2>
     <p class="subtitle" style="margin-bottom:16px;">Nur für dich \u2014 keine richtige Antwort.</p>
     <div class="mood-chips">
       <div class="mood-chip" onclick="pickMood('begeistert')">Begeistert</div>
@@ -1253,7 +1253,7 @@ function renderAct2(el){
 
   /* Feature D1+D2: 5 reflection questions */
   html+=`<div class="section" id="sec-reflexion">
-    <div class="act-label">Akt 3</div><h2>Kurze Reflexion</h2><p class="subtitle">Fuenf Fragen bevor du dein Tool wählst.</p>
+    <div class="act-label">Akt 3</div><h2>Kurze Reflexion</h2><p class="subtitle">Fünf Fragen bevor du dein Tool wählst.</p>
     <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">1. Was hat dich überrascht?</div><textarea rows="2" placeholder="z.B. Dass die Tools so unterschiedlich..." oninput="setupData.answers[0]=this.value">${esc(setupData.answers[0])}</textarea>${renderSoftSkip("setupData.answers[0]='--';renderAct();")}</div>
     <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">2. Welches Tool testest du diese Woche?</div><textarea rows="2" placeholder="z.B. Claude für Feedback..." oninput="setupData.answers[1]=this.value">${esc(setupData.answers[1])}</textarea>${renderSoftSkip("setupData.answers[1]='--';renderAct();")}</div>
     <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">3. Wofür bewusst keine KI?</div><textarea rows="2" placeholder="z.B. Persönliche Gespräche..." oninput="setupData.answers[2]=this.value">${esc(setupData.answers[2])}</textarea>${renderSoftSkip("setupData.answers[2]='--';renderAct();")}</div>
@@ -1269,7 +1269,7 @@ function renderAct2(el){
     const conf=window._toolConf;
     const confH=conf?.text&&!conf?.noKey?`<div class="insight green mb"><p>${esc(conf.text)}</p></div>`:conf==="loading"?`<div class="mb">${renderLoading("Prüfe ob das Tool passt...")}</div>`:"";
     html+=`<div class="section" id="sec-tool">
-      <h2 style="font-size:18px;">Mein Primaer-Tool</h2><p class="subtitle">Wähle \u2014 die KI gibt dir sofort Feedback.</p>
+      <h2 style="font-size:18px;">Mein Primär-Tool</h2><p class="subtitle">Wähle \u2014 die KI gibt dir sofort Feedback.</p>
       <div class="gap-8 flex-wrap mb">${TOOLS.map(t=>`<button class="btn-tool ${setupData.primary===t.id?'selected':''}" style="${setupData.primary===t.id?'background:'+t.color+';color:#fff;':''}" onclick="pickPrimary('${t.id}')">${t.emoji} ${t.name}</button>`).join("")}</div>
       ${confH}
       ${setupData.primary&&conf&&conf!=="loading"&&ss.locked.plan?`<button class="btn btn-primary" onclick="markDone('tool');unlock('plan');">Weiter \u2014 Dein Plan</button>`:''}
@@ -1292,7 +1292,7 @@ function renderAct2(el){
       <ul class="tier-features">${(ct==='pro'?tier.pro:tier.free).features.map(f=>`<li>${f}</li>`).join("")}</ul>
       ${ct==='pro'?`<div class="insight pink"><p>${tier.pro.name} kostet ca. 20 \u20ac/Monat \u2014 <strong>HORSCH übernimmt die Kosten für 2\u20133 Monate.</strong> Der einzige Haken: Aktiv damit arbeiten und Erfahrungen teilen.</p></div>`:''}
       ${pr&&ct==='free'?`<div class="insight yellow"><p>Für deine Anwendungsfälle könnte sich <strong>${tier.pro.name}</strong> lohnen.</p></div>`:''}
-      <div style="font-size:13px;font-weight:600;margin:16px 0 6px;">Sekundaer-Tool <span style="font-weight:400;color:var(--text-faint);">(optional)</span></div>
+      <div style="font-size:13px;font-weight:600;margin:16px 0 6px;">Sekundär-Tool <span style="font-weight:400;color:var(--text-faint);">(optional)</span></div>
       <div class="gap-8 flex-wrap mb">${TOOLS.filter(x=>x.id!==setupData.primary).map(t=>`<button class="btn-tool ${setupData.secondary===t.id?'selected':''}" style="${setupData.secondary===t.id?'background:'+t.color+';color:#fff;':''}" onclick="setupData.secondary='${t.id}';renderAct();">${t.emoji} ${t.name}</button>`).join("")}<button class="btn-tool" style="color:var(--text-faint);font-size:11px;" onclick="setupData.secondary=null;renderAct();">Keins</button></div>
       ${ss.locked.karte?`<button class="btn btn-primary" onclick="markDone('plan');unlock('karte');sendAnalytics({role:profile.role,tool:setupData.primary,tier:setupData.primaryTier});">Weiter \u2014 Karte erstellen</button>`:''}
     </div><hr class="section-divider">`;
@@ -1448,7 +1448,7 @@ function renderLosSection(){
     <p style="font-size:13px;color:var(--text-dim);margin-bottom:10px;">Willst du die Vertiefungs-Arena?</p>
     <button class="btn btn-secondary" onclick="document.getElementById('deepen-content').classList.toggle('hide');">Vertiefungs-Arena öffnen</button>
     <div id="deepen-content" class="hide" style="margin-top:12px;">
-      <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">Haertere Prompts</div><p style="font-size:12px;color:var(--text-dim);">Teste dein Tool mit ambivalenten Szenarien: "Schreibe eine E-Mail die gleichzeitig Lob und Kritik enthält, ohne passiv-aggressiv zu klingen."</p><textarea rows="2" placeholder="Probiere es..." id="deepen-prompt"></textarea><button class="btn btn-primary mt" style="font-size:12px;padding:8px;" onclick="fireDeepen()">An ${pri.name} senden</button><div id="deepen-result" class="mt"></div></div>
+      <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">Härtere Prompts</div><p style="font-size:12px;color:var(--text-dim);">Teste dein Tool mit ambivalenten Szenarien: "Schreibe eine E-Mail die gleichzeitig Lob und Kritik enthält, ohne passiv-aggressiv zu klingen."</p><textarea rows="2" placeholder="Probiere es..." id="deepen-prompt"></textarea><button class="btn btn-primary mt" style="font-size:12px;padding:8px;" onclick="fireDeepen()">An ${pri.name} senden</button><div id="deepen-result" class="mt"></div></div>
       <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">Fehleranalyse</div><p style="font-size:12px;color:var(--text-dim);">Lies diese KI-Antwort und finde den Fehler: "HORSCH wurde 1984 von Michael Horsch in Schwandorf gegründet und hat heute ca. 5.000 Mitarbeitende weltweit."</p><p style="font-size:11px;color:var(--red);margin-top:6px;">Hinweis: Prüfe die Zahlen. KI klingt überzeugend \u2014 auch wenn Details nicht stimmen.</p></div>
       <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">${wrapJargon("Prompt")} Engineering Mini-Drill</div><p style="font-size:12px;color:var(--text-dim);">Versuche die gleiche Frage in 3 verschiedenen Formulierungen zu stellen und vergleiche die Antworten. Was ändert sich?</p></div>
     </div>
@@ -1473,7 +1473,7 @@ async function generateSignatureLine1(){
   if(!el)return;
   el.innerHTML=renderLoading("Generiere...");
   const reflStr=setupData.answers.filter(a=>a&&a!=="--").join(". ");
-  const prompt="Erstelle einen einzigen, persönlichen Satz der zusammenfasst was diese Person über KI gelernt hat. Basierend auf: "+reflStr+(midAnchorWord?" Schluesselwort: "+midAnchorWord:"")+(mirrorSentence?" Spiegel: "+mirrorSentence:"");
+  const prompt="Erstelle einen einzigen, persönlichen Satz der zusammenfasst was diese Person über KI gelernt hat. Basierend auf: "+reflStr+(midAnchorWord?" Schlüsselwort: "+midAnchorWord:"")+(mirrorSentence?" Spiegel: "+mirrorSentence:"");
   const r=await askAI("claude",prompt,"Max 1 Satz. Deutsch. Du-Anrede. Kein Jargon.");
   if(r.text&&!r.noKey){
     signatureLine1=r.text;
@@ -1496,8 +1496,8 @@ function downloadMarkdown(){
   md+=`**Name:** ${setupData.name}\n**Rolle:** ${role}\n**Tool:** ${pri?.name||""}\n**Datum:** ${new Date().toLocaleDateString("de-DE")}\n\n`;
   md+=`## Meine Signatur\n\n`;
   md+=`- ${signatureLine1||"(nicht generiert)"}\n`;
-  md+=`- ${signatureLine2||"(nicht ausgefuellt)"}\n`;
-  md+=`- ${signatureLine3||"(nicht ausgefuellt)"}\n\n`;
+  md+=`- ${signatureLine2||"(nicht ausgefüllt)"}\n`;
+  md+=`- ${signatureLine3||"(nicht ausgefüllt)"}\n\n`;
   md+=`## Reflexionen\n\n`;
   const qLabels=["Was hat mich überrascht?","Welches Tool teste ich?","Wofür keine KI?","Was hätte ich fragen sollen?","Was weiß ich nicht mehr?"];
   setupData.answers.forEach((a,i)=>{if(a&&a!=="--")md+=`**${qLabels[i]}**\n${a}\n\n`;});
@@ -1555,8 +1555,8 @@ async function genCard(){
       <div style="font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px;">AIKIDO KI-Arena \u2014 Mein Setup</div>
       <div style="font-size:20px;font-weight:700;margin-bottom:4px;">${esc(setupData.name)}</div>
       <div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:16px;">${role}${ucs.length?" \u00b7 "+ucs.join(", "):""}</div>
-      <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;"><div style="width:40px;height:40px;border-radius:10px;background:${pri.color};display:flex;align-items:center;justify-content:center;font-size:20px;">${pri.emoji}</div><div><div style="font-size:15px;font-weight:600;">${pri.name} <span style="font-size:10px;padding:2px 8px;border-radius:4px;background:${setupData.primaryTier==='pro'?pri.color:'rgba(255,255,255,.15)'};color:#fff;">${tn}</span></div><div style="font-size:11px;color:rgba(255,255,255,.5);">Primaeres Tool</div></div></div>
-      ${sec?`<div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;"><div style="width:32px;height:32px;border-radius:8px;background:${sec.color}44;display:flex;align-items:center;justify-content:center;font-size:16px;">${sec.emoji}</div><div><div style="font-size:13px;font-weight:500;">${sec.name}</div><div style="font-size:10px;color:rgba(255,255,255,.4);">Sekundaer</div></div></div>`:""}
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;"><div style="width:40px;height:40px;border-radius:10px;background:${pri.color};display:flex;align-items:center;justify-content:center;font-size:20px;">${pri.emoji}</div><div><div style="font-size:15px;font-weight:600;">${pri.name} <span style="font-size:10px;padding:2px 8px;border-radius:4px;background:${setupData.primaryTier==='pro'?pri.color:'rgba(255,255,255,.15)'};color:#fff;">${tn}</span></div><div style="font-size:11px;color:rgba(255,255,255,.5);">Primäres Tool</div></div></div>
+      ${sec?`<div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;"><div style="width:32px;height:32px;border-radius:8px;background:${sec.color}44;display:flex;align-items:center;justify-content:center;font-size:16px;">${sec.emoji}</div><div><div style="font-size:13px;font-weight:500;">${sec.name}</div><div style="font-size:10px;color:rgba(255,255,255,.4);">Sekundär</div></div></div>`:""}
       <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:10px;font-size:10px;color:rgba(255,255,255,.3);">HORSCH AIKIDO \u00b7 ${new Date().toLocaleDateString("de-DE",{day:"2-digit",month:"long",year:"numeric"})}</div>
     </div></div>
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 0;">
@@ -1564,7 +1564,7 @@ async function genCard(){
       <button onclick="shareCard()" id="share-btn" class="btn btn-secondary" style="width:auto;padding:8px 16px;font-size:12px;">\uD83D\uDCE4 Teilen</button>
       <button onclick="copyShareText(this)" class="btn btn-secondary" style="width:auto;padding:8px 16px;font-size:12px;">\uD83D\uDCCB Text kopieren</button>
     </div>
-    <div class="insight pink" style="margin-top:14px;"><p><strong>Nächster Schritt:</strong> Teile deine Karte in der <strong>AIKIDO Teams-Gruppe</strong> \u2014 so koennen wir dein Pro-Tool für dich einrichten!</p></div>
+    <div class="insight pink" style="margin-top:14px;"><p><strong>Nächster Schritt:</strong> Teile deine Karte in der <strong>AIKIDO Teams-Gruppe</strong> \u2014 so können wir dein Pro-Tool für dich einrichten!</p></div>
     <button class="btn btn-primary" onclick="markDone('karte');unlock('los');renderAct();setTimeout(()=>scrollToSection('los'),300);">Letzter Schritt \u2014 Loslegen!</button>`;
 }
 
@@ -1581,7 +1581,7 @@ function showCelebration(){
       <div class="hf-title">Fertig! Du bist drin.</div>
       <div class="hf-sub">Dein Tool kennt dich. Jetzt zeig ihm was du drauf hast.</div>
     </div>
-    <div class="insight pink" style="max-width:400px;margin:0 auto 16px;"><p>Teile deine Karte in der <strong>AIKIDO Teams-Gruppe</strong> \u2014 so koennen wir dein Pro-Tool für dich einrichten!</p></div>
+    <div class="insight pink" style="max-width:400px;margin:0 auto 16px;"><p>Teile deine Karte in der <strong>AIKIDO Teams-Gruppe</strong> \u2014 so können wir dein Pro-Tool für dich einrichten!</p></div>
     <div style="max-width:400px;margin:0 auto;display:flex;flex-direction:column;gap:10px;">
       <button class="btn btn-primary" style="background:${pri.color};" onclick="copyOpen('${pri.id}',_fb['${cfid}'],this)">Prompt kopieren & ${pri.name} öffnen</button>
       <button class="btn btn-secondary" onclick="downloadMarkdown()">Dein Starter-Set herunterladen (.md)</button>
@@ -1605,16 +1605,16 @@ function copyShareText(btn){
 
 /* ===== ADD-ONS DATA ===== */
 const ADDONS = [
-  {id:"briefing",cluster:"alltag",emoji:"\u2600\uFE0F",name:"Tages-Briefing",desc:"Begruesst dich kurz, fragt \"Was steht heute an?\" und schlaegt 2\u20133 Dinge vor. Unter 3 Sätzen.",prompt:"Wenn ich eine neue Unterhaltung starte, begruesse mich kurz und frag: \"Was steht heute an?\" Schlage dann 2\u20133 Dinge vor, bei denen du helfen kannst. Halte das unter 3 Sätzen."},
+  {id:"briefing",cluster:"alltag",emoji:"\u2600\uFE0F",name:"Tages-Briefing",desc:"Begrüßt dich kurz, fragt \"Was steht heute an?\" und schlägt 2\u20133 Dinge vor. Unter 3 Sätzen.",prompt:"Wenn ich eine neue Unterhaltung starte, begrüße mich kurz und frag: \"Was steht heute an?\" Schlage dann 2\u20133 Dinge vor, bei denen du helfen kannst. Halte das unter 3 Sätzen."},
   {id:"modi",cluster:"alltag",emoji:"\uD83D\uDD00",name:"Modi-Schalter",desc:"4 Modi per Stichwort: schnell \u00b7 tief \u00b7 kreativ \u00b7 check.",prompt:"Du hast 4 Modi die ich per Stichwort aktiviere: \"schnell\" \u2192 Bullet Points, keine Erklärung. \"tief\" \u2192 Ausführliche Analyse. \"kreativ\" \u2192 Wild brainstormen. \"check\" \u2192 Prüfe meinen Text auf Fehler, Logik, Ton. Ohne Stichwort antwortest du in meinem Standard-Stil."},
   {id:"zeitwächter",cluster:"alltag",emoji:"\u23F0",name:"Zeitwächter",desc:"Schätzt ein wie lange eine Aufgabe mit vs. ohne KI dauert.",prompt:"Schätze bei größeren Aufgaben kurz ein: \"Mit KI: ~X Min. Ohne: ~Y Min.\" Das hilft mir zu verstehen wo du am meisten Wert bringst."},
-  {id:"skillleiter",cluster:"lernen",emoji:"\uD83D\uDCC8",name:"Skill-Leiter",desc:"Woechentliche Level-Ups. Vom Einsteiger zum Power-User \u2014 in deinem Tempo.",prompt:"Führe eine \"Skill-Leiter\" für mich. Starte mit Basics (gute Prompts schreiben). Wenn ich sie meistere, schlage den nächsten Schritt vor. Frag mich freitags: \"Bereit für den nächsten Schritt?\" Überfordere mich nie, aber lass mich nicht stehen bleiben."},
-  {id:"prompttrainer",cluster:"lernen",emoji:"\uD83C\uDFAF",name:"Prompt-Trainer",desc:"Nach jeder Antwort ein kurzer Tipp wie dein Prompt besser hätte sein koennen.",prompt:"Nach jeder Antwort gib mir einen kurzen Tipp (1 Satz): \"Nächstes Mal könntest du X ergänzen \u2014 dann wird meine Antwort noch präziser.\" Mach das dezent, nicht belehrend."},
+  {id:"skillleiter",cluster:"lernen",emoji:"\uD83D\uDCC8",name:"Skill-Leiter",desc:"Wöchentliche Level-Ups. Vom Einsteiger zum Power-User \u2014 in deinem Tempo.",prompt:"Führe eine \"Skill-Leiter\" für mich. Starte mit Basics (gute Prompts schreiben). Wenn ich sie meistere, schlage den nächsten Schritt vor. Frag mich freitags: \"Bereit für den nächsten Schritt?\" Überfordere mich nie, aber lass mich nicht stehen bleiben."},
+  {id:"prompttrainer",cluster:"lernen",emoji:"\uD83C\uDFAF",name:"Prompt-Trainer",desc:"Nach jeder Antwort ein kurzer Tipp wie dein Prompt besser hätte sein können.",prompt:"Nach jeder Antwort gib mir einen kurzen Tipp (1 Satz): \"Nächstes Mal könntest du X ergänzen \u2014 dann wird meine Antwort noch präziser.\" Mach das dezent, nicht belehrend."},
   {id:"denkpartner",cluster:"lernen",emoji:"\uD83D\uDCAD",name:"Denkpartner",desc:"KI denkt laut mit \u2014 zeigt den Denkprozess, nicht nur das Ergebnis.",prompt:"Denke bei komplexen Fragen laut mit: Zeig mir kurz deinen Denkprozess bevor du antwortest. So lerne ich wie du \"denkst\" und kann bessere Fragen stellen."},
   {id:"fehlerfreund",cluster:"qualität",emoji:"\uD83E\uDEE2",name:"Fehlerfreund",desc:"KI sagt ehrlich wenn sie unsicher ist. Kein falsches Selbstbewusstsein.",prompt:"Wenn du unsicher bist, sage das ehrlich: \"Meine Einschätzung: ~70% sicher. Prüfe bitte X.\" Erfinde nie etwas \u2014 sag lieber \"Das weiß ich nicht sicher\" als eine überzeugende Vermutung."},
   {id:"qualitätsprüfer",cluster:"qualität",emoji:"\u2705",name:"Qualitätsprüfer",desc:"Selbsteinschätzung am Ende jeder Antwort: Wie sicher? Was prüfen?",prompt:"Gib am Ende wichtiger Antworten eine kurze Selbsteinschätzung: \"Sicherheit: hoch/mittel/niedrig. Prüfe bitte: [konkreter Punkt].\""},
   {id:"kontextanker",cluster:"qualität",emoji:"\uD83D\uDCCC",name:"Kontext-Anker",desc:"Fragt aktiv nach fehlendem Kontext bevor sie antwortet.",prompt:"Wenn mir wichtiger Kontext fehlt, frag kurz nach bevor du antwortest: \"Wer liest das am Ende? Was ist das Ziel? Gibt es Vorgaben?\" Das trainiert mich, besseren Input zu geben."},
-  {id:"multiplikator",cluster:"wirkung",emoji:"\uD83D\uDD17",name:"Multiplikator",desc:"Sammelt \"Tipps des Tages\" die du mit Kollegium teilen kannst.",prompt:"Wenn du mir etwas besonders Nuetzliches gezeigt hast, formuliere einen \"Tipp des Tages\" \u2014 ein Satz den ich an Kollegium weitergeben kann. Halte eine unsichtbare Liste. Wenn ich sage \"Was kann ich teilen?\", zeig mir die Top 3."},
+  {id:"multiplikator",cluster:"wirkung",emoji:"\uD83D\uDD17",name:"Multiplikator",desc:"Sammelt \"Tipps des Tages\" die du mit Kollegium teilen kannst.",prompt:"Wenn du mir etwas besonders Nützliches gezeigt hast, formuliere einen \"Tipp des Tages\" \u2014 ein Satz den ich an Kollegium weitergeben kann. Halte eine unsichtbare Liste. Wenn ich sage \"Was kann ich teilen?\", zeig mir die Top 3."},
   {id:"übersetzer",cluster:"wirkung",emoji:"\uD83C\uDF0D",name:"Übersetzer",desc:"Übersetzt zwischen Fachsprache und Alltagssprache für verschiedene Zielgruppen.",prompt:"Wenn ich sage \"für Azubis\" \u2014 erkläre einfach und konkret. \"Für die GL\" \u2014 kompakt, zahlenbasiert, strategisch. Passe Sprache und Tiefe an die Zielgruppe an."},
   {id:"analogie",cluster:"wirkung",emoji:"\uD83E\uDDE9",name:"Analogie-Engine",desc:"Erklärt neue Konzepte mit Analogien aus deinem Arbeitsalltag.",prompt:"Erkläre mir neue Konzepte immer mit Analogien aus meinem Arbeitsalltag (Fertigung, Landmaschinen, Ausbildung). Lernen durch Vertrautes."},
   {id:"copilot",cluster:"horizont",emoji:"\uD83D\uDD04",name:"Copilot",desc:"KI lernt mit \u2014 passt sich deinen Vorlieben an und verbessert sich.",prompt:"Führe ein unsichtbares Logbuch über meine Vorlieben. Wenn ich etwas korrigiere, lerne daraus. Frag mich alle 2 Wochen: \"Was läuft gut, was nervt?\" und schlage Anpassungen vor."},
@@ -1690,7 +1690,7 @@ Konkret diese Woche: ${profile.task}
 
 === INSTALLATIONS-ANWEISUNGEN ===
 
-1. Übernimm dieses Profil als Custom Instruction / Gedaechtnis
+1. Übernimm dieses Profil als Custom Instruction / Gedächtnis
 2. Frag mich 2\u20133 persönliche Fragen (nicht nur Aufgaben \u2014 auch was mich motiviert, was mich nervt, wie ich ticke)
 3. Erstelle daraus einen System-Prompt den ich hinterlegen kann
 4. Zeig mir an meiner konkreten Aufgabe was du kannst
