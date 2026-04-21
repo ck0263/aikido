@@ -445,11 +445,11 @@ let PROMPTS_DATA = null;
 let GLOSSARY_DATA = null;
 
 const PROMPTS_FALLBACK = {
-  "azubi":{"scenarios":[{"cat":"Beziehung","color":"#8B5CF6","q":"Dein Ausbilder kritisiert deine Arbeit, und du bist dir sicher, dass die Kritik nicht ganz fair ist. Wie bereitest du das Gespräch vor?","reflect":[["Hättest du das so formuliert?","Ja, genau so","Würde ich anders sagen"],["Was weiß die KI nicht über eure Beziehung?","Vorgeschichte","Tonfall im Alltag","Was mich wirklich stört"],["Wer sollte dieses Gespräch führen?","Ich allein","Mit Unterstützung"]],"insight":"Die KI kann dir helfen, Argumente zu sortieren. Aber den Mut, es anzusprechen \u2014 den bringst du mit.","observe":"Achte auf den Ton: Klingt die KI diplomatisch oder ausweichend? Würdest du so reden?"},{"cat":"Lernen","color":"#3B82F6","q":"Du hast morgen Zwischenprüfung und merkst heute Abend, dass du einen ganzen Themenbereich übersehen hast. Was tust du?","reflect":[["Hat die KI dir Panik genommen oder gemacht?","Beruhigt","Eher Stress"],["Was weiß die KI nicht über deine Prüfung?","Prüfungsformat","Meine Stärken","Was drankommt"],["Würdest du den Plan so umsetzen?","Ja, sofort","Muesste ich anpassen"]],"insight":"KI kann beim Strukturieren helfen. Aber ob du dich an den Plan hältst oder lieber ins Bett gehst \u2014 das entscheidest du.","observe":"Achte auf Aufgabenteilung: Wo nimmt dir die KI Denkarbeit ab \u2014 und wo sollte sie das nicht?"},{"cat":"Verantwortung","color":"#EF4444","q":"Ein Kollege aus deinem Azubi-Jahrgang macht wiederholt Sicherheitsfehler in der Werkstatt. Sagst du es dem Ausbilder?","reflect":[["Was rät die KI \u2014 und was sagt dein Bauchgefuehl?","Stimmt überein","Widerspricht sich"],["Was weiß die KI nicht?","Teamdynamik","Konsequenzen für den Kollegen","Eure Freundschaft"],["Wer trägt die Verantwortung für die Sicherheit?","Jeder einzeln","Das Team zusammen"]],"insight":"Sicherheit ist nicht verhandelbar. Aber wie du es ansprichst \u2014 das braucht Fingerspitzengefuehl, das keine KI hat.","observe":"Achte auf Empathie-Marker: Berücksichtigt die KI deine Beziehung zum Kollegen?"},{"cat":"Kontext","color":"#F59E0B","q":"Welche HORSCH-Sämaschine wäre die richtige für einen 200-Hektar-Biobetrieb in Bayern?","reflect":[["Klingt die Antwort überzeugend?","Sehr überzeugend","Erkennbar unsicher"],["Stimmen die genannten Modelle?","Ja","Teilweise","Keine Ahnung"],["Wie prüfst du das?","HORSCH-Website","Kollegen fragen","Katalog"]],"insight":"Du kennst die Maschinen besser als jede KI. Nutze dein Fachwissen als Halluzinations-Radar.","observe":"Achte auf Sicherheitsmarker: Sagt die KI 'meines Wissens' oder behauptet sie einfach?"}]},
-  "ausbilder":{"scenarios":[{"cat":"Beziehung","color":"#8B5CF6","q":"Dein Azubi hat dir im Vertrauen erzaehlt, dass es ihm zuhause nicht gut geht. Was rätst du ihm?","reflect":[["Hättest du das so gesagt?","Ja, passt so","Würde ich anders"],["Was weiß die KI nicht?","Vorgeschichte","Persönlichkeit","Teamdynamik"],["Würde sich der Azubi verstanden fuehlen?","Vermutlich ja","Eher nicht"]],"insight":"Vertrauen entsteht durch Beziehung, nicht durch Textbausteine. Du kennst den Menschen \u2014 die KI kennt nur die Frage.","observe":"Achte auf Empathie-Marker: Sind sie echt oder performativ?"},{"cat":"Verantwortung","color":"#EF4444","q":"Soll ich den Ausbildungsvertrag mit diesem Azubi verlängern, obwohl seine Leistungen grenzwertig sind? Er hat eine schwierige Familiensituation.","reflect":[["Kann eine KI das entscheiden?","Nein, niemals","Teilweise als Input"],["Wer trägt die Verantwortung?","Ich allein","Team-Entscheidung"],["Welche Konsequenzen übersiehst du?","Für den Azubi","Fürs Team"]],"insight":"Die KI zeigt Pro und Contra \u2014 aber die Entscheidung hat Konsequenzen für einen echten Menschen. Nicht delegierbar.","observe":"Achte auf Konjunktive: Was heißt es, wenn die KI 'koennte man' schreibt?"},{"cat":"Kontext","color":"#F59E0B","q":"Wie viele Mitarbeitende hat HORSCH Maschinen aktuell am Standort Ronneburg und wer ist dort Standortleitung?","reflect":[["Woher soll die KI das wissen?","Guter Punkt","Vielleicht Internet"],["Wie überzeugend klingt die Antwort?","Sehr überzeugend","Erkennbar unsicher"],["Wie prüfst du das?","Interne Quelle","Kollegium fragen"]],"insight":"KI kennt deinen Betrieb nicht von innen. Je überzeugender die Antwort, desto wichtiger: Woher weiß sie das?","observe":"Achte auf Sicherheitsmarker: Sagt die KI 'meines Wissens' oder behauptet sie einfach?"}]},
-  "fachkraft":{"scenarios":[{"cat":"Verantwortung","color":"#EF4444","q":"Du entdeckst in einem Prozess ein Sicherheitsrisiko, das seit Jahren so läuft. Wie bringst du es zur Sprache, ohne Kollegium zu exponieren?","reflect":[["Hilft dir die Antwort praktisch?","Ja, gute Strategie","Zu theoretisch"],["Was weiß die KI nicht?","Betriebskultur","Hierarchien","Wer betroffen ist"],["Würdest du es so ansprechen?","Ja","Zu diplomatisch","Zu direkt"]],"insight":"Sicherheit braucht Mut. Die KI kann den Ton helfen zu finden \u2014 aber das Gespräch führst du.","observe":"Achte auf Konjunktive: Was heißt es, wenn die KI 'koennte man' schreibt?"},{"cat":"Alltag","color":"#10B981","q":"Du musst einen 20-seitigen Fachtext in eine halbstündige Schulung übersetzen. Wie baust du die Struktur auf?","reflect":[["Würde die Struktur für dein Kollegium funktionieren?","Ja","Zu akademisch"],["Was fehlt?","Praxis-Bezug","Unser Sprachniveau","Zeitmanagement"],["Würdest du die Schulung so halten?","Ja, guter Start","Muss ich stark anpassen"]],"insight":"KI ist stark im Strukturieren. Aber ob die Schulung ankommt, haengt von dir ab \u2014 nicht vom Foliensatz.","observe":"Achte auf Konkretheit: Gibt die KI Rezepte oder Prinzipien?"}]},
-  "verwaltung":{"scenarios":[{"cat":"Alltag","color":"#10B981","q":"Dein Chef schickt dir einen ungeordneten Gedanken-Dump per Mail zur Ausarbeitung. Wie gehst du vor?","reflect":[["Hilft dir die Struktur?","Ja, guter Ansatz","Zu schematisch"],["Was fehlt der KI?","Was der Chef wirklich will","Unser Stil","Die Dringlichkeit"],["Würdest du so an die Aufgabe gehen?","Ja","Teilweise"]],"insight":"KI kann Chaos sortieren. Aber zu verstehen was dein Chef eigentlich meint \u2014 das ist deine Übersetzungsleistung.","observe":"Achte auf Konkretheit: Gibt die KI Rezepte oder Prinzipien?"},{"cat":"Verantwortung","color":"#EF4444","q":"Du findest in einer Akte einen Fehler, der einer mitarbeitenden Person zum Nachteil geworden ist. Der Vorgang ist abgeschlossen. Was tust du?","reflect":[["Was rät die KI \u2014 und was sagt dein Gewissen?","Stimmt überein","Widerspricht sich"],["Wer trägt die Verantwortung?","Ich als findende Person","Die urspruenglich bearbeitende Person","Das System"],["Was sind die Konsequenzen?","Für die Person","Für mich","Für die Abteilung"]],"insight":"Fehler melden kostet Überwindung. Die KI kann den Weg zeigen \u2014 aber den Schritt machst du.","observe":"Achte auf Konjunktive: Was heißt es, wenn die KI 'koennte man' schreibt?"}]},
-  "werkstudent":{"scenarios":[{"cat":"Beziehung","color":"#8B5CF6","q":"Du willst deiner Betreuerin ein Projektkonzept vorschlagen, hast aber Sorge, dass sie es als Übergriff auffasst. Wie formulierst du die Mail?","reflect":[["Trifft die KI den richtigen Ton?","Ja, passend","Zu unterwürfig","Zu forsch"],["Was weiß die KI nicht?","Eure Beziehung","Die Hierarchie","Den Kontext"],["Würdest du die Mail so senden?","Ja","Mit Anpassungen"]],"insight":"Initiative zeigen ist keine Übergriffigkeit. Die KI kann den Ton feinjustieren \u2014 aber die Idee ist deine.","observe":"Achte auf den Ton: Klingt die KI diplomatisch oder ausweichend?"},{"cat":"Verantwortung","color":"#EF4444","q":"Du merkst, dass ein etablierter Prozess in deinem Arbeitsbereich zeitlich ineffizient ist. Sagst du es als Werkstudierende offen?","reflect":[["Rät die KI zur Offenheit?","Ja","Eher zur Vorsicht"],["Was weiß die KI nicht?","Meine Position im Team","Wie offen die Kultur ist","Ob es erwuenscht ist"],["Was würdest du wirklich tun?","Ansprechen","Abwarten","Erstmal Verbündete suchen"]],"insight":"Als Werkstudierende hast du einen frischen Blick. Die KI kann dir helfen, ihn diplomatisch zu formulieren.","observe":"Achte auf Konjunktive: Was heißt es, wenn die KI 'koennte man' schreibt?"}]},
+  "azubi":{"scenarios":[{"cat":"Beziehung","color":"#8B5CF6","q":"Dein Ausbilder kritisiert deine Arbeit, und du bist dir sicher, dass die Kritik nicht ganz fair ist. Wie bereitest du das Gespräch vor?","reflect":[["Hättest du das so formuliert?","Ja, genau so","Würde ich anders sagen"],["Was weiß die KI nicht über eure Beziehung?","Vorgeschichte","Tonfall im Alltag","Was mich wirklich stört"],["Wer sollte dieses Gespräch führen?","Ich allein","Mit Unterstützung"]],"insight":"Die KI kann dir helfen, Argumente zu sortieren. Aber den Mut, es anzusprechen \u2014 den bringst du mit.","observe":"Achte auf den Ton: Klingt die KI diplomatisch oder ausweichend? Würdest du so reden?"},{"cat":"Lernen","color":"#3B82F6","q":"Du hast morgen Zwischenprüfung und merkst heute Abend, dass du einen ganzen Themenbereich übersehen hast. Was tust du?","reflect":[["Hat die KI dir Panik genommen oder gemacht?","Beruhigt","Eher Stress"],["Was weiß die KI nicht über deine Prüfung?","Prüfungsformat","Meine Stärken","Was drankommt"],["Würdest du den Plan so umsetzen?","Ja, sofort","Müsste ich anpassen"]],"insight":"KI kann beim Strukturieren helfen. Aber ob du dich an den Plan hältst oder lieber ins Bett gehst \u2014 das entscheidest du.","observe":"Achte auf Aufgabenteilung: Wo nimmt dir die KI Denkarbeit ab \u2014 und wo sollte sie das nicht?"},{"cat":"Verantwortung","color":"#EF4444","q":"Ein Kollege aus deinem Azubi-Jahrgang macht wiederholt Sicherheitsfehler in der Werkstatt. Sagst du es dem Ausbilder?","reflect":[["Was rät die KI \u2014 und was sagt dein Bauchgefühl?","Stimmt überein","Widerspricht sich"],["Was weiß die KI nicht?","Teamdynamik","Konsequenzen für den Kollegen","Eure Freundschaft"],["Wer trägt die Verantwortung für die Sicherheit?","Jeder einzeln","Das Team zusammen"]],"insight":"Sicherheit ist nicht verhandelbar. Aber wie du es ansprichst \u2014 das braucht Fingerspitzengefühl, das keine KI hat.","observe":"Achte auf Empathie-Marker: Berücksichtigt die KI deine Beziehung zum Kollegen?"},{"cat":"Kontext","color":"#F59E0B","q":"Welche HORSCH-Sämaschine wäre die richtige für einen 200-Hektar-Biobetrieb in Bayern?","reflect":[["Klingt die Antwort überzeugend?","Sehr überzeugend","Erkennbar unsicher"],["Stimmen die genannten Modelle?","Ja","Teilweise","Keine Ahnung"],["Wie prüfst du das?","HORSCH-Website","Kollegen fragen","Katalog"]],"insight":"Du kennst die Maschinen besser als jede KI. Nutze dein Fachwissen als Halluzinations-Radar.","observe":"Achte auf Sicherheitsmarker: Sagt die KI 'meines Wissens' oder behauptet sie einfach?"}]},
+  "ausbilder":{"scenarios":[{"cat":"Beziehung","color":"#8B5CF6","q":"Dein Azubi hat dir im Vertrauen erzählt, dass es ihm zuhause nicht gut geht. Was rätst du ihm?","reflect":[["Hättest du das so gesagt?","Ja, passt so","Würde ich anders"],["Was weiß die KI nicht?","Vorgeschichte","Persönlichkeit","Teamdynamik"],["Würde sich der Azubi verstanden fühlen?","Vermutlich ja","Eher nicht"]],"insight":"Vertrauen entsteht durch Beziehung, nicht durch Textbausteine. Du kennst den Menschen \u2014 die KI kennt nur die Frage.","observe":"Achte auf Empathie-Marker: Sind sie echt oder performativ?"},{"cat":"Verantwortung","color":"#EF4444","q":"Soll ich den Ausbildungsvertrag mit diesem Azubi verlängern, obwohl seine Leistungen grenzwertig sind? Er hat eine schwierige Familiensituation.","reflect":[["Kann eine KI das entscheiden?","Nein, niemals","Teilweise als Input"],["Wer trägt die Verantwortung?","Ich allein","Team-Entscheidung"],["Welche Konsequenzen übersiehst du?","Für den Azubi","Fürs Team"]],"insight":"Die KI zeigt Pro und Contra \u2014 aber die Entscheidung hat Konsequenzen für einen echten Menschen. Nicht delegierbar.","observe":"Achte auf Konjunktive: Was heißt es, wenn die KI 'könnte man' schreibt?"},{"cat":"Kontext","color":"#F59E0B","q":"Wie viele Mitarbeitende hat HORSCH Maschinen aktuell am Standort Ronneburg und wer ist dort Standortleitung?","reflect":[["Woher soll die KI das wissen?","Guter Punkt","Vielleicht Internet"],["Wie überzeugend klingt die Antwort?","Sehr überzeugend","Erkennbar unsicher"],["Wie prüfst du das?","Interne Quelle","Kollegium fragen"]],"insight":"KI kennt deinen Betrieb nicht von innen. Je überzeugender die Antwort, desto wichtiger: Woher weiß sie das?","observe":"Achte auf Sicherheitsmarker: Sagt die KI 'meines Wissens' oder behauptet sie einfach?"}]},
+  "fachkraft":{"scenarios":[{"cat":"Verantwortung","color":"#EF4444","q":"Du entdeckst in einem Prozess ein Sicherheitsrisiko, das seit Jahren so läuft. Wie bringst du es zur Sprache, ohne Kollegium zu exponieren?","reflect":[["Hilft dir die Antwort praktisch?","Ja, gute Strategie","Zu theoretisch"],["Was weiß die KI nicht?","Betriebskultur","Hierarchien","Wer betroffen ist"],["Würdest du es so ansprechen?","Ja","Zu diplomatisch","Zu direkt"]],"insight":"Sicherheit braucht Mut. Die KI kann den Ton helfen zu finden \u2014 aber das Gespräch führst du.","observe":"Achte auf Konjunktive: Was heißt es, wenn die KI 'könnte man' schreibt?"},{"cat":"Alltag","color":"#10B981","q":"Du musst einen 20-seitigen Fachtext in eine halbstündige Schulung übersetzen. Wie baust du die Struktur auf?","reflect":[["Würde die Struktur für dein Kollegium funktionieren?","Ja","Zu akademisch"],["Was fehlt?","Praxis-Bezug","Unser Sprachniveau","Zeitmanagement"],["Würdest du die Schulung so halten?","Ja, guter Start","Muss ich stark anpassen"]],"insight":"KI ist stark im Strukturieren. Aber ob die Schulung ankommt, hängt von dir ab \u2014 nicht vom Foliensatz.","observe":"Achte auf Konkretheit: Gibt die KI Rezepte oder Prinzipien?"}]},
+  "verwaltung":{"scenarios":[{"cat":"Alltag","color":"#10B981","q":"Dein Chef schickt dir einen ungeordneten Gedanken-Dump per Mail zur Ausarbeitung. Wie gehst du vor?","reflect":[["Hilft dir die Struktur?","Ja, guter Ansatz","Zu schematisch"],["Was fehlt der KI?","Was der Chef wirklich will","Unser Stil","Die Dringlichkeit"],["Würdest du so an die Aufgabe gehen?","Ja","Teilweise"]],"insight":"KI kann Chaos sortieren. Aber zu verstehen was dein Chef eigentlich meint \u2014 das ist deine Übersetzungsleistung.","observe":"Achte auf Konkretheit: Gibt die KI Rezepte oder Prinzipien?"},{"cat":"Verantwortung","color":"#EF4444","q":"Du findest in einer Akte einen Fehler, der einer mitarbeitenden Person zum Nachteil geworden ist. Der Vorgang ist abgeschlossen. Was tust du?","reflect":[["Was rät die KI \u2014 und was sagt dein Gewissen?","Stimmt überein","Widerspricht sich"],["Wer trägt die Verantwortung?","Ich als findende Person","Die ursprünglich bearbeitende Person","Das System"],["Was sind die Konsequenzen?","Für die Person","Für mich","Für die Abteilung"]],"insight":"Fehler melden kostet Überwindung. Die KI kann den Weg zeigen \u2014 aber den Schritt machst du.","observe":"Achte auf Konjunktive: Was heißt es, wenn die KI 'könnte man' schreibt?"}]},
+  "werkstudent":{"scenarios":[{"cat":"Beziehung","color":"#8B5CF6","q":"Du willst deiner Betreuerin ein Projektkonzept vorschlagen, hast aber Sorge, dass sie es als Übergriff auffasst. Wie formulierst du die Mail?","reflect":[["Trifft die KI den richtigen Ton?","Ja, passend","Zu unterwürfig","Zu forsch"],["Was weiß die KI nicht?","Eure Beziehung","Die Hierarchie","Den Kontext"],["Würdest du die Mail so senden?","Ja","Mit Anpassungen"]],"insight":"Initiative zeigen ist keine Übergriffigkeit. Die KI kann den Ton feinjustieren \u2014 aber die Idee ist deine.","observe":"Achte auf den Ton: Klingt die KI diplomatisch oder ausweichend?"},{"cat":"Verantwortung","color":"#EF4444","q":"Du merkst, dass ein etablierter Prozess in deinem Arbeitsbereich zeitlich ineffizient ist. Sagst du es als Werkstudierende offen?","reflect":[["Rät die KI zur Offenheit?","Ja","Eher zur Vorsicht"],["Was weiß die KI nicht?","Meine Position im Team","Wie offen die Kultur ist","Ob es erwünscht ist"],["Was würdest du wirklich tun?","Ansprechen","Abwarten","Erstmal Verbündete suchen"]],"insight":"Als Werkstudierende hast du einen frischen Blick. Die KI kann dir helfen, ihn diplomatisch zu formulieren.","observe":"Achte auf Konjunktive: Was heißt es, wenn die KI 'könnte man' schreibt?"}]},
   "sonstiges":{"scenarios":[{"cat":"Beziehung","color":"#8B5CF6","q":"Ein Teammitglied leistet konstant weniger als der Rest, ohne dass es Konsequenzen gibt. Das Team ist frustriert. Wie gehst du damit um?","reflect":[["Berücksichtigt die KI alle Perspektiven?","Ja","Eher einseitig"],["Was weiß die KI nicht?","Die Person","Die Teamdynamik","Die Vorgeschichte"],["Was würdest du tun?","Ansprechen","An Führung eskalieren","Team stärken"]],"insight":"Teamkonflikte sind komplex. Die KI sieht das Pattern \u2014 du siehst die Menschen.","observe":"Achte auf Empathie-Marker: Berücksichtigt die KI beide Seiten?"},{"cat":"Alltag","color":"#10B981","q":"Du sollst in 30 Minuten eine Zusammenfassung eines 50-seitigen Dokuments erstellen. Wie gehst du vor?","reflect":[["Würde die Zusammenfassung deinen Anforderungen genügen?","Ja, guter Start","Zu oberflächlich"],["Was fehlt?","Die Gewichtung","Unser Kontext","Was die empfangende Person braucht"],["Würdest du das Ergebnis so weitergeben?","Ja","Nach Überarbeitung"]],"insight":"KI ist stark beim Komprimieren. Aber was wichtig ist und was nicht \u2014 das weißt du besser.","observe":"Achte auf Konkretheit: Gibt die KI Rezepte oder Prinzipien?"}]}
 };
 
@@ -492,7 +492,7 @@ function getScenarios(roleId){
 
 /* ===== TOOLS ===== */
 const TOOLS=[
-  {id:"claude",name:"Claude",by:"Anthropic",color:"#D97757",emoji:"\u{1F9E0}",vibe:"Der Denker",sweet:"Tiefe Analyse, Code, Strategie",desc:"Claude denkt gründlich nach. Stark bei langen Texten, Feedback-Formulierung, Code und strukturiertem Denken. Weniger stark bei Bildgenerierung und aktuellen Nachrichten. Antwortet oft ausführlich und abwaegend.",strengths:"Tiefe Analyse, Code, Strategie, lange Texte, strukturiertes Feedback",weaker:"Aktuelle Nachrichten, Bildgenerierung, Google-Integration",url:"https://claude.ai"},
+  {id:"claude",name:"Claude",by:"Anthropic",color:"#D97757",emoji:"\u{1F9E0}",vibe:"Der Denker",sweet:"Tiefe Analyse, Code, Strategie",desc:"Claude denkt gründlich nach. Stark bei langen Texten, Feedback-Formulierung, Code und strukturiertem Denken. Weniger stark bei Bildgenerierung und aktuellen Nachrichten. Antwortet oft ausführlich und abwägend.",strengths:"Tiefe Analyse, Code, Strategie, lange Texte, strukturiertes Feedback",weaker:"Aktuelle Nachrichten, Bildgenerierung, Google-Integration",url:"https://claude.ai"},
   {id:"gemini",name:"Gemini",by:"Google",color:"#4285F4",emoji:"\u2728",vibe:"Der Vernetzer",sweet:"Google-\u00d6kosystem, \u00dcberblick, multimodal",desc:"Gemini ist tief in Google integriert \u2014 Drive, Docs, Gmail. Stark bei Zusammenfassungen, Bild-Analyse und wenn du schon im Google-\u00d6kosystem arbeitest. Kann bei hoher Last langsamer werden.",strengths:"Google-Integration (Drive, Docs), \u00dcberblick, Zusammenfassungen, multimodal",weaker:"Verf\u00fcgbarkeit bei hoher Last, weniger pr\u00e4zise bei Code",url:"https://gemini.google.com"},
   {id:"chatgpt",name:"ChatGPT",by:"OpenAI",color:"#10A37F",emoji:"\u26A1",vibe:"Der Allrounder",sweet:"Kreativ, Bilder, breites Wissen",desc:"ChatGPT ist der bekannteste Allrounder. Stark bei kreativem Schreiben, Bildgenerierung (DALL-E) und breitem Allgemeinwissen. Kann manchmal oberflächlich antworten und halluziniert bei Fakten.",strengths:"Kreatives Schreiben, DALL-E Bildgenerierung, Custom GPTs, breites Allgemeinwissen",weaker:"Manchmal oberflächlich, halluziniert bei Fakten",url:"https://chat.openai.com"},
   {id:"perplexity",name:"Perplexity",by:"Perplexity AI",color:"#20B2AA",emoji:"\uD83D\uDD0D",vibe:"Der Rechercheur",sweet:"Fakten mit Quellen, aktuelle Infos",desc:"Perplexity ist eine KI-Suchmaschine. Jede Antwort kommt mit Quellenangaben. Stark bei Faktenrecherche und aktuellen Informationen. Weniger kreativ, keine Bildgenerierung.",strengths:"Echtzeit-Recherche mit Quellenangaben, aktuelle Informationen, Faktencheck",weaker:"Weniger kreativ, keine Bildgenerierung",url:"https://perplexity.ai"},
@@ -528,14 +528,14 @@ const SUB_ROLES={
 
 const WORK_STYLES=[{id:"point",label:"Auf den Punkt"},{id:"structured",label:"Strukturiert"},{id:"detailed",label:"Ausführlich"}];
 const LEARN_STYLES=[{id:"facts",label:"Fakten & Stichpunkte"},{id:"examples",label:"Zeig mir Beispiele"},{id:"stepbystep",label:"Schritt für Schritt"}];
-const SPARKS=[{cat:"Alltag",items:[{l:"Lieferanten-Mail",uc:["texte"],p:"Schreibe eine freundliche aber bestimmte E-Mail an einen Lieferanten, der zum dritten Mal zu spaet liefert."},{l:"Feedback",uc:["feedback"],p:"Hilf mir ein Feedbackgespräch vorzubereiten. Mein Azubi ist motiviert, macht aber Fluechtikeitsfehler."}]},{cat:"Lernen",items:[{l:"Prüfungsfragen",uc:["lernen"],p:"Erstelle 5 IHK-Prüfungsfragen zum Thema Arbeitsschutz für Industriemechaniker."}]},{cat:"Kreativ",items:[{l:"Event-Ideen",uc:["ideen"],p:"Gib mir 7 ungewoehnliche Ideen für den Tag der offenen Tuer bei einem Landmaschinenhersteller."}]}];
+const SPARKS=[{cat:"Alltag",items:[{l:"Lieferanten-Mail",uc:["texte"],p:"Schreibe eine freundliche aber bestimmte E-Mail an einen Lieferanten, der zum dritten Mal zu spät liefert."},{l:"Feedback",uc:["feedback"],p:"Hilf mir ein Feedbackgespräch vorzubereiten. Mein Azubi ist motiviert, macht aber Flüchtikeitsfehler."}]},{cat:"Lernen",items:[{l:"Prüfungsfragen",uc:["lernen"],p:"Erstelle 5 IHK-Prüfungsfragen zum Thema Arbeitsschutz für Industriemechaniker."}]},{cat:"Kreativ",items:[{l:"Event-Ideen",uc:["ideen"],p:"Gib mir 7 ungewöhnliche Ideen für den Tag der offenen Tür bei einem Landmaschinenhersteller."}]}];
 
 /* "Ich weiß nicht" everyday vignettes (N1) */
 const EVERYDAY_VIGNETTES=[
   {l:"E-Mail-Flut",p:"Ich habe 47 ungelesene Mails und weiß nicht wo ich anfangen soll. Hilf mir eine Strategie zu entwickeln."},
   {l:"Erklären ohne Fachwissen",p:"Ich muss einer fachfremden Person einen komplizierten Vorgang erklären und finde keine einfachen Worte."},
   {l:"Protokoll schreiben",p:"Ich war im Meeting und habe nur Stichworte. Mach daraus ein sauberes Protokoll."},
-  {l:"Feedback formulieren",p:"Ich muss jemandem eine schwierige Rueckmeldung geben und will niemanden verletzen."},
+  {l:"Feedback formulieren",p:"Ich muss jemandem eine schwierige Rückmeldung geben und will niemanden verletzen."},
 ];
 
 const TOOL_TIERS={
@@ -605,13 +605,13 @@ function hasDeepLink(t){return["perplexity","chatgpt","gemini"].includes(t.id);}
 function buildDeepLink(t,p){const e=encodeURIComponent(p);if(t.id==="perplexity")return"https://www.perplexity.ai/search?q="+e;if(t.id==="chatgpt")return"https://chatgpt.com/?q="+e;if(t.id==="gemini")return"https://gemini.google.com/app?q="+e;return t.url;}
 let _fb={},_fi=0;
 function copyP(fid,btn){navigator.clipboard.writeText(_fb[fid]);btn.textContent="Kopiert!";setTimeout(()=>btn.textContent="Kopieren",1500);}
-function copyOpen(tid,prompt,btn){const t=TOOLS.find(x=>x.id===tid);navigator.clipboard.writeText(prompt).then(()=>{btn.textContent="Kopiert!";setTimeout(()=>{window.open(t.url,"_blank");btn.textContent="Prompt kopieren & "+t.name+" oeffnen";},600);});}
+function copyOpen(tid,prompt,btn){const t=TOOLS.find(x=>x.id===tid);navigator.clipboard.writeText(prompt).then(()=>{btn.textContent="Kopiert!";setTimeout(()=>{window.open(t.url,"_blank");btn.textContent="Prompt kopieren & "+t.name+" öffnen";},600);});}
 function renderLoading(t){return'<div class="spinner">'+(t||"Denkt nach...")+'</div>';}
 
 /* Feature B2: Fallback card */
 function renderFallback(t,p){
   const link = p ? buildDeepLink(t,p) : t.url;
-  return`<div class="fallback-card"><div class="fc-label">Demo-Modus</div><div class="fc-msg">Live-Verbindung nicht verfuegbar. Probiere es direkt im Tool:</div><div class="tool-fallback"><div class="tool-icon" style="background:${t.color}22;">${t.emoji}</div><div class="tool-info"><div class="name">${t.name}</div><div class="desc">${t.desc||t.sweet}</div></div><a href="${link}" target="_blank" class="try-link" style="background:${t.color}18;color:${t.color};">In ${t.name} ausprobieren \u2192</a></div></div>`;
+  return`<div class="fallback-card"><div class="fc-label">Demo-Modus</div><div class="fc-msg">Live-Verbindung nicht verfügbar. Probiere es direkt im Tool:</div><div class="tool-fallback"><div class="tool-icon" style="background:${t.color}22;">${t.emoji}</div><div class="tool-info"><div class="name">${t.name}</div><div class="desc">${t.desc||t.sweet}</div></div><a href="${link}" target="_blank" class="try-link" style="background:${t.color}18;color:${t.color};">In ${t.name} ausprobieren \u2192</a></div></div>`;
 }
 
 /* Feature 21: Tool link button for every result */
@@ -621,7 +621,7 @@ function renderToolLinkBtn(t,p){
     return`<a href="${link}" target="_blank" class="tool-link-btn" style="color:${t.color};border-color:${t.color}44;">In ${t.name} ausprobieren \u2192</a>`;
   }else{
     const fid="_fb"+(++_fi);_fb[fid]=p||"";
-    return`<button class="tool-link-btn" style="color:${t.color};border-color:${t.color}44;" onclick="navigator.clipboard.writeText(_fb['${fid}']).then(()=>{this.textContent='Kopiert!';setTimeout(()=>window.open('${t.url}','_blank'),500);setTimeout(()=>{this.textContent='Prompt kopieren & ${t.name} oeffnen';},2000);});">Prompt kopieren & ${t.name} oeffnen</button>`;
+    return`<button class="tool-link-btn" style="color:${t.color};border-color:${t.color}44;" onclick="navigator.clipboard.writeText(_fb['${fid}']).then(()=>{this.textContent='Kopiert!';setTimeout(()=>window.open('${t.url}','_blank'),500);setTimeout(()=>{this.textContent='Prompt kopieren & ${t.name} öffnen';},2000);});">Prompt kopieren & ${t.name} öffnen</button>`;
   }
 }
 
@@ -765,13 +765,13 @@ function showOverlay(emoji,title,sub,insight,btn,onClose){
 function buildContextPrompt(){
   const role=ROLES.find(r=>r.id===profile.role)?.label||profile.roleFree||"Mitarbeitende";
   const ucs=profile.useCases.map(id=>USE_CASES.find(u=>u.id===id)?.label).filter(Boolean);
-  const exp={none:"hat noch nie KI genutzt",some:"hat KI ein paar Mal ausprobiert",regular:"nutzt KI regelmaessig"};
+  const exp={none:"hat noch nie KI genutzt",some:"hat KI ein paar Mal ausprobiert",regular:"nutzt KI regelmäßig"};
   const sty={point:"knappe Bullet Points",structured:"strukturierte Antworten",detailed:"ausführliche Antworten mit Kontext"};
   const lrn={facts:"Stichpunkte",examples:"konkrete Beispiele",stepbystep:"Schritt-für-Schritt-Anleitungen"};
   let p=[`"${role}" bei HORSCH Maschinen (Landmaschinenhersteller, 2000 MA).`,`${exp[profile.aiExp]||""}, bevorzugt ${sty[profile.workStyle]||""}, lernt am besten mit ${lrn[profile.learnStyle]||""}.`];
   if(profile.subRole)p.push("Ausbildungsberuf: "+profile.subRole+".");
   if(profile.whatDoYouDo)p.push("Taetigkeit: "+profile.whatDoYouDo+".");
-  if(ucs.length)p.push("Anwendungsfaelle: "+ucs.join(", ")+".");
+  if(ucs.length)p.push("Anwendungsfälle: "+ucs.join(", ")+".");
   if(setupData.name)p.push("Name: "+setupData.name+".");
   p.push("Aufgabe: "+profile.task);
   contextPrompt=p.join(" ");
@@ -787,7 +787,7 @@ function renderOnboarding(){
     /* Feature G3/M1: Breath screen before hero */
     if(!breathDone){
       document.querySelector(".top-bar").style.display="none";
-      el.innerHTML=`<div class="breath-screen"><p style="font-size:15px;color:var(--text-dim);margin-bottom:24px;">Bevor du anfaengst \u2014 ein Atemzug.</p><div class="breath-circle"></div><button class="btn btn-primary" style="max-width:240px;margin:0 auto;" onclick="breathDone=true;renderOnboarding();">Ich bin bereit</button></div>`;
+      el.innerHTML=`<div class="breath-screen"><p style="font-size:15px;color:var(--text-dim);margin-bottom:24px;">Bevor du anfängst \u2014 ein Atemzug.</p><div class="breath-circle"></div><button class="btn btn-primary" style="max-width:240px;margin:0 auto;" onclick="breathDone=true;renderOnboarding();">Ich bin bereit</button></div>`;
       return;
     }
 
@@ -805,7 +805,7 @@ function renderOnboarding(){
     <div class="chat-flow">
       <div class="chat-bubble chat-ai" style="animation-delay:.5s;">
         <div class="chat-label">AIKIDO</div>
-        Hey! Schoen, dass du da bist. \uD83D\uDC4B<br>Wie heißt du?
+        Hey! Schön, dass du da bist. \uD83D\uDC4B<br>Wie heißt du?
       </div>
       <div class="chat-input-wrap">
         <input type="text" id="ob-name" placeholder="Dein Vorname..." value="${esc(setupData.name)}" autocomplete="off">
@@ -866,7 +866,7 @@ function renderOnboarding(){
   } else if(onboardStep===1){
     document.querySelector(".top-bar").style.display="";
     /* Feature N1: "Ich weiß nicht" chip */
-    el.innerHTML=`${dots}${back}<h2>Wo koennte KI dir helfen?</h2><p class="subtitle">Wähle alles, was sich nach deinem Alltag anhört.</p>
+    el.innerHTML=`${dots}${back}<h2>Wo könnte KI dir helfen?</h2><p class="subtitle">Wähle alles, was sich nach deinem Alltag anhört.</p>
     <div class="chip-row" id="ob-u">${USE_CASES.map(u=>`<span class="chip ${profile.useCases.includes(u.id)?'active':''}" data-v="${u.id}">${u.label}</span>`).join("")}<span class="chip ${profile.dontKnow?'active':''}" data-v="_dontknow">\uD83E\uDD37 Weiss ich noch nicht</span></div>
     <div style="margin-top:8px;font-size:12px;color:var(--text-faint);" id="uc-c">${profile.dontKnow?'Leichterer Pfad gewählt':profile.useCases.length+' gewählt'}</div>
     <button class="btn btn-primary mt" id="ob-n" onclick="nextOB()" ${!profile.dontKnow&&profile.useCases.length<2?'disabled':''}>Weiter</button>`;
@@ -890,7 +890,7 @@ function renderOnboarding(){
   } else if(onboardStep===2){
     el.innerHTML=`${dots}${back}<h2>Wie tickst du?</h2><p class="subtitle">Hilft uns, die Tools auf dich einzustellen.</p>
     <div style="font-size:13px;font-weight:600;margin-bottom:8px;">KI-Erfahrung</div>
-    <div class="pill-row mb" id="ob-e"><span class="pill ${profile.aiExp==='none'?'active':''}" data-v="none">Noch nie genutzt</span><span class="pill ${profile.aiExp==='some'?'active':''}" data-v="some">Ein paar Mal probiert</span><span class="pill ${profile.aiExp==='regular'?'active':''}" data-v="regular">Nutze es regelmaessig</span></div>
+    <div class="pill-row mb" id="ob-e"><span class="pill ${profile.aiExp==='none'?'active':''}" data-v="none">Noch nie genutzt</span><span class="pill ${profile.aiExp==='some'?'active':''}" data-v="some">Ein paar Mal probiert</span><span class="pill ${profile.aiExp==='regular'?'active':''}" data-v="regular">Nutze es regelmäßig</span></div>
     <div id="ed" class="${profile.aiExp==='regular'?'':'hide'}" style="margin-bottom:12px;"><input type="text" id="ct" placeholder="Welches Tool?" value="${esc(profile.currentTool)}"></div>
     <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Arbeitsstil</div>
     <div class="pill-row mb" id="ob-s">${WORK_STYLES.map(s=>`<span class="pill ${profile.workStyle===s.id?'active':''}" data-v="${s.id}">${s.label}</span>`).join("")}</div>
@@ -973,13 +973,13 @@ function lockedHTML(id,desc,previewHTML){
 let ctxLoaded=false;
 async function loadCtxDemo(){
   if(ctxLoaded)return;ctxLoaded=true;
-  const[n,t]=await Promise.all([askAI("claude",profile.task,"Antworte auf Deutsch. Max 80 Woerter."),askAI("claude",profile.task,contextPrompt+" Antworte auf Deutsch, passgenau. Max 80 Woerter.")]);
+  const[n,t]=await Promise.all([askAI("claude",profile.task,"Antworte auf Deutsch. Max 80 Wörter."),askAI("claude",profile.task,contextPrompt+" Antworte auf Deutsch, passgenau. Max 80 Wörter.")]);
   window._cn=n;window._ct=t;if(currentAct===0)renderAct();
 }
 let toolsLoaded=false;
 async function loadTools(){
   if(toolsLoaded)return;toolsLoaded=true;
-  const p=contextPrompt+"\n\nStell dich vor: Was sind deine Stärken allgemein? Nenne kurz wie du bei meiner Aufgabe helfen koenntest, aber zeig auch darüber hinaus was du kannst. Ehrlich über Grenzen. Max 100 Woerter.";
+  const p=contextPrompt+"\n\nStell dich vor: Was sind deine Stärken allgemein? Nenne kurz wie du bei meiner Aufgabe helfen könntest, aber zeig auch darüber hinaus was du kannst. Ehrlich über Grenzen. Max 100 Wörter.";
   const res=await Promise.all(TOOLS.map(t=>askAI(t.id,p,"Du bist "+t.name+". Ich-Form, Deutsch.").then(r=>({id:t.id,...r}))));
   window._tp={};res.forEach(r=>{window._tp[r.id]=r;});if(currentAct===0)renderAct();
 }
@@ -1074,7 +1074,7 @@ async function fireArena(){
   const btn=document.getElementById("arena-go");btn.disabled=true;btn.textContent="Tools antworten...";
   const c=document.getElementById("arena-res");
   c.innerHTML=TOOLS.map(t=>`<div class="card mb" style="border-left:3px solid ${t.color};"><div class="tool-badge"><span class="tool-dot" style="background:${t.color};"></span>${t.name}</div><div id="ar-${t.id}">${renderLoading(t.name+"...")}</div></div>`).join("");
-  const res=await Promise.all(TOOLS.map(t=>askAI(t.id,p,contextPrompt+" Antworte auf Deutsch. Max 150 Woerter.").then(r=>({id:t.id,...r}))));
+  const res=await Promise.all(TOOLS.map(t=>askAI(t.id,p,contextPrompt+" Antworte auf Deutsch. Max 150 Wörter.").then(r=>({id:t.id,...r}))));
   res.forEach(r=>{
     const t=TOOLS.find(x=>x.id===r.id);
     if(r.noKey||!r.text||r.apiError){
@@ -1240,7 +1240,7 @@ async function selectLimit(idx){
   selectedLimitIdx=idx;reflectAnswers=[null,[],null];
   document.querySelectorAll("[id^='gc-']").forEach(c=>{c.style.opacity=c.id==="gc-"+idx?"1":"0.3";c.style.cursor="default";c.onclick=null;});
   document.getElementById("grenz-loading").innerHTML=renderLoading("KI antwortet...");
-  const r=await askAI("claude",scenarios[idx].q,"Antworte auf Deutsch, kompetent. Gib eine gute Antwort. Max 150 Woerter.");
+  const r=await askAI("claude",scenarios[idx].q,"Antworte auf Deutsch, kompetent. Gib eine gute Antwort. Max 150 Wörter.");
   window._limitAns=r;
   markDone("szenario");unlock("reflexion");
   renderAct();setTimeout(()=>scrollToSection("reflexion"),300);
@@ -1291,7 +1291,7 @@ function renderAct2(el){
       ${pr?`<style>.tier-option.recommended::after{background:${t.color}18;color:${t.color};}</style>`:''}
       <ul class="tier-features">${(ct==='pro'?tier.pro:tier.free).features.map(f=>`<li>${f}</li>`).join("")}</ul>
       ${ct==='pro'?`<div class="insight pink"><p>${tier.pro.name} kostet ca. 20 \u20ac/Monat \u2014 <strong>HORSCH übernimmt die Kosten für 2\u20133 Monate.</strong> Der einzige Haken: Aktiv damit arbeiten und Erfahrungen teilen.</p></div>`:''}
-      ${pr&&ct==='free'?`<div class="insight yellow"><p>Für deine Anwendungsfaelle koennte sich <strong>${tier.pro.name}</strong> lohnen.</p></div>`:''}
+      ${pr&&ct==='free'?`<div class="insight yellow"><p>Für deine Anwendungsfälle könnte sich <strong>${tier.pro.name}</strong> lohnen.</p></div>`:''}
       <div style="font-size:13px;font-weight:600;margin:16px 0 6px;">Sekundaer-Tool <span style="font-weight:400;color:var(--text-faint);">(optional)</span></div>
       <div class="gap-8 flex-wrap mb">${TOOLS.filter(x=>x.id!==setupData.primary).map(t=>`<button class="btn-tool ${setupData.secondary===t.id?'selected':''}" style="${setupData.secondary===t.id?'background:'+t.color+';color:#fff;':''}" onclick="setupData.secondary='${t.id}';renderAct();">${t.emoji} ${t.name}</button>`).join("")}<button class="btn-tool" style="color:var(--text-faint);font-size:11px;" onclick="setupData.secondary=null;renderAct();">Keins</button></div>
       ${ss.locked.karte?`<button class="btn btn-primary" onclick="markDone('plan');unlock('karte');sendAnalytics({role:profile.role,tool:setupData.primary,tier:setupData.primaryTier});">Weiter \u2014 Karte erstellen</button>`:''}
@@ -1354,7 +1354,7 @@ function renderLosSection(){
 
     <div style="font-size:14px;font-weight:700;margin-bottom:8px;">Dein Starter-${wrapJargon("Prompt")}</div>
     <div class="starter-box" style="margin-bottom:12px;"><button class="copy-btn" onclick="copyP('${bfid}',this)">Kopieren</button><div class="result-text" style="font-size:11px;padding-right:60px;">${esc(basicPrompt)}</div></div>
-    <button class="btn btn-primary mb" style="background:${pri.color};" onclick="copyOpen('${pri.id}',_fb['${bfid}'],this)">Basic-Prompt kopieren & ${pri.name} oeffnen</button>`;
+    <button class="btn btn-primary mb" style="background:${pri.color};" onclick="copyOpen('${pri.id}',_fb['${bfid}'],this)">Basic-Prompt kopieren & ${pri.name} öffnen</button>`;
 
   /* Privacy hint */
   const ph=PRIVACY_HINTS[setupData.primary];
@@ -1418,7 +1418,7 @@ function renderLosSection(){
         <span class="ah-arrow">\u25BC</span>
       </div>
       <div class="akk-body">
-        ${isBreaker?'<div style="font-size:10px;color:var(--red);font-weight:500;margin-bottom:6px;line-height:1.4;">Nicht dein Spiegel \u2014 dein Wachstumspartner. Diese Add-ons sorgen dafür, dass die KI dich weiterbringt, nicht nur bestaetigt.</div>':''}
+        ${isBreaker?'<div style="font-size:10px;color:var(--red);font-weight:500;margin-bottom:6px;line-height:1.4;">Nicht dein Spiegel \u2014 dein Wachstumspartner. Diese Add-ons sorgen dafür, dass die KI dich weiterbringt, nicht nur bestätigt.</div>':''}
         ${items.map(a=>`<div class="addon-card-full ${selectedAddons.has(a.id)?'on':''}" onclick="toggleAddon('${a.id}');reRenderLos();">
           <span class="acf-emoji">${a.emoji}</span>
           <div class="acf-info"><div class="acf-name">${a.name}</div><div class="acf-desc">${a.desc}</div></div>
@@ -1438,7 +1438,7 @@ function renderLosSection(){
     <div class="pp-text">${esc(fullPrompt)}</div>
   </div>
   <div class="insight"><p><strong>Tipp:</strong> Starte erstmal mit deinem Paket. Wenn du dich eingespielt hast, komm hierher zurück und aktiviere nach und nach mehr.</p></div>
-  <button class="btn btn-primary mt mb" style="background:${pri.color};" onclick="copyOpen('${pri.id}',_fb['${pfid}'],this)">Erweiterten Prompt kopieren & ${pri.name} oeffnen</button>
+  <button class="btn btn-primary mt mb" style="background:${pri.color};" onclick="copyOpen('${pri.id}',_fb['${pfid}'],this)">Erweiterten Prompt kopieren & ${pri.name} öffnen</button>
   </div>`;
   /* end of mehr-box */
 
@@ -1446,7 +1446,7 @@ function renderLosSection(){
   html+=`<div class="deepen-box">
     <h3>Du bist schnell durch?</h3>
     <p style="font-size:13px;color:var(--text-dim);margin-bottom:10px;">Willst du die Vertiefungs-Arena?</p>
-    <button class="btn btn-secondary" onclick="document.getElementById('deepen-content').classList.toggle('hide');">Vertiefungs-Arena oeffnen</button>
+    <button class="btn btn-secondary" onclick="document.getElementById('deepen-content').classList.toggle('hide');">Vertiefungs-Arena öffnen</button>
     <div id="deepen-content" class="hide" style="margin-top:12px;">
       <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">Haertere Prompts</div><p style="font-size:12px;color:var(--text-dim);">Teste dein Tool mit ambivalenten Szenarien: "Schreibe eine E-Mail die gleichzeitig Lob und Kritik enthält, ohne passiv-aggressiv zu klingen."</p><textarea rows="2" placeholder="Probiere es..." id="deepen-prompt"></textarea><button class="btn btn-primary mt" style="font-size:12px;padding:8px;" onclick="fireDeepen()">An ${pri.name} senden</button><div id="deepen-result" class="mt"></div></div>
       <div class="card mb"><div style="font-size:12px;font-weight:600;margin-bottom:6px;">Fehleranalyse</div><p style="font-size:12px;color:var(--text-dim);">Lies diese KI-Antwort und finde den Fehler: "HORSCH wurde 1984 von Michael Horsch in Schwandorf gegründet und hat heute ca. 5.000 Mitarbeitende weltweit."</p><p style="font-size:11px;color:var(--red);margin-top:6px;">Hinweis: Prüfe die Zahlen. KI klingt überzeugend \u2014 auch wenn Details nicht stimmen.</p></div>
@@ -1521,7 +1521,7 @@ async function fireDeepen(){
   const pri=TOOLS.find(x=>x.id===setupData.primary);
   const el=document.getElementById("deepen-result");
   el.innerHTML=renderLoading(pri.name+" denkt nach...");
-  const r=await askAI(pri.id,p,contextPrompt+" Antworte auf Deutsch. Max 150 Woerter.");
+  const r=await askAI(pri.id,p,contextPrompt+" Antworte auf Deutsch. Max 150 Wörter.");
   if(r.text&&!r.noKey){
     el.innerHTML=`<div class="result-text" style="font-size:12px;">${esc(r.text)}</div>${renderToolLinkBtn(pri,p)}`;
   }else{
@@ -1538,7 +1538,7 @@ async function pickPrimary(id){
   if(trainingPartnerNeed==="herausfordernd")extra=" Der User will herausgefordert werden.";
   if(trainingPartnerNeed==="strukturiert")extra=" Der User braucht Struktur.";
   if(trainingPartnerNeed==="schnell")extra=" Der User will schnelle Ergebnisse.";
-  const r=await askAI("claude","User wählte "+t.name+". Profil: "+contextPrompt+extra+"\n\nKurze Bestaetigung (3\u20134 Saetze): Warum passt "+t.name+"? Welches Zweit-Tool ergaenzt gut?","Auf Deutsch, warm, max 60 Woerter. Du-Anrede.");
+  const r=await askAI("claude","User wählte "+t.name+". Profil: "+contextPrompt+extra+"\n\nKurze Bestätigung (3\u20134 Sätze): Warum passt "+t.name+"? Welches Zweit-Tool ergänzt gut?","Auf Deutsch, warm, max 60 Wörter. Du-Anrede.");
   window._toolConf=r.text&&!r.noKey?r:{text:t.name+" passt gut zu dir \u2014 besonders für "+t.sweet+".",noKey:false};
   renderAct();setTimeout(()=>document.getElementById("sec-tool")?.scrollIntoView({behavior:"smooth",block:"start"}),200);
 }
@@ -1583,7 +1583,7 @@ function showCelebration(){
     </div>
     <div class="insight pink" style="max-width:400px;margin:0 auto 16px;"><p>Teile deine Karte in der <strong>AIKIDO Teams-Gruppe</strong> \u2014 so koennen wir dein Pro-Tool für dich einrichten!</p></div>
     <div style="max-width:400px;margin:0 auto;display:flex;flex-direction:column;gap:10px;">
-      <button class="btn btn-primary" style="background:${pri.color};" onclick="copyOpen('${pri.id}',_fb['${cfid}'],this)">Prompt kopieren & ${pri.name} oeffnen</button>
+      <button class="btn btn-primary" style="background:${pri.color};" onclick="copyOpen('${pri.id}',_fb['${cfid}'],this)">Prompt kopieren & ${pri.name} öffnen</button>
       <button class="btn btn-secondary" onclick="downloadMarkdown()">Dein Starter-Set herunterladen (.md)</button>
       <button class="btn btn-secondary" onclick="goToAct(2);setTimeout(()=>scrollToSection('los'),300);">Zurück zum Werkzeugkoffer</button>
     </div>`;
@@ -1605,34 +1605,34 @@ function copyShareText(btn){
 
 /* ===== ADD-ONS DATA ===== */
 const ADDONS = [
-  {id:"briefing",cluster:"alltag",emoji:"\u2600\uFE0F",name:"Tages-Briefing",desc:"Begruesst dich kurz, fragt \"Was steht heute an?\" und schlaegt 2\u20133 Dinge vor. Unter 3 Saetzen.",prompt:"Wenn ich eine neue Unterhaltung starte, begruesse mich kurz und frag: \"Was steht heute an?\" Schlage dann 2\u20133 Dinge vor, bei denen du helfen kannst. Halte das unter 3 Saetzen."},
+  {id:"briefing",cluster:"alltag",emoji:"\u2600\uFE0F",name:"Tages-Briefing",desc:"Begruesst dich kurz, fragt \"Was steht heute an?\" und schlaegt 2\u20133 Dinge vor. Unter 3 Sätzen.",prompt:"Wenn ich eine neue Unterhaltung starte, begruesse mich kurz und frag: \"Was steht heute an?\" Schlage dann 2\u20133 Dinge vor, bei denen du helfen kannst. Halte das unter 3 Sätzen."},
   {id:"modi",cluster:"alltag",emoji:"\uD83D\uDD00",name:"Modi-Schalter",desc:"4 Modi per Stichwort: schnell \u00b7 tief \u00b7 kreativ \u00b7 check.",prompt:"Du hast 4 Modi die ich per Stichwort aktiviere: \"schnell\" \u2192 Bullet Points, keine Erklärung. \"tief\" \u2192 Ausführliche Analyse. \"kreativ\" \u2192 Wild brainstormen. \"check\" \u2192 Prüfe meinen Text auf Fehler, Logik, Ton. Ohne Stichwort antwortest du in meinem Standard-Stil."},
-  {id:"zeitwaechter",cluster:"alltag",emoji:"\u23F0",name:"Zeitwaechter",desc:"Schaetzt ein wie lange eine Aufgabe mit vs. ohne KI dauert.",prompt:"Schaetze bei groesseren Aufgaben kurz ein: \"Mit KI: ~X Min. Ohne: ~Y Min.\" Das hilft mir zu verstehen wo du am meisten Wert bringst."},
+  {id:"zeitwächter",cluster:"alltag",emoji:"\u23F0",name:"Zeitwächter",desc:"Schätzt ein wie lange eine Aufgabe mit vs. ohne KI dauert.",prompt:"Schätze bei größeren Aufgaben kurz ein: \"Mit KI: ~X Min. Ohne: ~Y Min.\" Das hilft mir zu verstehen wo du am meisten Wert bringst."},
   {id:"skillleiter",cluster:"lernen",emoji:"\uD83D\uDCC8",name:"Skill-Leiter",desc:"Woechentliche Level-Ups. Vom Einsteiger zum Power-User \u2014 in deinem Tempo.",prompt:"Führe eine \"Skill-Leiter\" für mich. Starte mit Basics (gute Prompts schreiben). Wenn ich sie meistere, schlage den nächsten Schritt vor. Frag mich freitags: \"Bereit für den nächsten Schritt?\" Überfordere mich nie, aber lass mich nicht stehen bleiben."},
-  {id:"prompttrainer",cluster:"lernen",emoji:"\uD83C\uDFAF",name:"Prompt-Trainer",desc:"Nach jeder Antwort ein kurzer Tipp wie dein Prompt besser hätte sein koennen.",prompt:"Nach jeder Antwort gib mir einen kurzen Tipp (1 Satz): \"Nächstes Mal koenntest du X ergaenzen \u2014 dann wird meine Antwort noch präziser.\" Mach das dezent, nicht belehrend."},
+  {id:"prompttrainer",cluster:"lernen",emoji:"\uD83C\uDFAF",name:"Prompt-Trainer",desc:"Nach jeder Antwort ein kurzer Tipp wie dein Prompt besser hätte sein koennen.",prompt:"Nach jeder Antwort gib mir einen kurzen Tipp (1 Satz): \"Nächstes Mal könntest du X ergänzen \u2014 dann wird meine Antwort noch präziser.\" Mach das dezent, nicht belehrend."},
   {id:"denkpartner",cluster:"lernen",emoji:"\uD83D\uDCAD",name:"Denkpartner",desc:"KI denkt laut mit \u2014 zeigt den Denkprozess, nicht nur das Ergebnis.",prompt:"Denke bei komplexen Fragen laut mit: Zeig mir kurz deinen Denkprozess bevor du antwortest. So lerne ich wie du \"denkst\" und kann bessere Fragen stellen."},
-  {id:"fehlerfreund",cluster:"qualitaet",emoji:"\uD83E\uDEE2",name:"Fehlerfreund",desc:"KI sagt ehrlich wenn sie unsicher ist. Kein falsches Selbstbewusstsein.",prompt:"Wenn du unsicher bist, sage das ehrlich: \"Meine Einschaetzung: ~70% sicher. Prüfe bitte X.\" Erfinde nie etwas \u2014 sag lieber \"Das weiß ich nicht sicher\" als eine überzeugende Vermutung."},
-  {id:"qualitaetsprüfer",cluster:"qualitaet",emoji:"\u2705",name:"Qualitaetsprüfer",desc:"Selbsteinschaetzung am Ende jeder Antwort: Wie sicher? Was prüfen?",prompt:"Gib am Ende wichtiger Antworten eine kurze Selbsteinschaetzung: \"Sicherheit: hoch/mittel/niedrig. Prüfe bitte: [konkreter Punkt].\""},
-  {id:"kontextanker",cluster:"qualitaet",emoji:"\uD83D\uDCCC",name:"Kontext-Anker",desc:"Fragt aktiv nach fehlendem Kontext bevor sie antwortet.",prompt:"Wenn mir wichtiger Kontext fehlt, frag kurz nach bevor du antwortest: \"Wer liest das am Ende? Was ist das Ziel? Gibt es Vorgaben?\" Das trainiert mich, besseren Input zu geben."},
+  {id:"fehlerfreund",cluster:"qualität",emoji:"\uD83E\uDEE2",name:"Fehlerfreund",desc:"KI sagt ehrlich wenn sie unsicher ist. Kein falsches Selbstbewusstsein.",prompt:"Wenn du unsicher bist, sage das ehrlich: \"Meine Einschätzung: ~70% sicher. Prüfe bitte X.\" Erfinde nie etwas \u2014 sag lieber \"Das weiß ich nicht sicher\" als eine überzeugende Vermutung."},
+  {id:"qualitätsprüfer",cluster:"qualität",emoji:"\u2705",name:"Qualitätsprüfer",desc:"Selbsteinschätzung am Ende jeder Antwort: Wie sicher? Was prüfen?",prompt:"Gib am Ende wichtiger Antworten eine kurze Selbsteinschätzung: \"Sicherheit: hoch/mittel/niedrig. Prüfe bitte: [konkreter Punkt].\""},
+  {id:"kontextanker",cluster:"qualität",emoji:"\uD83D\uDCCC",name:"Kontext-Anker",desc:"Fragt aktiv nach fehlendem Kontext bevor sie antwortet.",prompt:"Wenn mir wichtiger Kontext fehlt, frag kurz nach bevor du antwortest: \"Wer liest das am Ende? Was ist das Ziel? Gibt es Vorgaben?\" Das trainiert mich, besseren Input zu geben."},
   {id:"multiplikator",cluster:"wirkung",emoji:"\uD83D\uDD17",name:"Multiplikator",desc:"Sammelt \"Tipps des Tages\" die du mit Kollegium teilen kannst.",prompt:"Wenn du mir etwas besonders Nuetzliches gezeigt hast, formuliere einen \"Tipp des Tages\" \u2014 ein Satz den ich an Kollegium weitergeben kann. Halte eine unsichtbare Liste. Wenn ich sage \"Was kann ich teilen?\", zeig mir die Top 3."},
   {id:"übersetzer",cluster:"wirkung",emoji:"\uD83C\uDF0D",name:"Übersetzer",desc:"Übersetzt zwischen Fachsprache und Alltagssprache für verschiedene Zielgruppen.",prompt:"Wenn ich sage \"für Azubis\" \u2014 erkläre einfach und konkret. \"Für die GL\" \u2014 kompakt, zahlenbasiert, strategisch. Passe Sprache und Tiefe an die Zielgruppe an."},
   {id:"analogie",cluster:"wirkung",emoji:"\uD83E\uDDE9",name:"Analogie-Engine",desc:"Erklärt neue Konzepte mit Analogien aus deinem Arbeitsalltag.",prompt:"Erkläre mir neue Konzepte immer mit Analogien aus meinem Arbeitsalltag (Fertigung, Landmaschinen, Ausbildung). Lernen durch Vertrautes."},
   {id:"copilot",cluster:"horizont",emoji:"\uD83D\uDD04",name:"Copilot",desc:"KI lernt mit \u2014 passt sich deinen Vorlieben an und verbessert sich.",prompt:"Führe ein unsichtbares Logbuch über meine Vorlieben. Wenn ich etwas korrigiere, lerne daraus. Frag mich alle 2 Wochen: \"Was läuft gut, was nervt?\" und schlage Anpassungen vor."},
-  {id:"sparring",cluster:"horizont",emoji:"\uD83E\uDD4A",name:"Sparring-Partner",desc:"Challengt dich aktiv. Spielt Devil's Advocate wenn du es brauchst.",prompt:"Wenn ich eine Entscheidung mit dir teile, frag einmal kurz: \"Soll ich Gegenargumente liefern?\" Wenn ja, sei schonungslos ehrlich. Ich will besser werden, nicht bestaetigt werden."},
-  {id:"spiegel",cluster:"horizont",emoji:"\uD83E\uDE9E",name:"Spiegel",desc:"Reflektiert regelmaessig wie sich eure Zusammenarbeit entwickelt.",prompt:"Reflektiere regelmaessig: \"Mir faellt auf, du fragst vor allem X \u2014 soll ich mich darauf spezialisieren oder dir mal was anderes zeigen?\""},
+  {id:"sparring",cluster:"horizont",emoji:"\uD83E\uDD4A",name:"Sparring-Partner",desc:"Challengt dich aktiv. Spielt Devil's Advocate wenn du es brauchst.",prompt:"Wenn ich eine Entscheidung mit dir teile, frag einmal kurz: \"Soll ich Gegenargumente liefern?\" Wenn ja, sei schonungslos ehrlich. Ich will besser werden, nicht bestätigt werden."},
+  {id:"spiegel",cluster:"horizont",emoji:"\uD83E\uDE9E",name:"Spiegel",desc:"Reflektiert regelmäßig wie sich eure Zusammenarbeit entwickelt.",prompt:"Reflektiere regelmäßig: \"Mir fällt auf, du fragst vor allem X \u2014 soll ich mich darauf spezialisieren oder dir mal was anderes zeigen?\""},
   {id:"perspektive",cluster:"breaker",emoji:"\uD83D\uDD04",name:"Perspektivwechsel",desc:"Antwortet auf Kommando aus einer anderen Sicht: Azubi, Kundschaft, GL.",prompt:"Wenn ich sage \"Perspektive [Rolle]\" \u2014 antworte komplett aus dieser Sicht. Zeig mir blinde Flecken die ich selbst nicht sehen kann."},
   {id:"comfortzone",cluster:"breaker",emoji:"\uD83D\uDEA8",name:"Comfort-Zone-Alarm",desc:"Erkennt wenn du immer gleich fragst und schubst dich weiter.",prompt:"Wenn du merkst dass ich immer die gleiche Art Fragen stelle, weise mich darauf hin: \"Du fragst oft nach X. Hast du schon mal daran gedacht, das ganz anders anzugehen?\""},
-  {id:"gegenstil",cluster:"breaker",emoji:"\uD83D\uDD01",name:"Gegenstil",desc:"Auf \"anders!\" antwortet die KI im Gegenteil deines Profils.",prompt:"Wenn ich \"anders!\" sage, antworte im Gegenteil meines Profils. Ich bin strukturiert? Gib mir einen kreativen Brain-Dump. Ich mag Stichpunkte? Erzaehl eine Geschichte. Das fuehlt sich unbequem an \u2014 genau deshalb wirkt es."},
-  {id:"blinderfleck",cluster:"breaker",emoji:"\uD83D\uDD73\uFE0F",name:"Blinder-Fleck-Scanner",desc:"Zeigt dir die Fragen die du nicht gestellt hast \u2014 oft die wichtigsten.",prompt:"Nach jeder groesseren Aufgabe sag mir: \"Was du nicht gefragt hast, aber vielleicht solltest: ...\" Zeig mir die Fragen die ich übersehen habe."},
-  {id:"zehnx",cluster:"breaker",emoji:"\uD83D\uDE80",name:"10x-Denken",desc:"\"Was wäre wenn das 10x groesser wäre?\" Zwingt zu Systemdenken.",prompt:"Wenn ich eine Lösung für ein Problem teile, frag gelegentlich: \"Was wäre wenn das 10x groesser wäre? Wie würdest du es dann komplett anders angehen?\""},
-  {id:"crossdomain",cluster:"breaker",emoji:"\uD83C\uDF10",name:"Cross-Domain",desc:"Bringt Ansaetze aus anderen Branchen für frische Perspektiven.",prompt:"Bringe bei passenden Gelegenheiten Ansaetze aus anderen Branchen ein: \"In der IT loesen sie das mit X. Was wäre das Aequivalent für euch?\""},
+  {id:"gegenstil",cluster:"breaker",emoji:"\uD83D\uDD01",name:"Gegenstil",desc:"Auf \"anders!\" antwortet die KI im Gegenteil deines Profils.",prompt:"Wenn ich \"anders!\" sage, antworte im Gegenteil meines Profils. Ich bin strukturiert? Gib mir einen kreativen Brain-Dump. Ich mag Stichpunkte? Erzähl eine Geschichte. Das fühlt sich unbequem an \u2014 genau deshalb wirkt es."},
+  {id:"blinderfleck",cluster:"breaker",emoji:"\uD83D\uDD73\uFE0F",name:"Blinder-Fleck-Scanner",desc:"Zeigt dir die Fragen die du nicht gestellt hast \u2014 oft die wichtigsten.",prompt:"Nach jeder größeren Aufgabe sag mir: \"Was du nicht gefragt hast, aber vielleicht solltest: ...\" Zeig mir die Fragen die ich übersehen habe."},
+  {id:"zehnx",cluster:"breaker",emoji:"\uD83D\uDE80",name:"10x-Denken",desc:"\"Was wäre wenn das 10x größer wäre?\" Zwingt zu Systemdenken.",prompt:"Wenn ich eine Lösung für ein Problem teile, frag gelegentlich: \"Was wäre wenn das 10x größer wäre? Wie würdest du es dann komplett anders angehen?\""},
+  {id:"crossdomain",cluster:"breaker",emoji:"\uD83C\uDF10",name:"Cross-Domain",desc:"Bringt Ansätze aus anderen Branchen für frische Perspektiven.",prompt:"Bringe bei passenden Gelegenheiten Ansätze aus anderen Branchen ein: \"In der IT loesen sie das mit X. Was wäre das Aequivalent für euch?\""},
   {id:"rollenswap",cluster:"breaker",emoji:"\uD83C\uDFAD",name:"Rollen-Swap",desc:"\"Stell dir vor du bist dein Azubi...\" Empathie-Training per KI.",prompt:"Wenn ich sage \"Rollentausch\" \u2014 versetze dich in die Rolle meines Gegenüber (Azubi, Kundschaft, Chef) und beschreibe die Situation aus deren Perspektive."},
 ];
 
 const CLUSTERS = [
   {id:"alltag",emoji:"\u26A1",name:"Alltag & Effizienz",desc:"Wie die KI dich im Arbeitsalltag unterstützt."},
   {id:"lernen",emoji:"\uD83D\uDCC8",name:"Lernen & Wachstum",desc:"Wie du Woche für Woche besser wirst."},
-  {id:"qualitaet",emoji:"\uD83D\uDEE1\uFE0F",name:"Qualitaet & Verantwortung",desc:"Du bleibst der Pilot."},
+  {id:"qualität",emoji:"\uD83D\uDEE1\uFE0F",name:"Qualität & Verantwortung",desc:"Du bleibst der Pilot."},
   {id:"wirkung",emoji:"\uD83E\uDD1D",name:"Zusammenarbeit & Wirkung",desc:"Impact über dich hinaus."},
   {id:"horizont",emoji:"\uD83D\uDD2D",name:"Horizont-Erweiterung",desc:"Neue Perspektiven entdecken."},
   {id:"breaker",emoji:"\uD83D\uDE80",name:"Limitation Breaker",desc:"Durchbrich deine Komfortzone.",isBreaker:true},
@@ -1667,7 +1667,7 @@ function buildBasicPrompt(){
   const pri=TOOLS.find(x=>x.id===setupData.primary);
   const role=ROLES.find(r=>r.id===profile.role)?.label||profile.roleFree||"Mitarbeitende";
   const ucs=profile.useCases.map(id=>USE_CASES.find(u=>u.id===id)?.label).filter(Boolean);
-  const expL={none:"Ich bin KI-Einsteiger",some:"Ich habe KI ein paar Mal probiert",regular:"Ich nutze KI regelmaessig"};
+  const expL={none:"Ich bin KI-Einsteiger",some:"Ich habe KI ein paar Mal probiert",regular:"Ich nutze KI regelmäßig"};
   const styL={point:"knappe Bullet Points",structured:"strukturierte Antworten mit Erklärung",detailed:"ausführliche Antworten mit Kontext und Hintergründen"};
   const lrnL={facts:"Stichpunkte und Fakten",examples:"konkrete Beispiele und Vorlagen",stepbystep:"Schritt-für-Schritt-Anleitungen"};
   const lvl=profile.aiExp==="none"?"Überfordere mich nicht, erkläre einfach":profile.aiExp==="regular"?"Fordere mich ruhig, zeig mir Profi-Tipps":"Passe dich an mein Level an";
