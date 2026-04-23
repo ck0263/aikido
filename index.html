@@ -564,33 +564,28 @@ const PRIVACY_HINTS={
 
 /* ===== API ===== */
 async function askAI(provider,prompt,system){
-  try{
-    const doFetch=async(sig)=>{
-      const res=await fetch(PROXY_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({provider,prompt,system}),signal:sig});
-      return await res.json();
-    };
-    let data;
-    if(provider==="gemini"){
-      let lastErr=null;
-      for(let attempt=0;attempt<3;attempt++){
-        try{
-          const c2=new AbortController();const t2=setTimeout(()=>c2.abort(),8000);
-          const res=await fetch(PROXY_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({provider,prompt,system}),signal:c2.signal});
-          clearTimeout(t2);data=await res.json();
-          if(!data.error)break;lastErr=data.error;
-          if(attempt<2)await new Promise(r=>setTimeout(r,2000));
-        }catch(e2){lastErr=e2.message;if(attempt<2)await new Promise(r=>setTimeout(r,2000));}
-      }
-      if(!data||data.error)return{text:null,noKey:true,geminiDown:true};
+  const TIMEOUT_MS=provider==="claude"?20000:12000;
+  const MAX_RETRIES=provider==="gemini"?3:provider==="claude"?2:1;
+  for(let attempt=0;attempt<MAX_RETRIES;attempt++){
+    try{
+      const controller=new AbortController();
+      const timeout=setTimeout(()=>controller.abort(),TIMEOUT_MS);
+      const res=await fetch(PROXY_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({provider,prompt,system}),signal:controller.signal});
+      clearTimeout(timeout);
+      const data=await res.json();
       if(data.error==="no_key")return{text:null,noKey:true};
+      if(data.error){
+        if(attempt<MAX_RETRIES-1){await new Promise(r=>setTimeout(r,2000));continue;}
+        return{text:null,noKey:false,apiError:true,errorMsg:data.error};
+      }
       return{text:data.text,noKey:false};
+    }catch(e){
+      if(attempt<MAX_RETRIES-1){await new Promise(r=>setTimeout(r,2000));continue;}
+      const isTimeout=e.name==="AbortError";
+      return{text:null,noKey:false,apiError:true,timeout:isTimeout,errorMsg:isTimeout?"Zeitüberschreitung — bitte erneut versuchen.":e.message};
     }
-    const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),8000);
-    data=await doFetch(controller.signal);clearTimeout(timeout);
-    if(data.error==="no_key")return{text:null,noKey:true};
-    if(data.error)return{text:null,noKey:false,apiError:true};
-    return{text:data.text,noKey:false};
-  }catch(e){return{text:null,noKey:true};}
+  }
+  return{text:null,noKey:false,apiError:true,errorMsg:"Verbindung fehlgeschlagen."};
 }
 
 /* Feature 22: Anonymous analytics */
@@ -611,7 +606,11 @@ function renderLoading(t){return'<div class="spinner">'+(t||"Denkt nach...")+'</
 /* Feature B2: Fallback card */
 function renderFallback(t,p){
   const link = p ? buildDeepLink(t,p) : t.url;
-  return`<div class="fallback-card"><div class="fc-label">Demo-Modus</div><div class="fc-msg">Live-Verbindung nicht verfügbar. Probiere es direkt im Tool:</div><div class="tool-fallback"><div class="tool-icon" style="background:${t.color}22;">${t.emoji}</div><div class="tool-info"><div class="name">${t.name}</div><div class="desc">${t.desc||t.sweet}</div></div><a href="${link}" target="_blank" class="try-link" style="background:${t.color}18;color:${t.color};">In ${t.name} ausprobieren \u2192</a></div></div>`;
+  return`<div class="fallback-card"><div class="fc-label">Demo-Modus</div><div class="fc-msg">API-Key nicht hinterlegt. Probiere es direkt im Tool:</div><div class="tool-fallback"><div class="tool-icon" style="background:${t.color}22;">${t.emoji}</div><div class="tool-info"><div class="name">${t.name}</div><div class="desc">${t.desc||t.sweet}</div></div><a href="${link}" target="_blank" class="try-link" style="background:${t.color}18;color:${t.color};">In ${t.name} ausprobieren \u2192</a></div></div>`;
+}
+function renderApiError(t,p,msg){
+  const link=p?buildDeepLink(t,p):t.url;
+  return`<div class="fallback-card" style="border-left:3px solid #ef4444;"><div class="fc-label" style="color:#ef4444;">Verbindungsproblem</div><div class="fc-msg">${esc(msg||"Bitte erneut versuchen.")}</div><div class="tool-fallback"><div class="tool-icon" style="background:#ef444422;">⚠️</div><div class="tool-info"><div class="name">${t.name}</div><div class="desc">${t.desc||t.sweet}</div></div><a href="${link}" target="_blank" class="try-link" style="background:${t.color}18;color:${t.color};">In ${t.name} ausprobieren →</a></div></div>`;
 }
 
 /* Feature 21: Tool link button for every result */
@@ -989,8 +988,8 @@ function renderAct0(el){
   const role=ROLES.find(r=>r.id===profile.role)?.label||"";
   const ucs=profile.useCases.map(id=>USE_CASES.find(u=>u.id===id)?.label).filter(Boolean);
   const tags=[role+" bei HORSCH",WORK_STYLES.find(s=>s.id===profile.workStyle)?.label,...ucs.slice(0,2)].filter(Boolean);
-  const nH=window._cn?.text&&!window._cn?.noKey?`<div class="result-text" style="font-size:12px;">${esc(window._cn.text)}</div>`:window._cn?.noKey||window._cn?.apiError?renderFallback(TOOLS[0],profile.task):renderLoading();
-  const tH=window._ct?.text&&!window._ct?.noKey?`<div class="result-text" style="font-size:12px;">${esc(window._ct.text)}</div>`:window._ct?.noKey||window._ct?.apiError?renderFallback(TOOLS[0],profile.task):renderLoading();
+  const nH=window._cn?.text&&!window._cn?.noKey?`<div class="result-text" style="font-size:12px;">${esc(window._cn.text)}</div>`:window._cn?.apiError?renderApiError(TOOLS[0],profile.task,window._cn.errorMsg):window._cn?.noKey?renderFallback(TOOLS[0],profile.task):renderLoading();
+  const tH=window._ct?.text&&!window._ct?.noKey?`<div class="result-text" style="font-size:12px;">${esc(window._ct.text)}</div>`:window._ct?.apiError?renderApiError(TOOLS[0],profile.task,window._ct.errorMsg):window._ct?.noKey?renderFallback(TOOLS[0],profile.task):renderLoading();
 
   let html=`
   <div class="section" id="sec-kontext">
@@ -1055,8 +1054,10 @@ function renderToolDetail(){
   let pH;
   if(pitch?.text&&!pitch?.noKey){
     pH=`<div class="result-text" style="font-size:12px;">${esc(pitch.text)}</div>${renderToolLinkBtn(t,promptText)}`;
-  }else if(pitch?.noKey||pitch?.apiError){
-    pH=pitch?.geminiDown?renderGeminiFallback():renderFallback(t,promptText);
+  }else if(pitch?.apiError){
+    pH=renderApiError(t,promptText,pitch.errorMsg);
+  }else if(pitch?.noKey){
+    pH=renderFallback(t,promptText);
   }else{
     pH=`<div class="result-text" style="font-size:12px;">${renderLoading(t.name+" denkt nach...")}</div>`;
   }
@@ -1077,10 +1078,12 @@ async function fireArena(){
   const res=await Promise.all(TOOLS.map(t=>askAI(t.id,p,contextPrompt+" Antworte auf Deutsch. Max 150 Wörter.").then(r=>({id:t.id,...r}))));
   res.forEach(r=>{
     const t=TOOLS.find(x=>x.id===r.id);
-    if(r.noKey||!r.text||r.apiError){
-      document.getElementById("ar-"+r.id).innerHTML=renderFallback(t,p);
-    }else{
+    if(r.text&&!r.noKey&&!r.apiError){
       document.getElementById("ar-"+r.id).innerHTML=`<div class="result-text">${esc(r.text)}</div>${renderToolLinkBtn(t,p)}`;
+    }else if(r.apiError){
+      document.getElementById("ar-"+r.id).innerHTML=renderApiError(t,p,r.errorMsg);
+    }else{
+      document.getElementById("ar-"+r.id).innerHTML=renderFallback(t,p);
     }
   });
   btn.textContent="Nochmal fragen";btn.disabled=false;
@@ -1115,7 +1118,7 @@ function renderAct1(el){
   }else{
     const limit=scenarios[selectedLimitIdx];
     const ans=window._limitAns;
-    const aH=ans?.text&&!ans?.noKey?`<div class="result-text" style="font-size:12px;">${esc(ans.text)}</div>${renderToolLinkBtn(TOOLS[0],limit.q)}`:(ans?.noKey||ans?.apiError)?renderFallback(TOOLS[0],limit.q):"";
+    const aH=ans?.text&&!ans?.noKey?`<div class="result-text" style="font-size:12px;">${esc(ans.text)}</div>${renderToolLinkBtn(TOOLS[0],limit.q)}`:ans?.apiError?renderApiError(TOOLS[0],limit.q,ans.errorMsg):ans?.noKey?renderFallback(TOOLS[0],limit.q):"";
     const isMultiQ=(qi)=>qi===1;
     const allDone=reflectAnswers.every((a,i)=>{if(isMultiQ(i)){return Array.isArray(a)&&a.length>0;}return a!==null;});
 
